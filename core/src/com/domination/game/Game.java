@@ -18,7 +18,7 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		batch=new SpriteBatch();
-		pushGameState(new GameplayState());
+		pushGameState(new GameplayState(this));
 	}
 
 	@Override
@@ -33,7 +33,7 @@ public class Game extends ApplicationAdapter {
 		batch.end();
 	}
 	public void pushGameState(GameState gameState){
-		gameState.init(this);
+		gameState.init();
 		Gdx.input.setInputProcessor(gameState);
 		gameStatesStack.push(gameState);
 	}
