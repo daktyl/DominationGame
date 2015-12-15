@@ -6,15 +6,17 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.gamestates.GameState;
+import com.domination.game.gamestates.GameplayState;
 
 import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
 	private Stack<GameState> gameStatesStack = new Stack<GameState>();
 	@Override
 	public void create () {
+		batch=new SpriteBatch();
+		pushGameState(new GameplayState());
 	}
 
 	@Override
@@ -29,11 +31,13 @@ public class Game extends ApplicationAdapter {
 		batch.end();
 	}
 	public void pushGameState(GameState gameState){
-		gameState.init();
+		gameState.init(this);
+		Gdx.input.setInputProcessor(gameState);
 		gameStatesStack.push(gameState);
 	}
 	public  void popGameState(){
 		gameStatesStack.peek().cleanUp();
 		gameStatesStack.pop();
+		if(gameStatesStack.empty()) Gdx.app.exit();
 	}
 }
