@@ -1,5 +1,6 @@
 package com.domination.game;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
@@ -15,6 +16,7 @@ public class Game extends ApplicationAdapter {
 	private Stack<GameState> gameStatesStack = new Stack<GameState>();
 	@Override
 	public void create () {
+		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		batch=new SpriteBatch();
 		pushGameState(new GameplayState());
 	}
