@@ -15,8 +15,6 @@ public class Game extends ApplicationAdapter {
 	private Stack<GameState> gameStatesStack = new Stack<GameState>();
 	@Override
 	public void create () {
-		batch = new SpriteBatch();
-		img = new Texture("badlogic.jpg");
 	}
 
 	@Override
@@ -24,8 +22,10 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 0.5f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-			if(!gameStatesStack.empty())
+			if(!gameStatesStack.empty()) {
+				gameStatesStack.peek().update();
 				gameStatesStack.peek().draw();
+			}
 		batch.end();
 	}
 	public void pushGameState(GameState gameState){
