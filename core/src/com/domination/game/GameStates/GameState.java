@@ -1,12 +1,17 @@
 package com.domination.game.gamestates;
 
 import com.badlogic.gdx.InputProcessor;
-//Gamestate
-    class GameState implements InputProcessor {
-        public void init(){};
-        public void update(){};
-        public void cleanUp(){};
-        public void draw(){};
+import com.domination.game.Game;
+
+public class GameState implements InputProcessor {
+    protected Game game;
+
+    public void init(Game game){
+        this.game = game;
+    }
+        public void update(){}
+        public void cleanUp(){}
+        public void draw(){}
 
     @Override
     public boolean keyDown(int keycode) {
