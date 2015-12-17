@@ -1,14 +1,14 @@
-package com.domination.game.gamestates;
+package com.domination.game.states;
 
 import com.badlogic.gdx.InputProcessor;
 import com.domination.game.Game;
 
 public class GameState implements InputProcessor {
     protected Game game;
-
-    public void init(Game game){
+    public GameState(Game game){
         this.game = game;
     }
+    public void init(){ }
         public void update(){}
         public void cleanUp(){}
         public void draw(){}
