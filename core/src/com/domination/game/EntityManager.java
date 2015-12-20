@@ -3,14 +3,11 @@ package com.domination.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-import java.util.LinkedList;
+import java.util.Collection;
 
 class Entity{
     public int x, y;
-    public boolean update(){
-        if(x==200) return true;
-        else return false;
-    }
+    public void update(){}
     public void render(SpriteBatch batch, Texture img){
         batch.begin();
         batch.draw(img, 0, 0);
@@ -23,7 +20,7 @@ class Entity{
 
 public class EntityManager {
 
-    LinkedList<Entity> entities;
+    Collection<Entity> entities;
 
     public void add(Entity addee){
         entities.add(addee);
@@ -34,18 +31,14 @@ public class EntityManager {
     }
 
     public void updateAll(){
-        for(Entity ent : entities){
-            if(ent.update()) remove(ent);
-        }
+        for(Entity ent : entities) ent.update();
     }
 
     public void renderAll(SpriteBatch batch, Texture img){
-        for(Entity ent : entities){
-            ent.render(batch, img);
-        }
+        for(Entity ent : entities) ent.render(batch, img);
     }
 
     EntityManager(){
-        entities = new LinkedList<Entity>();
+
     }
 }
