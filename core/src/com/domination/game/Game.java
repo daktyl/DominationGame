@@ -14,15 +14,7 @@ public class Game extends ApplicationAdapter {
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
-        ResourceManager resManager = new ResourceManager();
-        resManager.add("logo", new Texture("badlogic.jpg"));
-        resManager.add("logo", new Texture("badlogic.jpg"), true);
-        img = (Texture) resManager.get("logo");
-
-        //resManager.add("cell", new Texture("cell.jpg"));       - add a Texture with "cell" as a key, will throw an exception when the key already exists
-		//resManager.add("cell", new Texture("cell.jpg"), true); - add a Texture with "cell" as a key, will override when the key already exists
-        //Texture cell = (Texture) resManager.get("cell");       - get a Texture with "cell" as a key, casting is necessary
-        //Texture cell = (Texture) resManager.add("cell, new Texture("cell.jpg")) - add a Texture with "cell" as a key and save its reference
+        img = ResourceManager.getInstance().add("logo", new Texture("badlogic.jpg"));
 
 	}
 

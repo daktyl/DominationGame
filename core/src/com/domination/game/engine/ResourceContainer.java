@@ -2,16 +2,18 @@ package com.domination.game.engine;
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.NoSuchElementException;
 
-public class ResourceContainer {
-    private List<Object> container;
+class ResourceContainer {
+    private final List<Object> container;
 
     public ResourceContainer() {
         this.container = new ArrayList<Object>();
     }
 
     public Object add(Object resource) {
-        return add(container.size(), resource);
+        container.add(resource);
+        return resource;
     }
 
     public Object add(int index, Object resource) {
@@ -33,7 +35,9 @@ public class ResourceContainer {
 
     public Object replace(Object replaceRef, Object resource) {
         int index = find(replaceRef);
-        //TODO If -1 throw exception
+        if (index == -1) {
+            throw new NoSuchElementException("ResourceContainer::find() returned null.");
+        }
         return container.set(index, resource);
     }
 
@@ -44,6 +48,18 @@ public class ResourceContainer {
             }
         }
         return -1;
+    }
+
+    public int size() {
+        return container.size();
+    }
+
+    public boolean empty() {
+        return (size() == 0);
+    }
+
+    public List getRawContainer() {
+        return container;
     }
 
     @SuppressWarnings("unchecked")
