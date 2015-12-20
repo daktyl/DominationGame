@@ -1,15 +1,20 @@
 package com.domination.game;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 import java.util.Collection;
 
 class Entity{
-    Texture bitmap;
+    public int x, y;
     public void update(){}
-    public void render(){}
-    Entity(Texture bitmap){
-        this.bitmap=bitmap;
+    public void render(SpriteBatch batch, Texture img){
+        batch.begin();
+        batch.draw(img, 0, 0);
+        batch.end();
+    }
+    Entity(int x, int y){
+        this.x=x; this.y=y;
     }
 }
 
@@ -29,8 +34,8 @@ public class EntityManager {
         for(Entity ent : entities) ent.update();
     }
 
-    public void renderAll(){
-        for(Entity ent : entities) ent.render();
+    public void renderAll(SpriteBatch batch, Texture img){
+        for(Entity ent : entities) ent.render(batch, img);
     }
 
     EntityManager(){
