@@ -16,6 +16,12 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		img = new Texture("badlogic.jpg");
 		entityManager = new EntityManager();
+        Entity tmp;
+        tmp = new Entity(100, 100);
+        entityManager.add(tmp);
+        tmp = new Entity(200, 200);
+        entityManager.add(tmp);
+        entityManager.updateAll();
 	}
 
 	@Override
@@ -25,8 +31,6 @@ public class Game extends ApplicationAdapter {
 		batch.begin();
 		batch.draw(img, 0, 0);
 		batch.end();
-		entityManager.add(new Entity(100, 100));
-		entityManager.add(new Entity(200, 200));
 		entityManager.renderAll(batch, img);
 	}
 }
