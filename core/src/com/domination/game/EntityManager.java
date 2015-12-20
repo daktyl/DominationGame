@@ -25,6 +25,10 @@ public class EntityManager {
 
     LinkedList<Entity> entities;
 
+    public void add(Entity addee){
+        entities.add(addee);
+    }
+
     public void remove(Entity removee){
         entities.remove(removee);
     }
