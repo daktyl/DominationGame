@@ -1,6 +1,6 @@
 package com.domination.game;
 
-import java.util.Collection;
+import java.util.LinkedList;
 
 class Entity{
     public void update(){}
@@ -9,7 +9,7 @@ class Entity{
 
 public class EntityManager {
 
-    Collection<Entity> entities;
+    LinkedList<Entity> entities;
 
     public void add(Entity addee){
         entities.add(addee);
@@ -28,6 +28,6 @@ public class EntityManager {
     }
 
     EntityManager(){
-
+        entities = new LinkedList<Entity>();
     }
 }
