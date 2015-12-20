@@ -19,6 +19,10 @@ public class EntityManager {
         entities.remove(removee);
     }
 
+    public void removeAll(){
+        entities.clear();
+    }
+
     public void updateAll(){
         for(Entity ent : entities) ent.update();
     }
