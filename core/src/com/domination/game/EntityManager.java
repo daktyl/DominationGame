@@ -1,16 +1,10 @@
 package com.domination.game;
 
-import com.badlogic.gdx.graphics.Texture;
-
 import java.util.Collection;
 
 class Entity{
-    Texture bitmap;
     public void update(){}
     public void render(){}
-    Entity(Texture bitmap){
-        this.bitmap=bitmap;
-    }
 }
 
 public class EntityManager {
