@@ -1,9 +1,11 @@
 package com.domination.game.engine;
+
 import com.domination.game.entities.Entity;
-import java.util.LinkedList;
+import java.util.List;
+import java.util.ArrayList;
 
 public class EntityManager {
-    LinkedList<Entity> entities;
+    List<Entity> entities;
 
     public synchronized void add(Entity addee){
         entities.add(addee);
@@ -26,6 +28,6 @@ public class EntityManager {
     }
 
     public EntityManager(){
-        entities = new LinkedList<Entity>();
+        entities = new ArrayList<Entity>();
     }
 }
