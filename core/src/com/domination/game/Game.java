@@ -5,15 +5,14 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.domination.game.engine.EntityManager;
 import com.domination.game.states.GameState;
 import com.domination.game.states.GameplayState;
 
 import java.util.Stack;
-import com.domination.game.engine.ResourceManager;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
-	Texture img;
 	EntityManager entityManager;
 	private Stack<GameState> gameStatesStack = new Stack<GameState>();
 
@@ -22,7 +21,6 @@ public class Game extends ApplicationAdapter {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		pushGameState(new GameplayState(this));
 		batch = new SpriteBatch();
-        img = ResourceManager.getInstance().add("logo", new Texture("badlogic.jpg"));
 		entityManager = new EntityManager();
 	}
 
@@ -31,17 +29,18 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 0.5f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-			if(!gameStatesStack.empty()) {
-				gameStatesStack.peek().update();
-				gameStatesStack.peek().draw();
-			}
+		if (!gameStatesStack.empty()) {
+			gameStatesStack.peek().update();
+			gameStatesStack.peek().draw();
+		}
 		batch.end();
 	}
-	public void pushGameState(GameState gameState){
-		gameState.init();
-		Gdx.input.setInputProcessor(gameState);
-		gameStatesStack.push(gameState);
+	public void pushGameState(GameState state){
+		state.init();
+		Gdx.input.setInputProcessor(state);
+		gameStatesStack.push(state);
 	}
+
 	public  void popGameState(){
 		gameStatesStack.peek().cleanUp();
 		gameStatesStack.pop();

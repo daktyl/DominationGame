@@ -4,8 +4,9 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class GraphicalEntity extends Entity{
+public class GraphicalEntity extends Entity {
     public Sprite sprite;
+
     public GraphicalEntity(Texture texture, SpriteBatch batch) {
         super(batch);
         sprite = new Sprite(texture);

@@ -4,7 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-public class ButtonEntity extends Entity{
+public class ButtonEntity extends Entity {
     public Button button;
 
     public ButtonEntity(Drawable up, Drawable down, Drawable checked, SpriteBatch batch) {
