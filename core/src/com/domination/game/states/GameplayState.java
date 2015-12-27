@@ -10,24 +10,20 @@ public class GameplayState extends GameState{
     }
 
     @Override
-    public void init() {}
+    public void init() { }
 
     @Override
-    public void draw() {
-    }
+    public void draw() { }
 
     @Override
     public boolean keyDown(int keycode) {
         Gdx.app.debug("KeyDown", Integer.valueOf(keycode).toString());
-        switch (keycode)
-        {
+        switch (keycode) {
             case Input.Keys.ESCAPE:
                 game.popGameState();
                 Gdx.app.debug("KeyDown", "Esc");
                 return true;
-
         }
         return false;
-
     }
 }
