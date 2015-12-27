@@ -9,9 +9,9 @@ public class GameState implements InputProcessor {
         this.game = game;
     }
     public void init(){ }
-        public void update(){}
-        public void cleanUp(){}
-        public void draw(){}
+    public void update(){}
+    public void cleanUp(){}
+    public void draw(){}
 
     @Override
     public boolean keyDown(int keycode) {
