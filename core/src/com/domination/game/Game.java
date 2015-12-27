@@ -13,14 +13,17 @@ import com.domination.game.engine.ResourceManager;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
+	Texture img;
+	EntityManager entityManager;
 	private Stack<GameState> gameStatesStack = new Stack<GameState>();
+
 	@Override
 	public void create () {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		pushGameState(new GameplayState(this));
 		batch = new SpriteBatch();
         img = ResourceManager.getInstance().add("logo", new Texture("badlogic.jpg"));
-
+		entityManager = new EntityManager();
 	}
 
 	@Override
