@@ -8,10 +8,14 @@ public class GameState implements InputProcessor {
     public GameState(Game game){
         this.game = game;
     }
-    public void init(){ }
-    public void update(){}
-    public void cleanUp(){}
-    public void draw(){}
+
+    public void init() { }
+
+    public void update() { }
+
+    public void cleanUp() { }
+
+    public void draw() { }
 
     @Override
     public boolean keyDown(int keycode) {

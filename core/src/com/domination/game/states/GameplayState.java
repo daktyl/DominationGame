@@ -5,7 +5,6 @@ import com.badlogic.gdx.Input;
 import com.domination.game.Game;
 
 public class GameplayState extends GameState{
-
     public GameplayState(Game game) {
         super(game);
     }

@@ -3,7 +3,6 @@ import com.domination.game.entities.Entity;
 import java.util.LinkedList;
 
 public class EntityManager {
-
     LinkedList<Entity> entities;
 
     public synchronized void add(Entity addee){
