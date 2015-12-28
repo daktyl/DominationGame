@@ -36,8 +36,8 @@ public class Cell extends GraphicalEntity{
         }
     };
 
-    public Cell(AI ai, float x, float y, Texture texture, SpriteBatch batch) {
-        super(texture, batch);
+    public Cell(AI ai, float x, float y, SpriteBatch batch) {
+        super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
         this.ai = ai;
         this.x = x;
         this.y = y;
