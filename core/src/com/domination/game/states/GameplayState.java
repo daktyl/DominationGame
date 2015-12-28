@@ -18,10 +18,12 @@ public class GameplayState extends GameState{
 
     @Override
     public void init() {
-        ResourceManager.getInstance().add("CellTexture",new Texture("badlogic.jpg"));
-        entityManager.add(new Cell(new AI(),250,Gdx.graphics.getHeight()-250,this.batch));
-        entityManager.add(new Cell(new AI(),450,Gdx.graphics.getHeight()-123,this.batch));
-//        entityManager.add(new Bacteria(null, batch, cell2, cell1, 100));
+        ResourceManager.getInstance().add("TestTexture",new Texture("badlogic.jpg"));
+        Cell cell1 = new Cell(new AI(),250,Gdx.graphics.getHeight()-250,this.batch);
+        Cell cell2 = new Cell(new AI(),450,Gdx.graphics.getHeight()-123,this.batch);
+        entityManager.add(cell1);
+        entityManager.add(cell2);
+        entityManager.add(new Bacteria(null, batch, cell1, cell2, 100));
     }
 
     @Override

@@ -3,6 +3,7 @@ package com.domination.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Player;
+import com.domination.game.engine.ResourceManager;
 
 public class Bacteria extends GraphicalEntity {
 
@@ -20,12 +21,12 @@ public class Bacteria extends GraphicalEntity {
     private double distanceY;
     private double velocity;
 
-    public Bacteria(Player player, SpriteBatch batch, Cell from, Cell to, int amount) {
-        super(new Texture("badlogic.jpg"), 30, 30, 30, 30, batch);
+    public Bacteria(Player player, SpriteBatch batch, Cell source, Cell destination, int amount) {
+        super((Texture) ResourceManager.getInstance().get("TestTexture"), 30, 30, 30, 30, batch);
         this.player = player;
         this.amount = amount;
-        source = from;
-        destination = to;
+        this.source = source;
+        this.destination = destination;
         velocity = 100;
 
         distanceX = destination.getX() - source.getX();
@@ -37,7 +38,7 @@ public class Bacteria extends GraphicalEntity {
     }
 
     double calculateEndTime() {
-        double cellsDistance = (double) Math.sqrt(
+        double cellsDistance = Math.sqrt(
                 Math.pow((distanceX), 2) + Math.pow((distanceY), 2)
         );
         double deltaTime = (cellsDistance / velocity * 1000); // seconds to miliseconds

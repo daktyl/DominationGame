@@ -14,12 +14,10 @@ public class Cell extends GraphicalEntity{
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
     private float x,y;
-//    public float getY() {return y;}
-//    public float getX() {return x;}
     private Long lastUpdateTime = System.currentTimeMillis();
 
     public Cell(AI ai, float x, float y, SpriteBatch batch) {
-        super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
+        super((Texture) ResourceManager.getInstance().get("TestTexture"), batch);
         this.ai = ai;
         this.x = x;
         this.y = y;

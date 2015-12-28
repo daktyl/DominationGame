@@ -39,18 +39,10 @@ public class Game extends ApplicationAdapter {
 		Gdx.gl.glClearColor(1, 0, 0, 0.5f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		batch.begin();
-
 		if (!gameStatesStack.empty()) {
 			gameStatesStack.peek().update();
 			gameStatesStack.peek().draw();
 		}
-
-//		if (bacteria.isBroken == false){
-//			bacteria.update();
-//			bacteria.draw();
-//		}
-
-
 		batch.end();
 	}
 	public void pushGameState(GameState state){
