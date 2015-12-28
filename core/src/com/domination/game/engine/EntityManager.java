@@ -7,8 +7,7 @@ import java.util.ArrayList;
 public class EntityManager {
     private List<Entity> entities;
 
-    public synchronized void add(Entity addee)
-    {
+    public synchronized void add(Entity addee) {
         entities.add(addee);
     }
 
@@ -20,12 +19,11 @@ public class EntityManager {
         entities.clear();
     }
 
-    public synchronized void updateAll()
-    {
-        for (int i = 0; i<entities.size(); i++){
+    public synchronized void updateAll() {
+        for (int i = 0; i<entities.size(); i++) {
             Entity entity = entities.get(i);
             entity.update();
-            if (entity.isBroken){
+            if (entity.isBroken) {
                 i++;
                 entities.remove(entity);
             }

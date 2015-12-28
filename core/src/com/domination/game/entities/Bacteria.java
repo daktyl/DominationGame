@@ -29,8 +29,8 @@ public class Bacteria extends GraphicalEntity {
         this.destination = destination;
         velocity = 100;
 
-        distanceX = destination.sprite.getX() - source.sprite.getX();
-        distanceY = destination.sprite.getY() - source.sprite.getY();
+        distanceX = destination.getX() - source.getX();
+        distanceY = destination.getY() - source.getY();
 
         startTime = System.currentTimeMillis();
         endTime = calculateEndTime();
@@ -54,11 +54,11 @@ public class Bacteria extends GraphicalEntity {
             return;
         }
         double finishedPart = (currTime - startTime) / (endTime - startTime);
-        double newX = source.sprite.getX()+source.sprite.getWidth()/2-sprite.getWidth()/2 + distanceX * finishedPart;
-        double newY = source.sprite.getY()+source.sprite.getHeight()/2-sprite.getHeight()/2 + distanceY * finishedPart;
+        double newX = source.getX()+source.getWidth()/2-getWidth()/2 + distanceX * finishedPart;
+        double newY = source.getY()+source.getHeight()/2-getHeight()/2 + distanceY * finishedPart;
         sprite.setPosition((float) newX, (float) newY);
-        amountText.label.setPosition(sprite.getX() + sprite.getWidth()/2 - amountText.label.getWidth()/2,
-                sprite.getY() + sprite.getHeight()/2 -amountText.label.getHeight()/2);
+        amountText.label.setPosition(getX() + getWidth()/2 - amountText.label.getWidth()/2,
+                getY() + getHeight()/2 -amountText.label.getHeight()/2);
     }
 
     @Override

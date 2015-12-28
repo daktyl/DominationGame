@@ -17,9 +17,9 @@ public class Cell extends GraphicalEntity{
     private Long lastUpdateTime = System.currentTimeMillis();
 
     public Cell(Player player, float x, float y, SpriteBatch batch) {
-        super((Texture) ResourceManager.getInstance().get("TestTexture"),100,100,50,50, batch);
+        super((Texture)ResourceManager.getInstance().get("TestTexture"),100,100,50,50, batch);
         this.player = player;
-        bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount),(BitmapFont) ResourceManager.getInstance().get("Font"), this.batch);
+        bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setX(x);
         sprite.setY(y);
         bacteriaAmountText.label.setPosition(sprite.getX() + sprite.getWidth()/2 - bacteriaAmountText.label.getHeight()/2,
