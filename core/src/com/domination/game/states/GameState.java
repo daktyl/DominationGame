@@ -16,9 +16,9 @@ public class GameState implements InputProcessor {
     }
     public void init() { }
 
-    public void update() { }
+    public void update() { entityManager.updateAll(); }
 
-    public void cleanUp() { }
+    public void cleanUp() { entityManager.removeAll(); }
 
     public void draw() { entityManager.drawAll(); }
 
