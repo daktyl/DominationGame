@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.AI.AI;
 import com.domination.game.Game;
+import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Cell;
 
 public class GameplayState extends GameState{
@@ -16,9 +17,9 @@ public class GameplayState extends GameState{
 
     @Override
     public void init() {
-        Texture texture = new Texture("badlogic.jpg");
-        entityManager.add(new Cell(new AI(),250,Gdx.graphics.getHeight()-250,texture,this.spriteBatch));
-        entityManager.add(new Cell(new AI(),450,Gdx.graphics.getHeight()-123,texture,this.spriteBatch));
+        ResourceManager.getInstance().add("CellTexture",new Texture("badlogic.jpg"));
+        entityManager.add(new Cell(new AI(),250,Gdx.graphics.getHeight()-250,this.spriteBatch));
+        entityManager.add(new Cell(new AI(),450,Gdx.graphics.getHeight()-123,this.spriteBatch));
     }
 
     @Override
