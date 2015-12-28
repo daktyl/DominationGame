@@ -32,11 +32,6 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		pushGameState(new GameplayState(this,batch));
-		batch = new SpriteBatch();
-
-//		Cell cell1 = new Cell(10,10);
-//		Cell cell2 = new Cell(510,110);
-//		bacteria = new Bacteria(null, batch, cell2, cell1, 100);
 	}
 
 	@Override

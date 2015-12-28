@@ -1,7 +1,5 @@
 package com.domination.game.entities;
 
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -16,24 +14,9 @@ public class Cell extends GraphicalEntity{
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
     private float x,y;
-    public float getY() {return y;}
-    public float getX() {return x;}
-
-    private Thread reproduce = new Thread(){
-        @Override
-        public void run() {
-            while (!Thread.interrupted()){
-                try{
-                    synchronized(this) { wait(1000); }
-                }
-                catch (InterruptedException e){
-                    Gdx.app.log("Unexcpected interaption",e.toString());
-                }
-                if(bacteriaNumber<100 && ai != null)
-                    bacteriaNumber++;
-            }
-        }
-    };
+//    public float getY() {return y;}
+//    public float getX() {return x;}
+    private Long lastUpdateTime = System.currentTimeMillis();
 
     public Cell(AI ai, float x, float y, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
@@ -44,22 +27,28 @@ public class Cell extends GraphicalEntity{
         sprite.setY(y-sprite.getHeight()/2);
         sprite.setScale(0.2f);
         bitmapFont = ResourceManager.getInstance().get("Font");
-        reproduce.start();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setAutoShapeType(true);
 
     }
 
     @Override
+    public void update() {
+        if(System.currentTimeMillis()>lastUpdateTime+1000) {
+            lastUpdateTime += 1000;
+            if (bacteriaNumber < 100 && ai != null)
+                bacteriaNumber++;
+        }
+    }
+
+    @Override
     public void draw() {
         super.draw();
-        shapeRenderer.setColor(Color.WHITE);
-        shapeRenderer.begin();
-        shapeRenderer.circle(x,y,radius);
-        shapeRenderer.end();
-        batch.begin();
-            bitmapFont.draw(batch,bacteriaNumber.toString(),x-bitmapFont.getSpaceWidth(),y+bitmapFont.getCapHeight()/2);
-        batch.end();
+//        shapeRenderer.setColor(Color.WHITE);
+//        shapeRenderer.begin();
+//        shapeRenderer.circle(x,y,radius);
+//        shapeRenderer.end();
+        bitmapFont.draw(batch,bacteriaNumber.toString(),x-bitmapFont.getSpaceWidth(),y+bitmapFont.getCapHeight()/2);
     }
     public void handleComingBacterias(int number, AI player){
         if(this.ai == player)
@@ -78,13 +67,15 @@ public class Cell extends GraphicalEntity{
         }
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        reproduce.interrupt();
-        super.finalize();
-    }
-
     public Integer getBacteriaNumber() {
         return bacteriaNumber;
+    }
+
+    public float getX() {
+        return x;
+    }
+
+    public float getY() {
+        return y;
     }
 }

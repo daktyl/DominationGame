@@ -7,18 +7,18 @@ import com.domination.game.engine.EntityManager;
 
 public class GameState implements InputProcessor {
     protected Game game;
-    protected SpriteBatch spriteBatch;
+    protected SpriteBatch batch;
     protected EntityManager entityManager = new EntityManager();
 
-    public GameState(Game game, SpriteBatch spriteBatch){
+    public GameState(Game game, SpriteBatch batch){
         this.game = game;
-        this.spriteBatch = spriteBatch;
+        this.batch = batch;
     }
     public void init() { }
 
-    public void update() { }
+    public void update() { entityManager.updateAll(); }
 
-    public void cleanUp() { }
+    public void cleanUp() { entityManager.removeAll(); }
 
     public void draw() { entityManager.drawAll(); }
 
