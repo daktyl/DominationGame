@@ -7,20 +7,15 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.domination.game.entities.Bacteria;
-import com.domination.game.entities.Cell;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.states.GameState;
 import com.domination.game.states.GameplayState;
-import java.io.Console;
 import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
 	SpriteBatch batch;
 	private Stack<GameState> gameStatesStack = new Stack<GameState>();
-
-	Bacteria bacteria;
 
 	@Override
 	public void create () {

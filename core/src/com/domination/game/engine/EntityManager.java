@@ -5,9 +5,10 @@ import java.util.List;
 import java.util.ArrayList;
 
 public class EntityManager {
-    List<Entity> entities;
+    private List<Entity> entities;
 
-    public synchronized void add(Entity addee){
+    public synchronized void add(Entity addee)
+    {
         entities.add(addee);
     }
 
@@ -19,8 +20,16 @@ public class EntityManager {
         entities.clear();
     }
 
-    public synchronized void updateAll(){
-        for (Entity ent : entities) ent.update();
+    public synchronized void updateAll()
+    {
+        for (int i = 0; i<entities.size(); i++){
+            Entity entity = entities.get(i);
+            entity.update();
+            if (entity.isBroken){
+                i++;
+                entities.remove(entity);
+            }
+        }
     }
 
     public synchronized void drawAll(){

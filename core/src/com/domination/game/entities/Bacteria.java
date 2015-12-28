@@ -1,6 +1,7 @@
 package com.domination.game.entities;
 
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Player;
 import com.domination.game.engine.ResourceManager;
@@ -8,33 +9,31 @@ import com.domination.game.engine.ResourceManager;
 public class Bacteria extends GraphicalEntity {
 
     private Player player;
-
     private int amount;
-
     private Cell source;
     private Cell destination;
-
     private double startTime;
     private double endTime;
-
     private double distanceX;
     private double distanceY;
     private double velocity;
 
-    public Bacteria(Player player, SpriteBatch batch, Cell source, Cell destination, int amount) {
-        super((Texture) ResourceManager.getInstance().get("TestTexture"), 30, 30, 30, 30, batch);
+    private TextEntity amountText;
+
+    public Bacteria(Player player, Cell source, Cell destination, int amount, SpriteBatch batch) {
+        super((Texture) ResourceManager.getInstance().get("TestTexture"), 80, 50, 30, 30, batch);
         this.player = player;
         this.amount = amount;
+        amountText = new TextEntity(Integer.toString(amount),(BitmapFont) ResourceManager.getInstance().get("Font"), this.batch);
         this.source = source;
         this.destination = destination;
         velocity = 100;
 
-        distanceX = destination.getX() - source.getX();
-        distanceY = destination.getY() - source.getY();
+        distanceX = destination.sprite.getX() - source.sprite.getX();
+        distanceY = destination.sprite.getY() - source.sprite.getY();
 
         startTime = System.currentTimeMillis();
         endTime = calculateEndTime();
-        sprite.setPosition(source.getX() - sprite.getWidth() / 2, source.getY() - sprite.getHeight() / 2);
     }
 
     double calculateEndTime() {
@@ -50,12 +49,22 @@ public class Bacteria extends GraphicalEntity {
         long currTime = System.currentTimeMillis();
         if (currTime >= endTime) {
             isBroken = true;
+            // REMOVE LATER:
+            destination.handleComingBacterias(amount,null);
             return;
         }
         double finishedPart = (currTime - startTime) / (endTime - startTime);
-        double newX = source.getX() + distanceX * finishedPart - sprite.getWidth() / 2;
-        double newY = source.getY() + distanceY * finishedPart - sprite.getHeight() / 2;
+        double newX = source.sprite.getX()+source.sprite.getWidth()/2-sprite.getWidth()/2 + distanceX * finishedPart;
+        double newY = source.sprite.getY()+source.sprite.getHeight()/2-sprite.getHeight()/2 + distanceY * finishedPart;
         sprite.setPosition((float) newX, (float) newY);
+        amountText.label.setPosition(sprite.getX() + sprite.getWidth()/2 - amountText.label.getWidth()/2,
+                sprite.getY() + sprite.getHeight()/2 -amountText.label.getHeight()/2);
+    }
+
+    @Override
+    public void draw() {
+        super.draw();
+        amountText.draw();
     }
 
     public int getAmount() {
