@@ -19,7 +19,7 @@ public class GameWrapper {
         this.bacteriaList = bacteriaList;
         this.cellList = cellList;
     }
-    public Boolean sendBacteria(Cell from, Cell to,Integer amount, Player player){
+    public Boolean sendBacteria(Cell from, Cell to, Player player){
         return gameplayState.sendBacterias(from,to,player);
     }
     public List<Cell> getCurrentCells(){

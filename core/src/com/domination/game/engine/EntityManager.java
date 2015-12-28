@@ -27,7 +27,7 @@ public class EntityManager {
         for (int i = 0; i<entities.size(); i++) {
             Entity entity = entities.get(i);
             entity.update();
-            if (entity.isBroken) {
+            if (entity.isBroken()) {
                 i++;
                 entities.remove(entity);
             }

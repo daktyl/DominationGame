@@ -50,7 +50,7 @@ public class Bacteria extends GraphicalEntity {
         if (currTime >= endTime) {
             isBroken = true;
             // REMOVE LATER:
-            destination.handleComingBacterias(amount,null);
+            destination.handleComingBacterias(this);
             return;
         }
         double finishedPart = (currTime - startTime) / (endTime - startTime);

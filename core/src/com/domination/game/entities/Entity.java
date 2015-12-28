@@ -3,7 +3,8 @@ package com.domination.game.entities;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public abstract class Entity {
-    public boolean isBroken;
+    protected boolean isBroken;
+
     public SpriteBatch batch;
 
     public Entity(SpriteBatch batch){
@@ -14,4 +15,8 @@ public abstract class Entity {
     public abstract void draw();
 
     public abstract void update();
+
+    public boolean isBroken() {
+        return isBroken;
+    }
 }

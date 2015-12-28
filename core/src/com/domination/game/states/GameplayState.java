@@ -28,23 +28,37 @@ public class GameplayState extends GameState{
     @Override
     public void init() {
         ResourceManager.getInstance().add("TestTexture",new Texture("badlogic.jpg"));
-        players.add(new AI(gameSimulation,Color.BLUE));
+        players.add(new AI(gameSimulation,Color.FIREBRICK));
         players.add(new AI(gameSimulation,Color.CORAL));
         cellList.add(new Cell(players.get(0),450,Gdx.graphics.getHeight()-123,this.batch));
         cellList.add(new Cell(null,250,Gdx.graphics.getHeight()-250,this.batch));
         cellList.add(new Cell(players.get(1),350,Gdx.graphics.getHeight()-150,this.batch));
-
         addCellAndBacteriasToEntityMgr();
+        for (Player player : players){
+            if(player instanceof AI)
+                player.start();
+        }
     }
+
+    @Override
+    public void update() {
+        super.update();
+        for(Bacteria bacteria : bacteriaList)
+            if(bacteria.isBroken()){
+                bacteriaList.remove(bacteria);
+            }
+    }
+
     private void addCellAndBacteriasToEntityMgr(){
         for(Cell cell : cellList)
             entityManager.add(cell);
         for (Bacteria bacteria : bacteriaList)
             entityManager.add(bacteria);
     }
-    public Boolean sendBacterias(Cell from, Cell to, Player player){
+    public synchronized Boolean sendBacterias(Cell from, Cell to, Player player){
         //TODO sprawdzić poprawność ruchu
         Bacteria bacteria = new Bacteria(player,from,to,from.getBacteriaAmount()/2,batch);
+        entityManager.add(bacteria);
         from.handleOutgiongBacterias();
         return true;
     }

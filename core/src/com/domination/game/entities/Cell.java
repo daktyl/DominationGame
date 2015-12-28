@@ -2,6 +2,7 @@ package com.domination.game.entities;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -21,11 +22,11 @@ public class Cell extends GraphicalEntity{
         super((Texture)ResourceManager.getInstance().get("TestTexture"),100,100,50,50, batch);
         this.player = player;
         if (player!=null) {
-            sprite.setColor(player.getColor());
             bacteriaAmount = 50;
         }
         else
             bacteriaAmount=10;
+        checkColor();
         bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setX(x);
         sprite.setY(y);
@@ -40,10 +41,11 @@ public class Cell extends GraphicalEntity{
     public void update() {
         if(System.currentTimeMillis()>lastUpdateTime+1000) {
             lastUpdateTime += 1000;
-            if (bacteriaAmount < 100 && player != null)
+            if (bacteriaAmount < 100 && player != null) {
                 bacteriaAmount++;
+            }
         }
-        bacteriaAmountText.label.setText(Integer.toString(bacteriaAmount));
+        bacteriaAmountText.label.setText(bacteriaAmount.toString());
     }
 
     @Override
@@ -51,14 +53,16 @@ public class Cell extends GraphicalEntity{
         super.draw();
         bacteriaAmountText.draw();
     }
-    public void handleComingBacterias(int number, Player owner){
-        if(player == owner)
-            bacteriaAmount +=number;
+    public void handleComingBacterias(Bacteria bacteria){
+        Integer amount = bacteria.getAmount();
+        Player owner = bacteria.getSource().player;
+        if(player == bacteria.getSource().player)
+            bacteriaAmount +=amount;
         else{
-            if(bacteriaAmount > number)
-                bacteriaAmount -= number;
-            else if(bacteriaAmount < number){
-                bacteriaAmount = number - bacteriaAmount;
+            if(bacteriaAmount > amount)
+                bacteriaAmount -= amount;
+            else if(bacteriaAmount < amount){
+                bacteriaAmount = amount - bacteriaAmount;
                 player = owner;
             } else {
                 bacteriaAmount = 0;
@@ -66,6 +70,7 @@ public class Cell extends GraphicalEntity{
             }
 
         }
+        checkColor();
     }
     public void handleOutgiongBacterias(){
         bacteriaAmount/=2;
@@ -73,5 +78,11 @@ public class Cell extends GraphicalEntity{
 
     public Integer getBacteriaAmount() {
         return bacteriaAmount;
+    }
+    private void checkColor(){
+        if(player!=null)
+            sprite.setColor(player.getColor());
+        else
+            sprite.setColor(Color.CLEAR);
     }
 }
