@@ -1,21 +1,26 @@
 package com.domination.game.states;
 
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
+import com.domination.game.engine.EntityManager;
 
 public class GameState implements InputProcessor {
     protected Game game;
-    public GameState(Game game){
-        this.game = game;
-    }
+    protected SpriteBatch spriteBatch;
+    protected EntityManager entityManager = new EntityManager();
 
+    public GameState(Game game, SpriteBatch spriteBatch){
+        this.game = game;
+        this.spriteBatch = spriteBatch;
+    }
     public void init() { }
 
     public void update() { }
 
     public void cleanUp() { }
 
-    public void draw() { }
+    public void draw() { entityManager.drawAll(); }
 
     @Override
     public boolean keyDown(int keycode) {
