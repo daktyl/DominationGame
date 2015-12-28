@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
 import com.domination.game.engine.EntityManager;
 
-public class GameState implements InputProcessor {
+public abstract class GameState implements InputProcessor {
     protected Game game;
     protected SpriteBatch batch;
     protected EntityManager entityManager = new EntityManager();
@@ -14,7 +14,7 @@ public class GameState implements InputProcessor {
         this.game = game;
         this.batch = batch;
     }
-    public void init() { }
+    public abstract void init();
 
     public void update() { entityManager.updateAll(); }
 

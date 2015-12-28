@@ -59,7 +59,7 @@ public class GameplayState extends GameState{
         //TODO sprawdzić poprawność ruchu
         Bacteria bacteria = new Bacteria(player,from,to,from.getBacteriaAmount()/2,batch);
         entityManager.add(bacteria);
-        from.handleOutgiongBacterias();
+        from.getOutgiongBacterias();
         return true;
     }
     @Override
