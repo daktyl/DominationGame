@@ -2,19 +2,25 @@ package com.domination.game.states;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
-import com.domination.game.Player;
+import com.domination.game.engine.GameWrapper;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
+import com.domination.game.players.AI;
+import com.domination.game.players.Player;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameplayState extends GameState{
-
-    Cell cell1;
-    Cell cell2;
-
+    List<Player> players = new ArrayList<Player>();
+    List<Cell> cellList = new ArrayList<Cell>();
+    List<Bacteria> bacteriaList = new ArrayList<Bacteria>();
+    private final GameWrapper gameSimulation = new GameWrapper(this, cellList, bacteriaList);
     public GameplayState(Game game, SpriteBatch batch) {
         super(game, batch);
     }
@@ -22,14 +28,26 @@ public class GameplayState extends GameState{
     @Override
     public void init() {
         ResourceManager.getInstance().add("TestTexture",new Texture("badlogic.jpg"));
-        cell1 = new Cell(new Player(),250,Gdx.graphics.getHeight()-250,this.batch);
-        cell2 = new Cell(new Player(),450,Gdx.graphics.getHeight()-123,this.batch);
-        Bacteria bacteria = new Bacteria(new Player(), cell1, cell2, 15, batch);
-        entityManager.add(cell1);
-        entityManager.add(cell2);
-        entityManager.add(bacteria);
-    }
+        players.add(new AI(gameSimulation,Color.BLUE));
+        players.add(new AI(gameSimulation,Color.CORAL));
+        cellList.add(new Cell(players.get(0),450,Gdx.graphics.getHeight()-123,this.batch));
+        cellList.add(new Cell(null,250,Gdx.graphics.getHeight()-250,this.batch));
+        cellList.add(new Cell(players.get(1),350,Gdx.graphics.getHeight()-150,this.batch));
 
+        addCellAndBacteriasToEntityMgr();
+    }
+    private void addCellAndBacteriasToEntityMgr(){
+        for(Cell cell : cellList)
+            entityManager.add(cell);
+        for (Bacteria bacteria : bacteriaList)
+            entityManager.add(bacteria);
+    }
+    public Boolean sendBacterias(Cell from, Cell to, Player player){
+        //TODO sprawdzić poprawność ruchu
+        Bacteria bacteria = new Bacteria(player,from,to,from.getBacteriaAmount()/2,batch);
+        from.handleOutgiongBacterias();
+        return true;
+    }
     @Override
     public boolean keyDown(int keycode) {
         Gdx.app.debug("KeyDown", Integer.valueOf(keycode).toString());
@@ -39,8 +57,6 @@ public class GameplayState extends GameState{
                 Gdx.app.debug("KeyDown", "Esc");
                 return true;
             case Input.Keys.SPACE:
-                Bacteria bacteria = new Bacteria(new Player(), cell1, cell2, 15, batch);
-                entityManager.add(bacteria);
         }
         return false;
     }

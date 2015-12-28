@@ -10,6 +10,10 @@ public class EntityManager {
     public synchronized void add(Entity addee) {
         entities.add(addee);
     }
+    public synchronized void add(List<Entity> entities){
+        for(Entity e : entities)
+            this.entities.add(e);
+    }
 
     public synchronized void remove(Entity removee){
         entities.remove(removee);

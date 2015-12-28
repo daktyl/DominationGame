@@ -3,8 +3,8 @@ package com.domination.game.entities;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.domination.game.Player;
 import com.domination.game.engine.ResourceManager;
+import com.domination.game.players.Player;
 
 public class Bacteria extends GraphicalEntity {
 

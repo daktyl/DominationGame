@@ -1,7 +1,17 @@
 package com.domination.game.players;
 
+import com.badlogic.gdx.graphics.Color;
+
 /**
  * Created by Mrugi on 2015-12-28.
  */
-public interface Player {
+public abstract class Player {
+    protected Color color;
+    Player(Color color){
+        this.color =color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
 }

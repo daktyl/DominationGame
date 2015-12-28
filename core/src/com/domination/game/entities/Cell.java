@@ -1,14 +1,15 @@
 package com.domination.game.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.domination.game.Player;
+import com.domination.game.players.Player;
 import com.domination.game.engine.ResourceManager;
 
 public class Cell extends GraphicalEntity{
-    private Integer bacteriaAmount = 50;
+    private Integer bacteriaAmount;
     private TextEntity bacteriaAmountText;
     private Integer radius = 35;
     private Player player;
@@ -19,6 +20,12 @@ public class Cell extends GraphicalEntity{
     public Cell(Player player, float x, float y, SpriteBatch batch) {
         super((Texture)ResourceManager.getInstance().get("TestTexture"),100,100,50,50, batch);
         this.player = player;
+        if (player!=null) {
+            sprite.setColor(player.getColor());
+            bacteriaAmount = 50;
+        }
+        else
+            bacteriaAmount=10;
         bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setX(x);
         sprite.setY(y);
@@ -42,10 +49,6 @@ public class Cell extends GraphicalEntity{
     @Override
     public void draw() {
         super.draw();
-//        shapeRenderer.setColor(Color.WHITE);
-//        shapeRenderer.begin();
-//        shapeRenderer.circle(x,y,radius);
-//        shapeRenderer.end();
         bacteriaAmountText.draw();
     }
     public void handleComingBacterias(int number, Player owner){
@@ -63,6 +66,9 @@ public class Cell extends GraphicalEntity{
             }
 
         }
+    }
+    public void handleOutgiongBacterias(){
+        bacteriaAmount/=2;
     }
 
     public Integer getBacteriaAmount() {
