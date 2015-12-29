@@ -50,7 +50,7 @@ public class Bacteria extends GraphicalEntity {
         if (currTime >= endTime) {
             isBroken = true;
             // REMOVE LATER:
-            destination.handleComingBacterias(this);
+            destination.handleIncomingBacteria(this);
             return;
         }
         double finishedPart = (currTime - startTime) / (endTime - startTime);
@@ -73,6 +73,30 @@ public class Bacteria extends GraphicalEntity {
 
     public Cell getSource() {
         return source;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public double getStartTime() {
+        return startTime;
+    }
+
+    public double getEndTime() {
+        return endTime;
+    }
+
+    public double getDistanceX() {
+        return distanceX;
+    }
+
+    public double getDistanceY() {
+        return distanceY;
+    }
+
+    public double getVelocity() {
+        return velocity;
     }
 
     public Cell getDestination() {

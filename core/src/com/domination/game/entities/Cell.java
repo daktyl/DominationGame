@@ -25,7 +25,7 @@ public class Cell extends GraphicalEntity{
             bacteriaAmount = 50;
         }
         else
-            bacteriaAmount=10;
+            bacteriaAmount = 10;
         checkColor();
         bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setX(x);
@@ -41,7 +41,7 @@ public class Cell extends GraphicalEntity{
     public void update() {
         if(System.currentTimeMillis()>lastUpdateTime+1000) {
             lastUpdateTime += 1000;
-            if (bacteriaAmount < 100 && player != null) {
+            if (bacteriaAmount < 100) {
                 bacteriaAmount++;
             }
         }
@@ -53,18 +53,20 @@ public class Cell extends GraphicalEntity{
         super.draw();
         bacteriaAmountText.draw();
     }
-    public void handleComingBacterias(Bacteria bacteria){
+
+    public void handleIncomingBacteria(Bacteria bacteria){
         Integer amount = bacteria.getAmount();
         Player owner = bacteria.getSource().player;
-        if(player == bacteria.getSource().player)
+        if (player == bacteria.getSource().player)
             bacteriaAmount +=amount;
-        else{
-            if(bacteriaAmount > amount)
+        else {
+            if (bacteriaAmount > amount)
                 bacteriaAmount -= amount;
-            else if(bacteriaAmount < amount){
+            else if (bacteriaAmount < amount){
                 bacteriaAmount = amount - bacteriaAmount;
                 player = owner;
-            } else {
+            }
+            else {
                 bacteriaAmount = 0;
                 player = null;
             }
@@ -72,15 +74,28 @@ public class Cell extends GraphicalEntity{
         }
         checkColor();
     }
-    public void handleOutgiongBacterias(){
-        bacteriaAmount/=2;
+    public void handleOutgoingBacteria(){
+        bacteriaAmount /= 2;
     }
 
     public Integer getBacteriaAmount() {
         return bacteriaAmount;
     }
+
+    public Integer getRadius() {
+        return radius;
+    }
+
+    public TextEntity getBacteriaAmountText() {
+        return bacteriaAmountText;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
     private void checkColor(){
-        if(player!=null)
+        if (player != null)
             sprite.setColor(player.getColor());
         else
             sprite.setColor(Color.CLEAR);

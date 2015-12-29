@@ -6,21 +6,19 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
-import com.domination.game.engine.GameWrapper;
+import com.domination.game.engine.GameplayWrapper;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.players.AI;
 import com.domination.game.players.Player;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class GameplayState extends GameState{
     List<Player> playerList = new ArrayList<Player>();
-    List<Cell> cellList = new ArrayList<Cell>();
-    List<Bacteria> bacteriaList = new ArrayList<Bacteria>();
-    private final GameWrapper gameSimulation = new GameWrapper(this, cellList, bacteriaList);
+    public List<Cell> cellList = new ArrayList<Cell>();
+    public List<Bacteria> bacteriaList = new ArrayList<Bacteria>();
     public GameplayState(Game game, SpriteBatch batch) {
         super(game, batch);
     }
@@ -28,8 +26,8 @@ public class GameplayState extends GameState{
     @Override
     public void init() {
         ResourceManager.getInstance().add("TestTexture",new Texture("badlogic.jpg"));
-        playerList.add(new AI(gameSimulation,Color.FIREBRICK));
-        playerList.add(new AI(gameSimulation,Color.CORAL));
+        playerList.add(new AI(new GameplayWrapper(this),Color.FIREBRICK));
+        playerList.add(new AI(new GameplayWrapper(this),Color.CORAL));
         cellList.add(new Cell(playerList.get(0),450,Gdx.graphics.getHeight()-123,this.batch));
         cellList.add(new Cell(null,250,Gdx.graphics.getHeight()-250,this.batch));
         cellList.add(new Cell(playerList.get(1),350,Gdx.graphics.getHeight()-150,this.batch));
@@ -58,12 +56,16 @@ public class GameplayState extends GameState{
             entityManager.add(bacteria);
     }
 
-    public synchronized Boolean sendBacterias(Cell from, Cell to, Player player) {
-        //TODO sprawdzić poprawność ruchu
-        Bacteria bacteria = new Bacteria(player,from,to,from.getBacteriaAmount()/2,batch);
-        entityManager.add(bacteria);
-        from.handleOutgiongBacterias();
-        return true;
+    public synchronized Boolean sendBacteria(Cell source, Cell destination, Player player) {
+        if (source != null && destination != null && source.getPlayer() == player && source.getBacteriaAmount() > 1 && !source.isBroken() && !destination.isBroken()) {
+            Bacteria bacteria = new Bacteria(player, source, destination, source.getBacteriaAmount() / 2, batch);
+            entityManager.add(bacteria);
+            source.handleOutgoingBacteria();
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     @Override
