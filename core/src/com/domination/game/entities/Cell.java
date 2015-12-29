@@ -39,7 +39,7 @@ public class Cell extends GraphicalEntity{
 
     @Override
     public void update() {
-        if(System.currentTimeMillis()>lastUpdateTime+1000) {
+        if(System.currentTimeMillis()>lastUpdateTime+1000 && player != null) {
             lastUpdateTime += 1000;
             if (bacteriaAmount < 100) {
                 bacteriaAmount++;
