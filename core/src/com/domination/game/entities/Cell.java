@@ -21,7 +21,7 @@ public class Cell extends GraphicalEntity{
     public Cell(Player player, float x, float y, SpriteBatch batch) {
         super((Texture)ResourceManager.getInstance().get("TestTexture"),100,100,50,50, batch);
         this.player = player;
-        if (player!=null) {
+        if (player != null) {
             bacteriaAmount = 50;
         }
         else
@@ -39,9 +39,9 @@ public class Cell extends GraphicalEntity{
 
     @Override
     public void update() {
-        if(System.currentTimeMillis()>lastUpdateTime+1000 && player != null) {
+        if(System.currentTimeMillis()>lastUpdateTime+1000) {
             lastUpdateTime += 1000;
-            if (bacteriaAmount < 100) {
+            if (bacteriaAmount < 100 && player != null) {
                 bacteriaAmount++;
             }
         }
@@ -54,7 +54,7 @@ public class Cell extends GraphicalEntity{
         bacteriaAmountText.draw();
     }
 
-    public void handleIncomingBacteria(Bacteria bacteria){
+    public void handleIncomingBacteria(Bacteria bacteria) {
         Integer amount = bacteria.getAmount();
         Player owner = bacteria.getSource().player;
         if (player == bacteria.getSource().player)
@@ -74,8 +74,11 @@ public class Cell extends GraphicalEntity{
         }
         checkColor();
     }
-    public void handleOutgoingBacteria(){
-        bacteriaAmount /= 2;
+
+    public Integer handleOutgiongBacteria() {
+        int outgoingAmount = Math.floorDiv(bacteriaAmount,2);
+        bacteriaAmount = (int) Math.ceil((double)bacteriaAmount/2.f);
+        return outgoingAmount;
     }
 
     public Integer getBacteriaAmount() {
@@ -94,7 +97,7 @@ public class Cell extends GraphicalEntity{
         return player;
     }
 
-    private void checkColor(){
+    private void checkColor() {
         if (player != null)
             sprite.setColor(player.getColor());
         else
