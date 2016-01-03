@@ -29,7 +29,7 @@ public class GameplayState extends GameState{
         playerList.add(new AI(new GameplayWrapper(this),Color.FIREBRICK));
         playerList.add(new AI(new GameplayWrapper(this),Color.CORAL));
         cellList.add(new Cell(playerList.get(0),450,Gdx.graphics.getHeight()-123,this.batch));
-        cellList.add(new Cell(null,250,Gdx.graphics.getHeight()-250,this.batch));
+        cellList.add(new Cell(null,250,Gdx.graphics.getHeight()-350,this.batch));
         cellList.add(new Cell(playerList.get(1),350,Gdx.graphics.getHeight()-150,this.batch));
         addCellsAndBacteriasToEntityManager();
         for (Player player : playerList)
