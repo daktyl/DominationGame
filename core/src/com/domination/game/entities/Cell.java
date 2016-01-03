@@ -75,7 +75,7 @@ public class Cell extends GraphicalEntity{
         checkColor();
     }
 
-    public Integer handleOutgiongBacteria() {
+    public Integer handleOutgoingBacteria() {
         int outgoingAmount = Math.floorDiv(bacteriaAmount,2);
         bacteriaAmount = (int) Math.ceil((double)bacteriaAmount/2.f);
         return outgoingAmount;
@@ -88,11 +88,7 @@ public class Cell extends GraphicalEntity{
     public Integer getRadius() {
         return radius;
     }
-
-    public TextEntity getBacteriaAmountText() {
-        return bacteriaAmountText;
-    }
-
+    
     public Player getPlayer() {
         return player;
     }
