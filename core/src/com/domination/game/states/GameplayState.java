@@ -67,7 +67,7 @@ public class GameplayState extends GameState{
         Gdx.app.debug("KeyDown", Integer.valueOf(keycode).toString());
         switch (keycode) {
             case Input.Keys.ESCAPE:
-                game.popGameState();
+                game.pushGameState(new Pause(game,batch));
                 Gdx.app.debug("KeyDown", "Esc");
                 return true;
             case Input.Keys.SPACE:
