@@ -40,6 +40,7 @@ public class Game extends ApplicationAdapter {
 		}
 		batch.end();
 	}
+
 	public void pushGameState(GameState state){
 		state.init();
 		Gdx.input.setInputProcessor(state);

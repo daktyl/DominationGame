@@ -7,25 +7,26 @@ import com.domination.game.states.GameplayState;
 
 import java.util.List;
 
-/**
- * Created by Mrugi on 2015-12-28.
- */
 public class GameWrapper {
     private GameplayState gameplayState;
     private List<Cell> cellList;
     private List<Bacteria> bacteriaList;
-    public GameWrapper(GameplayState gameplayState, List<Cell> cellList, List<Bacteria> bacteriaList){
-        this.gameplayState=gameplayState;
+
+    public GameWrapper(GameplayState gameplayState, List<Cell> cellList, List<Bacteria> bacteriaList) {
+        this.gameplayState = gameplayState;
         this.bacteriaList = bacteriaList;
         this.cellList = cellList;
     }
-    public Boolean sendBacteria(Cell from, Cell to, Player player){
-        return gameplayState.sendBacterias(from,to,player);
+
+    public Boolean sendBacteria(Cell from, Cell to, Player player) {
+        return gameplayState.sendBacterias(from, to, player);
     }
-    public List<Cell> getCurrentCells(){
+
+    public List<Cell> getCurrentCells() {
         //TODO przekopiować do AIcells i AI bacterias i zwrócić
         return cellList;
     }
+
     public List<Bacteria> getCurrentBacterias(){
         return bacteriaList;
     }

@@ -9,9 +9,9 @@ import com.domination.game.entities.Cell;
 import java.util.List;
 import java.util.Random;
 
-public class AI extends Player{
+public class AI extends Player {
     GameWrapper gameWrapper;
-    public AI(GameWrapper gameWrapper, Color color){
+    public AI(GameWrapper gameWrapper, Color color) {
         super(color);
         this.gameWrapper = gameWrapper;
     }
@@ -29,11 +29,11 @@ public class AI extends Player{
             int to = random.nextInt(cellList.size());
             gameWrapper.sendBacteria(cellList.get(from),cellList.get(to),this);
             try  {
-                synchronized (this) {wait(random.nextInt(5000));}
-            }catch (InterruptedException e){
+                synchronized (this) { wait(random.nextInt(5000)); }
+            }
+            catch (InterruptedException e){
                 Gdx.app.log("Player","Finished");
             }
-
         }
     }
 }
