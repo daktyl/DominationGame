@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GraphicalEntity extends Entity {
-    protected Sprite sprite;
+    public Sprite sprite;
 
 
     public GraphicalEntity(Texture texture, SpriteBatch batch) {

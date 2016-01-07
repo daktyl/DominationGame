@@ -10,7 +10,7 @@ import com.domination.game.engine.GameplayWrapper;
 import java.util.List;
 import java.util.Random;
 
-public class AI extends Player {
+public abstract class AI extends Player {
     GameplayWrapper gameplayWrapper;
     public AI(GameplayWrapper gameplayWrapper, Color color) {
         super(color);
@@ -19,25 +19,12 @@ public class AI extends Player {
 
     List<FakeBacteria> bacteriaList;
     List<FakeCell> cellList;
-    Random random = new Random();
 
     @Override
     public void run() {
         while (!this.isInterrupted()) {
-            int from,to;
-            do {
-                Situation situation = gameplayWrapper.getCurrentSituation();
-                cellList = situation.cellList;
-                bacteriaList = situation.bacteriaList;
-                from = random.nextInt(cellList.size());
-                to = random.nextInt(cellList.size());
-            }while (!gameplayWrapper.sendBacteria(cellList.get(from),cellList.get(to),this));
-            try  {
-                synchronized (this) { wait(random.nextInt(5000)); }
-            }
-            catch (InterruptedException e){
-                Gdx.app.log("Player","Interrupted");
-            }
+            implementation();
         }
     }
+    abstract protected void implementation();
 }

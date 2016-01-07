@@ -17,7 +17,7 @@ public class Bacteria extends GraphicalEntity {
     private double distanceX;
     private double distanceY;
     private double velocity;
-    private static final Integer radius = 50;
+    private static final Integer radius = 900;
 
     private TextEntity amountText;
 
@@ -29,13 +29,13 @@ public class Bacteria extends GraphicalEntity {
         this.source = source;
         this.destination = destination;
         velocity = 100;
-
+        sprite.setColor(player.getColor());
         distanceX = destination.getX() - source.getX();
         distanceY = destination.getY() - source.getY();
 
         startTime = System.currentTimeMillis();
         endTime = calculateEndTime();
-        sprite.setScale(radius/sprite.getWidth());
+        sprite.setScale(radius*2/sprite.getWidth());
     }
 
     double calculateEndTime() {

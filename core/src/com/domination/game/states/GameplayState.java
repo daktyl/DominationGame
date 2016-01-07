@@ -10,8 +10,11 @@ import com.domination.game.engine.GameplayWrapper;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
+import com.domination.game.entities.GraphicalEntity;
 import com.domination.game.players.AI;
 import com.domination.game.players.Player;
+import com.domination.game.players.defaultAI;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -26,10 +29,16 @@ public class GameplayState extends GameState{
 
     @Override
     public void init() {
-        ResourceManager.getInstance().add("CellTexture",new Texture("cell.png"));
+        ResourceManager.getInstance().add("CellTexture",new Texture("cellhd.png"));
         ResourceManager.getInstance().add("BacteriaTexture",new Texture("bacteria.png"));
-        playerList.add(new AI(new GameplayWrapper(this),Color.FIREBRICK));
-        playerList.add(new AI(new GameplayWrapper(this),Color.CORAL));
+        ResourceManager.getInstance().add("Background",new Texture("background.png"));
+        GraphicalEntity background=new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
+        background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
+        background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
+        background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
+        playerList.add(new defaultAI(new GameplayWrapper(this),Color.FIREBRICK));
+        playerList.add(new defaultAI(new GameplayWrapper(this),Color.GREEN));
+        entityManager.add(background);
         generateMap(10);
         addCellsAndBacteriasToEntityManager();
         for (Player player : playerList)
@@ -50,10 +59,10 @@ public class GameplayState extends GameState{
     }
 
     private void addCellsAndBacteriasToEntityManager() {
-        for (Cell cell : cellList)
-            entityManager.add(cell);
         for (Bacteria bacteria : bacteriaList)
             entityManager.add(bacteria);
+        for (Cell cell : cellList)
+            entityManager.add(cell);
     }
     protected void generateMap(int cellNumber){
         cellNumber/=2;

@@ -29,7 +29,7 @@ public class Cell extends GraphicalEntity{
         checkColor();
         bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setOriginCenter();
-        sprite.setScale(radius/sprite.getWidth());
+        sprite.setScale(radius*2/sprite.getWidth());
         sprite.setX(x-sprite.getWidth()/2);
         sprite.setY(y-sprite.getHeight()/2);
         bacteriaAmountText.label.setPosition(sprite.getX() + sprite.getWidth()/2 - bacteriaAmountText.label.getWidth()/2,
@@ -97,6 +97,6 @@ public class Cell extends GraphicalEntity{
         if (player != null)
             sprite.setColor(player.getColor());
         else
-            sprite.setColor(Color.CLEAR);
+            sprite.setColor(Color.WHITE);
     }
 }
