@@ -58,7 +58,7 @@ public class GameplayState extends GameState{
         }
     }
 
-    private void addCellsAndBacteriasToEntityManager() {
+    protected void addCellsAndBacteriasToEntityManager() {
         for (Bacteria bacteria : bacteriaList)
             entityManager.add(bacteria);
         for (Cell cell : cellList)

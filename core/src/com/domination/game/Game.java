@@ -11,6 +11,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.states.GameState;
 import com.domination.game.states.GameplayState;
+import com.domination.game.states.HumanGameplayState;
+
 import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
@@ -26,7 +28,7 @@ public class Game extends ApplicationAdapter {
 		ResourceManager.getInstance().add("Font",font25);
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		pushGameState(new GameplayState(this,batch));
+		pushGameState(new HumanGameplayState(this,batch));
 	}
 
 	@Override
