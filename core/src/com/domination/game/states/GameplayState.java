@@ -14,6 +14,7 @@ import com.domination.game.players.AI;
 import com.domination.game.players.Player;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 public class GameplayState extends GameState{
     List<Player> playerList = new ArrayList<Player>();
@@ -25,12 +26,11 @@ public class GameplayState extends GameState{
 
     @Override
     public void init() {
-        ResourceManager.getInstance().add("TestTexture",new Texture("badlogic.jpg"));
+        ResourceManager.getInstance().add("CellTexture",new Texture("cell.png"));
+        ResourceManager.getInstance().add("BacteriaTexture",new Texture("bacteria.png"));
         playerList.add(new AI(new GameplayWrapper(this),Color.FIREBRICK));
         playerList.add(new AI(new GameplayWrapper(this),Color.CORAL));
-        cellList.add(new Cell(playerList.get(0),450,Gdx.graphics.getHeight()-123,this.batch));
-        cellList.add(new Cell(null,250,Gdx.graphics.getHeight()-350,this.batch));
-        cellList.add(new Cell(playerList.get(1),350,Gdx.graphics.getHeight()-150,this.batch));
+        generateMap(10);
         addCellsAndBacteriasToEntityManager();
         for (Player player : playerList)
             if (player instanceof AI) {
@@ -55,7 +55,24 @@ public class GameplayState extends GameState{
         for (Bacteria bacteria : bacteriaList)
             entityManager.add(bacteria);
     }
+    protected void generateMap(int cellNumber){
+        cellNumber/=2;
+        Random random = new Random();
+        if(playerList.size()==2) {
+            int x=random.nextInt(Gdx.graphics.getWidth()/2),
+                y=random.nextInt(Gdx.graphics.getHeight());
+            float middleX=Gdx.graphics.getWidth()/2.f;
+            cellList.add(new Cell(playerList.get(0), middleX+x, y, this.batch));
+            cellList.add(new Cell(playerList.get(1), middleX-x, y, this.batch));
 
+            for (int i = 0; i < cellNumber-1; i++) {
+                x=random.nextInt(Gdx.graphics.getWidth()/2);
+                y=random.nextInt(Gdx.graphics.getHeight());
+                cellList.add(new Cell(null, middleX+x, y, this.batch));
+                cellList.add(new Cell(null, middleX-x, y, this.batch));
+            }
+        }
+    }
     public synchronized Boolean sendBacteria(Cell source, Cell destination, Player player) {
         if (source != null && destination != null && source.getPlayer() == player && source.getBacteriaAmount() > 1 && !source.isBroken() && !destination.isBroken()) {
             int sentBacteriaAmmount = source.handleOutgoingBacteria();

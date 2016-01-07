@@ -17,11 +17,12 @@ public class Bacteria extends GraphicalEntity {
     private double distanceX;
     private double distanceY;
     private double velocity;
+    private static final Integer radius = 50;
 
     private TextEntity amountText;
 
     public Bacteria(Player player, Cell source, Cell destination, int amount, SpriteBatch batch) {
-        super((Texture) ResourceManager.getInstance().get("TestTexture"), 80, 50, 30, 30, batch);
+        super((Texture) ResourceManager.getInstance().get("BacteriaTexture"), batch);
         this.player = player;
         this.amount = amount;
         amountText = new TextEntity(Integer.toString(amount),(BitmapFont) ResourceManager.getInstance().get("Font"), this.batch);
@@ -34,6 +35,7 @@ public class Bacteria extends GraphicalEntity {
 
         startTime = System.currentTimeMillis();
         endTime = calculateEndTime();
+        sprite.setScale(radius/sprite.getWidth());
     }
 
     double calculateEndTime() {
@@ -57,7 +59,7 @@ public class Bacteria extends GraphicalEntity {
         double newX = source.getX()+source.getWidth()/2-getWidth()/2 + distanceX * finishedPart;
         double newY = source.getY()+source.getHeight()/2-getHeight()/2 + distanceY * finishedPart;
         sprite.setPosition((float) newX, (float) newY);
-        amountText.label.setPosition(getX() + getWidth()/2.f - amountText.label.getWidth()/2.f,getY());
+        amountText.label.setPosition(getX() + sprite.getWidth()/2.f - amountText.label.getWidth()/2.f,sprite.getY()+sprite.getHeight()/2- amountText.label.getHeight()/2);
     }
 
     @Override

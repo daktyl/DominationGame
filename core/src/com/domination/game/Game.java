@@ -21,7 +21,7 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ChunkfiveEx.ttf"));
 		BitmapFont font25 = generator.generateFont(25);
-		font25.setColor(Color.BLACK);
+		font25.setColor(Color.BLUE);
 		generator.dispose();
 		ResourceManager.getInstance().add("Font",font25);
 		batch = new SpriteBatch();

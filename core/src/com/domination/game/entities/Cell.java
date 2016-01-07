@@ -12,14 +12,14 @@ import com.domination.game.engine.ResourceManager;
 public class Cell extends GraphicalEntity{
     private Integer bacteriaAmount;
     private TextEntity bacteriaAmountText;
-    private Integer radius = 35;
+    private static final Integer radius = 70;
     private Player player;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
     private Long lastUpdateTime = System.currentTimeMillis();
 
     public Cell(Player player, float x, float y, SpriteBatch batch) {
-        super((Texture)ResourceManager.getInstance().get("TestTexture"),100,100,50,50, batch);
+        super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
         this.player = player;
         if (player != null) {
             bacteriaAmount = 50;
@@ -28,13 +28,13 @@ public class Cell extends GraphicalEntity{
             bacteriaAmount = 10;
         checkColor();
         bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
-        sprite.setX(x);
-        sprite.setY(y);
-        bacteriaAmountText.label.setPosition(sprite.getX() + sprite.getWidth()/2 - bacteriaAmountText.label.getHeight()/2,
+        sprite.setOriginCenter();
+        sprite.setScale(radius/sprite.getWidth());
+        sprite.setX(x-sprite.getWidth()/2);
+        sprite.setY(y-sprite.getHeight()/2);
+        bacteriaAmountText.label.setPosition(sprite.getX() + sprite.getWidth()/2 - bacteriaAmountText.label.getWidth()/2,
                 sprite.getY() +sprite.getHeight() /2-bacteriaAmountText.label.getHeight()/2);
         bitmapFont = ResourceManager.getInstance().get("Font");
-        shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
-        shapeRenderer.setAutoShapeType(true);
     }
 
     @Override

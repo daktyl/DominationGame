@@ -24,17 +24,19 @@ public class AI extends Player {
     @Override
     public void run() {
         while (!this.isInterrupted()) {
-            Situation situation = gameplayWrapper.getCurrentSituation();
-            cellList = situation.cellList;
-            bacteriaList = situation.bacteriaList;
-            int from = random.nextInt(cellList.size());
-            int to = random.nextInt(cellList.size());
-            gameplayWrapper.sendBacteria(cellList.get(from),cellList.get(to),this);
+            int from,to;
+            do {
+                Situation situation = gameplayWrapper.getCurrentSituation();
+                cellList = situation.cellList;
+                bacteriaList = situation.bacteriaList;
+                from = random.nextInt(cellList.size());
+                to = random.nextInt(cellList.size());
+            }while (!gameplayWrapper.sendBacteria(cellList.get(from),cellList.get(to),this));
             try  {
                 synchronized (this) { wait(random.nextInt(5000)); }
             }
             catch (InterruptedException e){
-                Gdx.app.log("Player","Finished");
+                Gdx.app.log("Player","Interrupted");
             }
         }
     }
