@@ -32,9 +32,15 @@ public class GraphicalEntity extends Entity {
 
     public float getWidth() { return sprite.getWidth(); }
 
-    public float getHeight() { return sprite.getHeight(); }
+    public float getScaledWidth() { return sprite.getWidth()*sprite.getScaleX(); }
 
-    public float getCenterX() { return (sprite.getX() + sprite.getWidth()) / 2; }
+    public float getScaledHeight() { return sprite.getHeight()*sprite.getScaleY(); }
 
-    public float getCenterY() { return (sprite.getY() + sprite.getHeight()) / 2; }
+    public float getCenterX() { return sprite.getX()+getScaledWidth()/2; }
+
+    public float getCenterY() { return sprite.getY()+getScaledHeight()/2; }
+
+    public void setPositionCenter(float positionX, float positionY){
+        sprite.setPosition(positionX-getScaledWidth()/2,positionY-getScaledHeight()/2);
+    }
 }

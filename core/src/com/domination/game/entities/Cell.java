@@ -12,7 +12,7 @@ import com.domination.game.engine.ResourceManager;
 public class Cell extends GraphicalEntity{
     private Integer bacteriaAmount;
     private TextEntity bacteriaAmountText;
-    private static final Integer radius = 70;
+    public static final Integer radius = 75;
     private Player player;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
@@ -28,12 +28,11 @@ public class Cell extends GraphicalEntity{
             bacteriaAmount = 10;
         checkColor();
         bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
-        sprite.setOriginCenter();
+        sprite.setOrigin(0,0);
         sprite.setScale(radius*2/sprite.getWidth());
-        sprite.setX(x-sprite.getWidth()/2);
-        sprite.setY(y-sprite.getHeight()/2);
-        bacteriaAmountText.label.setPosition(sprite.getX() + sprite.getWidth()/2 - bacteriaAmountText.label.getWidth()/2,
-                sprite.getY() +sprite.getHeight() /2-bacteriaAmountText.label.getHeight()/2);
+        sprite.setX(x-radius);
+        sprite.setY(y-radius);
+        bacteriaAmountText.label.setPosition(getCenterX()-bacteriaAmountText.label.getWidth()/2,getCenterY()-bacteriaAmountText.label.getHeight()/2);
         bitmapFont = ResourceManager.getInstance().get("Font");
     }
 
@@ -45,6 +44,7 @@ public class Cell extends GraphicalEntity{
                 bacteriaAmount++;
             }
         }
+        bacteriaAmountText.label.setPosition(getCenterX()-bacteriaAmountText.label.getWidth()/2,getCenterY()-bacteriaAmountText.label.getHeight()/2);
         bacteriaAmountText.label.setText(bacteriaAmount.toString());
     }
 
@@ -98,5 +98,14 @@ public class Cell extends GraphicalEntity{
             sprite.setColor(player.getColor());
         else
             sprite.setColor(Color.WHITE);
+    }
+    public boolean isOnCell(int positionX,int positionY){
+        return radius*radius>((positionX-getCenterX())*(positionX-getCenterX())+(positionY-getCenterY())*(positionY-getCenterY()));
+    }
+    public void glow(){
+        sprite.setTexture((Texture) ResourceManager.getInstance().get("CellGlow"));
+    }
+    public void dim(){
+        sprite.setTexture((Texture)ResourceManager.getInstance().get("CellTexture"));
     }
 }

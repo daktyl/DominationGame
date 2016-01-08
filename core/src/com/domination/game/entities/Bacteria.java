@@ -17,7 +17,7 @@ public class Bacteria extends GraphicalEntity {
     private double distanceX;
     private double distanceY;
     private double velocity;
-    private static final Integer radius = 900;
+    private static final Integer radius = 25;
 
     private TextEntity amountText;
 
@@ -30,11 +30,12 @@ public class Bacteria extends GraphicalEntity {
         this.destination = destination;
         velocity = 100;
         sprite.setColor(player.getColor());
-        distanceX = destination.getX() - source.getX();
-        distanceY = destination.getY() - source.getY();
+        distanceX = destination.getCenterX() - source.getCenterX();
+        distanceY = destination.getCenterY() - source.getCenterY();
 
         startTime = System.currentTimeMillis();
         endTime = calculateEndTime();
+        sprite.setOrigin(0,0);
         sprite.setScale(radius*2/sprite.getWidth());
     }
 
@@ -51,15 +52,14 @@ public class Bacteria extends GraphicalEntity {
         long currTime = System.currentTimeMillis();
         if (currTime >= endTime) {
             isBroken = true;
-            // REMOVE LATER:
             destination.handleIncomingBacteria(this);
             return;
         }
         double finishedPart = (currTime - startTime) / (endTime - startTime);
-        double newX = source.getX()+source.getWidth()/2-getWidth()/2 + distanceX * finishedPart;
-        double newY = source.getY()+source.getHeight()/2-getHeight()/2 + distanceY * finishedPart;
-        sprite.setPosition((float) newX, (float) newY);
-        amountText.label.setPosition(getX() + sprite.getWidth()/2.f - amountText.label.getWidth()/2.f,sprite.getY()+sprite.getHeight()/2- amountText.label.getHeight()/2);
+        double newX = source.getCenterX() + distanceX * finishedPart;
+        double newY = source.getCenterY()+ distanceY * finishedPart;
+        setPositionCenter((float) newX,(float) newY);
+        amountText.label.setPosition(getCenterX() - amountText.label.getWidth()/2.f,getCenterY()- amountText.label.getHeight()/2);
     }
 
     @Override

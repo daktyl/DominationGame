@@ -32,6 +32,7 @@ public class GameplayState extends GameState{
         ResourceManager.getInstance().add("CellTexture",new Texture("cellhd.png"));
         ResourceManager.getInstance().add("BacteriaTexture",new Texture("bacteria.png"));
         ResourceManager.getInstance().add("Background",new Texture("background.png"));
+        ResourceManager.getInstance().add("CellGlow",new Texture("cellglow.png"));
         GraphicalEntity background=new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
         background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
         background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
@@ -68,15 +69,15 @@ public class GameplayState extends GameState{
         cellNumber/=2;
         Random random = new Random();
         if(playerList.size()==2) {
-            int x=random.nextInt(Gdx.graphics.getWidth()/2),
-                y=random.nextInt(Gdx.graphics.getHeight());
+            int x=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius,
+                y=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
             float middleX=Gdx.graphics.getWidth()/2.f;
             cellList.add(new Cell(playerList.get(0), middleX+x, y, this.batch));
             cellList.add(new Cell(playerList.get(1), middleX-x, y, this.batch));
 
             for (int i = 0; i < cellNumber-1; i++) {
-                x=random.nextInt(Gdx.graphics.getWidth()/2);
-                y=random.nextInt(Gdx.graphics.getHeight());
+                x=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius;
+                y=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
                 cellList.add(new Cell(null, middleX+x, y, this.batch));
                 cellList.add(new Cell(null, middleX-x, y, this.batch));
             }
@@ -105,5 +106,15 @@ public class GameplayState extends GameState{
             case Input.Keys.SPACE:
         }
         return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        for(Cell c : cellList)
+            if(c.isOnCell(screenX,Gdx.graphics.getHeight()-screenY))
+                c.glow();
+            else
+                c.dim();
+        return true;
     }
 }
