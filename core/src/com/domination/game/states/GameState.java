@@ -20,7 +20,10 @@ public abstract class GameState implements InputProcessor {
 
     public void cleanUp() { entityManager.removeAll(); }
 
-    public void draw() { entityManager.drawAll(); }
+    public void draw() {
+        batch.begin();
+        entityManager.drawAll();
+        batch.end(); }
 
     @Override
     public boolean keyDown(int keycode) {
