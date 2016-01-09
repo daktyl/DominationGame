@@ -16,7 +16,7 @@ public class Bacteria extends GraphicalEntity {
     private double endTime;
     private double distanceX;
     private double distanceY;
-    private double velocity;
+    private double velocity; // pixels per second
     private static final Integer radius = 25;
 
     private TextEntity amountText;

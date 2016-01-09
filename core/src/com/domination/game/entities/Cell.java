@@ -16,7 +16,11 @@ public class Cell extends GraphicalEntity{
     private Player player;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
-    private Long lastUpdateTime = System.currentTimeMillis();
+    private Long lastGrowingTime = System.currentTimeMillis();
+    private Long lastMovingTime = System.currentTimeMillis();
+
+    private float targetCenterX;
+    private float targetCenterY;
 
     public Cell(Player player, float x, float y, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
@@ -30,22 +34,42 @@ public class Cell extends GraphicalEntity{
         amountText = new TextEntity(Integer.toString(amount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setOrigin(0,0);
         sprite.setScale(radius*2/sprite.getWidth());
-        sprite.setX(x-radius);
-        sprite.setY(y-radius);
+        targetCenterX = x;
+        targetCenterY = y;
+        setPositionCenter(x,y);
         amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
         bitmapFont = ResourceManager.getInstance().get("Font");
     }
 
     @Override
     public void update() {
-        if(System.currentTimeMillis()>lastUpdateTime+1000) {
-            lastUpdateTime += 1000;
+
+        Long currentTime = System.currentTimeMillis();
+        if(currentTime - lastGrowingTime > 1000) {
+            lastGrowingTime += 1000;
             if (amount < 100 && player != null) {
                 amount++;
             }
         }
+
+        moveToTargetPosition(currentTime,10);
+
         amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
         amountText.label.setText(amount.toString());
+
+    }
+
+    private void moveToTargetPosition(Long currentTime, float movingTimeSec){
+        if(currentTime - lastMovingTime > 10) { // once per 1/100 sec
+            lastMovingTime += 10;
+            Float distanceX = targetCenterX - getCenterX();
+            Float distanceY = targetCenterY - getCenterY();
+            if (distanceX != 0 || distanceY != 0) {
+                float nextCenterX = getCenterX() + distanceX / (10 * movingTimeSec);
+                float nextCenterY = getCenterY() + distanceY / (10 * movingTimeSec);
+                setPositionCenter(nextCenterX, nextCenterY);
+            }
+        }
     }
 
     @Override
@@ -79,15 +103,16 @@ public class Cell extends GraphicalEntity{
         int screenWidth = Gdx.graphics.getWidth();
         int screenHeight = Gdx.graphics.getHeight();
         int amount = bacteria.getAmount();
-//        float relation = (float)amount / (float)this.getAmount();
+        float relation = amount / 1000f;
 
-        float nextX = getCenterX() + amount*(float)bacteria.getDistanceX()/1000f;
-        float nextY = getCenterY() + amount*(float)bacteria.getDistanceY()/1000f;
-        if (nextX < getScaledWidth()/2 ) nextX = getScaledWidth()/2;
-        if (nextX > screenWidth - getScaledWidth()/2) nextX = screenWidth - getScaledWidth()/2;
-        if (nextY < getScaledHeight()/2) nextY = getScaledHeight()/2;
-        if (nextY > screenHeight - getScaledHeight()/2) nextY = screenHeight - getScaledHeight()/2;
-        setPositionCenter( nextX, nextY);
+        float nextCenterX = targetCenterX + relation*(float)bacteria.getDistanceX();
+        float nextCenterY = targetCenterY + relation*(float)bacteria.getDistanceY();
+        if (nextCenterX < getScaledWidth()/2 ) nextCenterX = getScaledWidth()/2;
+        if (nextCenterX > screenWidth - getScaledWidth()/2) nextCenterX = screenWidth - getScaledWidth()/2;
+        if (nextCenterY < getScaledHeight()/2) nextCenterY = getScaledHeight()/2;
+        if (nextCenterY > screenHeight - getScaledHeight()/2) nextCenterY = screenHeight - getScaledHeight()/2;
+        targetCenterX = nextCenterX;
+        targetCenterY = nextCenterY;
     }
 
     public Integer getBacteriaAmount() {
