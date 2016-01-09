@@ -17,8 +17,9 @@ public class Cell extends GraphicalEntity{
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
     private Long lastGrowingTime = System.currentTimeMillis();
+    private Long lastUpdateTime = System.currentTimeMillis();
     private Long lastMovingTime = System.currentTimeMillis();
-
+    private Color freeCellColor = new Color(1f,1f,1f,0.5f);
     private float targetCenterX;
     private float targetCenterY;
 
@@ -81,8 +82,10 @@ public class Cell extends GraphicalEntity{
     public void handleIncomingBacteria(Bacteria bacteria) {
         Integer amount = bacteria.getAmount();
         Player owner = bacteria.getSource().player;
-        if (player == bacteria.getSource().player)
-            this.amount +=amount;
+        if (player == bacteria.getSource().player) {
+            bacteriaAmount += amount;
+            bacteriaAmount %= 100;
+        }
         else {
             if (this.amount > amount)
                 this.amount -= amount;
@@ -141,7 +144,7 @@ public class Cell extends GraphicalEntity{
         if (player != null)
             sprite.setColor(player.getColor());
         else
-            sprite.setColor(Color.WHITE);
+            sprite.setColor(freeCellColor);
     }
     public boolean isOnCell(int positionX,int positionY){
         return radius*radius>((positionX-getCenterX())*(positionX-getCenterX())+(positionY-getCenterY())*(positionY-getCenterY()));

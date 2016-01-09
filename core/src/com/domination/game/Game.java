@@ -11,8 +11,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.states.GameState;
 import com.domination.game.states.GameplayState;
+import com.domination.game.states.MenuState;
 import com.domination.game.states.Pause;
-
 import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
@@ -28,19 +28,18 @@ public class Game extends ApplicationAdapter {
 		ResourceManager.getInstance().add("Font",font25);
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		pushGameState(new GameplayState(this,batch));
+		pushGameState(new MenuState(this,batch));
 	}
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 0.5f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		batch.begin();
+
 		if (!gameStatesStack.empty()) {
 			gameStatesStack.peek().update();
 			gameStatesStack.peek().draw();
 		}
-		batch.end();
+
 	}
 
 	public void pushGameState(GameState state){
@@ -53,5 +52,6 @@ public class Game extends ApplicationAdapter {
 		gameStatesStack.peek().cleanUp();
 		gameStatesStack.pop();
 		if(gameStatesStack.empty()) Gdx.app.exit();
+		else Gdx.input.setInputProcessor(gameStatesStack.peek());
 	}
 }
