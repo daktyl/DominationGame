@@ -28,39 +28,24 @@ public class HumanGameplayState extends GameplayState {
     private HumanPlayer human;
 
     @Override
-    public void init() {
-        ResourceManager.getInstance().add("CellTexture", new Texture("cellhd.png"));
-        ResourceManager.getInstance().add("BacteriaTexture", new Texture("bacteria.png"));
-        ResourceManager.getInstance().add("Background", new Texture("background.png"));
-        GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"), batch);
-        background.sprite.setScale(Gdx.graphics.getWidth() / background.sprite.getWidth(), Gdx.graphics.getHeight() / background.sprite.getHeight());
-        background.sprite.setX(-background.sprite.getWidth() / 2 + Gdx.graphics.getWidth() / 2);
-        background.sprite.setY(-background.sprite.getHeight() / 2 + Gdx.graphics.getHeight() / 2);
-        entityManager.add(background);
-        human = new HumanPlayer(Color.YELLOW);
-        playerList.add(human);
-        playerList.add(new HumanPlayer(Color.BLUE));
-        generateMap(10);
-        addCellsAndBacteriasToEntityManager();
-    }
-
-    @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        System.out.println(screenX);
+        System.out.println(Gdx.graphics.getHeight() - screenY);
+        System.out.println();
         if (button == Input.Buttons.LEFT) {
             for (Cell cell : cellList) {
-                if (current_cell == null && cell.isOnCell(screenX, screenY)) {
-
+                if (current_cell == null && cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY)) {
                     current_cell = cell;
-//                    cell.glow();
+                    cell.glow();
                     break;
                 } else if (current_cell == cell) {
                     current_cell = null;
-//                    cell.dim();
+                    cell.dim();
                     break;
                 } else {
                     sendBacteria(current_cell, cell, human);
                     current_cell = null;
-//                    cell.dim();
+                    cell.dim();
                     break;
                 }
             }
@@ -68,5 +53,15 @@ public class HumanGameplayState extends GameplayState {
         }
             return true;
     }
+
+//    @Override
+//    public boolean mouseMoved(int screenX, int screenY) {
+//        for(Cell c : cellList)
+//            if(c.isOnCell(screenX,Gdx.graphics.getHeight()-screenY))
+//                c.glow();
+//            else
+//                c.dim();
+//        return true;
+//    }
 
 }
