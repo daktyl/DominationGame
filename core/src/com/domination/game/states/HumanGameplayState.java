@@ -13,6 +13,7 @@ import com.domination.game.entities.GraphicalEntity;
 import com.domination.game.players.HumanPlayer;
 import com.domination.game.players.Player;
 import com.badlogic.gdx.graphics.Color;
+import com.domination.game.players.defaultAI;
 
 
 /**
@@ -26,6 +27,13 @@ public class HumanGameplayState extends GameplayState {
 
     private Cell current_cell = null;
     private HumanPlayer human;
+
+    @Override
+    protected void setPlayers() {
+        human=new HumanPlayer(Color.FIREBRICK);
+        playerList.add(human);
+        playerList.add(new HumanPlayer(Color.GREEN));
+    }
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
