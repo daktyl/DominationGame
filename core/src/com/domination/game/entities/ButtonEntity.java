@@ -1,15 +1,23 @@
 package com.domination.game.entities;
 
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
-import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 public class ButtonEntity extends Entity {
-    public Button button;
 
-    public ButtonEntity(Drawable up, Drawable down, Drawable checked, SpriteBatch batch) {
+    public TextButton button;
+    TextButton.TextButtonStyle textButtonStyle;
+    BitmapFont font;
+    Skin skin;
+    TextureAtlas buttonAtlas;
+
+    public ButtonEntity(String label, SpriteBatch batch) {
         super(batch);
-        button = new Button(up, down, checked);
+        textButtonStyle = new TextButton.TextButtonStyle();
+        //textButtonStyle.up =
     }
 
     @Override
