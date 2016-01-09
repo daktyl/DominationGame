@@ -5,6 +5,7 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
+import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -26,6 +27,10 @@ public class Game extends ApplicationAdapter {
 		font25.setColor(Color.BLUE);
 		generator.dispose();
 		ResourceManager.getInstance().add("Font",font25);
+		ResourceManager.getInstance().add("CellTexture",new Texture("cellhd.png"));
+		ResourceManager.getInstance().add("BacteriaTexture",new Texture("bacteria.png"));
+		ResourceManager.getInstance().add("Background",new Texture("background.png"));
+		ResourceManager.getInstance().add("CellGlow",new Texture("cellglow.png"));
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		pushGameState(new MenuState(this,batch));

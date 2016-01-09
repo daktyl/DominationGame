@@ -29,10 +29,6 @@ public class GameplayState extends GameState{
 
     @Override
     public void init() {
-        ResourceManager.getInstance().add("CellTexture",new Texture("cellhd.png"));
-        ResourceManager.getInstance().add("BacteriaTexture",new Texture("bacteria.png"));
-        ResourceManager.getInstance().add("Background",new Texture("background.png"));
-        ResourceManager.getInstance().add("CellGlow",new Texture("cellglow.png"));
         GraphicalEntity background=new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
         background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
         background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
