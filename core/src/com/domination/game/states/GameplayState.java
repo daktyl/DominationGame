@@ -108,13 +108,13 @@ public class GameplayState extends GameState{
         return false;
     }
 
-    @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        for(Cell c : cellList)
-            if(c.isOnCell(screenX,Gdx.graphics.getHeight()-screenY))
-                c.glow();
-            else
-                c.dim();
-        return true;
-    }
+//    @Override
+//    public boolean mouseMoved(int screenX, int screenY) {
+//        for(Cell c : cellList)
+//            if(c.isOnCell(screenX,Gdx.graphics.getHeight()-screenY))
+//                c.glow();
+//            else
+//                c.dim();
+//        return true;
+//    }
 }
