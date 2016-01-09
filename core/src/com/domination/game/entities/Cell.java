@@ -1,8 +1,8 @@
 package com.domination.game.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,8 +10,8 @@ import com.domination.game.players.Player;
 import com.domination.game.engine.ResourceManager;
 
 public class Cell extends GraphicalEntity{
-    private Integer bacteriaAmount;
-    private TextEntity bacteriaAmountText;
+    private Integer amount;
+    private TextEntity amountText;
     public static final Integer radius = 75;
     private Player player;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
@@ -22,17 +22,17 @@ public class Cell extends GraphicalEntity{
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
         this.player = player;
         if (player != null) {
-            bacteriaAmount = 50;
+            amount = 50;
         }
         else
-            bacteriaAmount = 10;
+            amount = 10;
         checkColor();
-        bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
+        amountText = new TextEntity(Integer.toString(amount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setOrigin(0,0);
         sprite.setScale(radius*2/sprite.getWidth());
         sprite.setX(x-radius);
         sprite.setY(y-radius);
-        bacteriaAmountText.label.setPosition(getCenterX()-bacteriaAmountText.label.getWidth()/2,getCenterY()-bacteriaAmountText.label.getHeight()/2);
+        amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
         bitmapFont = ResourceManager.getInstance().get("Font");
     }
 
@@ -40,49 +40,68 @@ public class Cell extends GraphicalEntity{
     public void update() {
         if(System.currentTimeMillis()>lastUpdateTime+1000) {
             lastUpdateTime += 1000;
-            if (bacteriaAmount < 100 && player != null) {
-                bacteriaAmount++;
+            if (amount < 100 && player != null) {
+                amount++;
             }
         }
-        bacteriaAmountText.label.setPosition(getCenterX()-bacteriaAmountText.label.getWidth()/2,getCenterY()-bacteriaAmountText.label.getHeight()/2);
-        bacteriaAmountText.label.setText(bacteriaAmount.toString());
+        amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
+        amountText.label.setText(amount.toString());
     }
 
     @Override
     public void draw() {
         super.draw();
-        bacteriaAmountText.draw();
+        amountText.draw();
     }
 
     public void handleIncomingBacteria(Bacteria bacteria) {
         Integer amount = bacteria.getAmount();
         Player owner = bacteria.getSource().player;
         if (player == bacteria.getSource().player)
-            bacteriaAmount +=amount;
+            this.amount +=amount;
         else {
-            if (bacteriaAmount > amount)
-                bacteriaAmount -= amount;
-            else if (bacteriaAmount < amount){
-                bacteriaAmount = amount - bacteriaAmount;
+            if (this.amount > amount)
+                this.amount -= amount;
+            else if (this.amount < amount){
+                this.amount = amount - this.amount;
                 player = owner;
             }
             else {
-                bacteriaAmount = 0;
+                this.amount = 0;
                 player = null;
             }
-
         }
+        moveCellWithBacteria(bacteria);
         checkColor();
     }
 
-    public Integer handleOutgoingBacteria() {
-        int outgoingAmount = Math.floorDiv(bacteriaAmount,2);
-        bacteriaAmount = (int) Math.ceil((double)bacteriaAmount/2.f);
-        return outgoingAmount;
+    private void moveCellWithBacteria(Bacteria bacteria) {
+        int screenWidth = Gdx.graphics.getWidth();
+        int screenHeight = Gdx.graphics.getHeight();
+        int amount = bacteria.getAmount();
+//        float relation = (float)amount / (float)this.getAmount();
+
+        float nextX = getCenterX() + amount*(float)bacteria.getDistanceX()/1000f;
+        float nextY = getCenterY() + amount*(float)bacteria.getDistanceY()/1000f;
+        if (nextX < getScaledWidth()/2 ) nextX = getScaledWidth()/2;
+        if (nextX > screenWidth - getScaledWidth()/2) nextX = screenWidth - getScaledWidth()/2;
+        if (nextY < getScaledHeight()/2) nextY = getScaledHeight()/2;
+        if (nextY > screenHeight - getScaledHeight()/2) nextY = screenHeight - getScaledHeight()/2;
+        setPositionCenter( nextX, nextY);
     }
 
     public Integer getBacteriaAmount() {
-        return bacteriaAmount;
+        int outgoingAmount = Math.floorDiv(amount,2);
+        return outgoingAmount;
+    }
+
+    public void handleOutgoingBacteria(Bacteria bacteria) {
+        amount = amount - bacteria.getAmount();
+        moveCellWithBacteria(bacteria);
+    }
+
+    public Integer getAmount() {
+        return amount;
     }
 
     public Integer getRadius() {

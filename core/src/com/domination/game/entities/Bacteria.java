@@ -55,6 +55,8 @@ public class Bacteria extends GraphicalEntity {
             destination.handleIncomingBacteria(this);
             return;
         }
+        distanceX = destination.getCenterX() - source.getCenterX();
+        distanceY = destination.getCenterY() - source.getCenterY();
         double finishedPart = (currTime - startTime) / (endTime - startTime);
         double newX = source.getCenterX() + distanceX * finishedPart;
         double newY = source.getCenterY()+ distanceY * finishedPart;

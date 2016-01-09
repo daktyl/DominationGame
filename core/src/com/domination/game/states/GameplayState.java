@@ -84,9 +84,9 @@ public class GameplayState extends GameState{
         }
     }
     public synchronized Boolean sendBacteria(Cell source, Cell destination, Player player) {
-        if (source != null && destination != null && source.getPlayer() == player && source.getBacteriaAmount() > 1 && !source.isBroken() && !destination.isBroken()) {
-            int sentBacteriaAmmount = source.handleOutgoingBacteria();
-            Bacteria bacteria = new Bacteria(player, source, destination, sentBacteriaAmmount, batch);
+        if (source != null && destination != null && source.getPlayer() == player && source.getAmount() > 1 && !source.isBroken() && !destination.isBroken()) {
+            Bacteria bacteria = new Bacteria(player, source, destination, source.getBacteriaAmount(), batch);
+            source.handleOutgoingBacteria(bacteria);
             entityManager.add(bacteria);
             return true;
         }

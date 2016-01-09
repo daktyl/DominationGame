@@ -11,7 +11,7 @@ public class FakeCell {
     public float centerY;
 
     public FakeCell(Cell cell) {
-        this.bacteriaAmount = cell.getBacteriaAmount();
+        this.bacteriaAmount = cell.getAmount();
         this.radius = cell.getRadius();
         this.player = cell.getPlayer();
         this.centerX = cell.getCenterX();
