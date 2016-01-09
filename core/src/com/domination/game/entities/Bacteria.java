@@ -19,6 +19,9 @@ public class Bacteria extends GraphicalEntity {
     private double velocity; // pixels per second
     private static final Integer radius = 25;
 
+    private float startCenterX;
+    private float startCenterY;
+
     private TextEntity amountText;
 
     public Bacteria(Player player, Cell source, Cell destination, int amount, SpriteBatch batch) {
@@ -32,7 +35,8 @@ public class Bacteria extends GraphicalEntity {
         sprite.setColor(player.getColor());
         distanceX = destination.getCenterX() - source.getCenterX();
         distanceY = destination.getCenterY() - source.getCenterY();
-
+        startCenterX = source.getCenterX();
+        startCenterY = source.getCenterY();
         startTime = System.currentTimeMillis();
         endTime = calculateEndTime();
         sprite.setOrigin(0,0);
@@ -55,11 +59,11 @@ public class Bacteria extends GraphicalEntity {
             destination.handleIncomingBacteria(this);
             return;
         }
-        distanceX = destination.getCenterX() - source.getCenterX();
-        distanceY = destination.getCenterY() - source.getCenterY();
+        distanceX = destination.getCenterX() - startCenterX;
+        distanceY = destination.getCenterY() - startCenterY;
         double finishedPart = (currTime - startTime) / (endTime - startTime);
-        double newX = source.getCenterX() + distanceX * finishedPart;
-        double newY = source.getCenterY()+ distanceY * finishedPart;
+        double newX = startCenterX + distanceX * finishedPart;
+        double newY = startCenterY + distanceY * finishedPart;
         setPositionCenter((float) newX,(float) newY);
         amountText.label.setPosition(getCenterX() - amountText.label.getWidth()/2.f,getCenterY()- amountText.label.getHeight()/2);
     }
