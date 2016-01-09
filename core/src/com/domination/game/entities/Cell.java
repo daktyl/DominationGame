@@ -153,4 +153,8 @@ public class Cell extends GraphicalEntity{
     public void dim(){
         sprite.setTexture((Texture)ResourceManager.getInstance().get("CellTexture"));
     }
+    public void stopMoving(){
+        targetCenterX = getCenterX();
+        targetCenterY = getCenterY();
+    }
 }

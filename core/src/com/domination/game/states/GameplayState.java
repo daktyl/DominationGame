@@ -53,6 +53,11 @@ public class GameplayState extends GameState{
                 bacteriaList.remove(bacteria);
             }
         }
+        for (Cell cell : cellList){
+            if (checkCollisionWithOtherCells(cell)) {
+                cell.stopMoving();
+            }
+        }
     }
 
     private void addCellsAndBacteriasToEntityManager() {
@@ -85,10 +90,21 @@ public class GameplayState extends GameState{
         }
     }
 
-    public Boolean checkCollisionWithAllCells(float x, float y){
+    private Boolean checkCollisionWithAllCells(float x, float y){
         for (Cell cell : cellList) {
             float distance = (float) Math.sqrt(Math.pow(cell.getCenterX() - x,2) + Math.pow(cell.getCenterY() - y,2));
             if (distance <= 2 * cell.getRadius())
+                return true;
+        }
+        return false;
+    }
+    private Boolean checkCollisionWithOtherCells(Cell cell){
+        float x = cell.getCenterX();
+        float y = cell.getCenterY();
+        for (Cell secondCell : cellList) {
+            if (cell == secondCell) continue;
+            float distance = (float) Math.sqrt(Math.pow(secondCell.getCenterX() - x,2) + Math.pow(secondCell.getCenterY() - y,2));
+            if (distance <= 2 * secondCell.getRadius())
                 return true;
         }
         return false;

@@ -19,4 +19,5 @@ public abstract class Entity {
     public boolean isBroken() {
         return isBroken;
     }
+
 }
