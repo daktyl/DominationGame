@@ -37,7 +37,7 @@ public class MenuState extends GameState {
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setAutoShapeType(true);
         ResourceManager.getInstance().add("font50", font50);
-        ResourceManager.getInstance().add("Logo", new Texture("finalshowcase.png"));
+        ResourceManager.getInstance().add("Logo", new Texture("menu.png"));
         GraphicalEntity test = new GraphicalEntity((Texture)ResourceManager.getInstance().get("Logo"), this.batch);
         entityManager.add(test);
         TextEntity test1 = new TextEntity("Play", font50, this.batch);

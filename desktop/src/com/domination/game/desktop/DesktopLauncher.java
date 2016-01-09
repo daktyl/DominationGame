@@ -7,9 +7,9 @@ import com.domination.game.Game;
 public class DesktopLauncher {
 	public static void main (String[] arg) {
 		LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
-		config.fullscreen=true;
-		config.width=1920;
-		config.height=1080;
+		config.fullscreen=false;
+		config.width=1280;
+		config.height=720;
 		config.useGL30=true;
 		config.x=0;
 		config.y=0;
