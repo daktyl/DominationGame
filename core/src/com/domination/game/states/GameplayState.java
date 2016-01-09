@@ -65,20 +65,35 @@ public class GameplayState extends GameState{
         cellNumber/=2;
         Random random = new Random();
         if(playerList.size()==2) {
-            int x=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius,
-                y=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
-            float middleX=Gdx.graphics.getWidth()/2.f;
-            cellList.add(new Cell(playerList.get(0), middleX+x, y, this.batch));
-            cellList.add(new Cell(playerList.get(1), middleX-x, y, this.batch));
+            int middleX,middleY;
+            float mapCenterX=Gdx.graphics.getWidth()/2.f;
 
-            for (int i = 0; i < cellNumber-1; i++) {
-                x=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius;
-                y=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
-                cellList.add(new Cell(null, middleX+x, y, this.batch));
-                cellList.add(new Cell(null, middleX-x, y, this.batch));
+            middleX=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius;
+            middleY=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
+            cellList.add(new Cell(playerList.get(0), mapCenterX+middleX, middleY, this.batch));
+            cellList.add(new Cell(playerList.get(1), mapCenterX-middleX, middleY, this.batch));
+            int i=0;
+            while (i < cellNumber - 1) {
+                middleX=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius;
+                middleY=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
+                if (! checkCollisionWithAllCells(mapCenterX + middleX,middleY)){
+                    cellList.add(new Cell(null, mapCenterX+middleX, middleY, this.batch));
+                    cellList.add(new Cell(null, mapCenterX-middleX, middleY, this.batch));
+                    i++;
+                }
             }
         }
     }
+
+    public Boolean checkCollisionWithAllCells(float x, float y){
+        for (Cell cell : cellList) {
+            float distance = (float) Math.sqrt(Math.pow(cell.getCenterX() - x,2) + Math.pow(cell.getCenterY() - y,2));
+            if (distance <= 2 * cell.getRadius())
+                return true;
+        }
+        return false;
+    }
+
     public synchronized Boolean sendBacteria(Cell source, Cell destination, Player player) {
         if (source != null && destination != null && source.getPlayer() == player && source.getAmount() > 1 && !source.isBroken() && !destination.isBroken()) {
             Bacteria bacteria = new Bacteria(player, source, destination, source.getBacteriaAmount(), batch);

@@ -17,7 +17,6 @@ public class Cell extends GraphicalEntity{
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
     private Long lastGrowingTime = System.currentTimeMillis();
-    private Long lastUpdateTime = System.currentTimeMillis();
     private Long lastMovingTime = System.currentTimeMillis();
     private Color freeCellColor = new Color(1f,1f,1f,0.5f);
     private float targetCenterX;
