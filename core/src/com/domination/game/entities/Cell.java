@@ -83,8 +83,8 @@ public class Cell extends GraphicalEntity{
         Integer amount = bacteria.getAmount();
         Player owner = bacteria.getSource().player;
         if (player == bacteria.getSource().player) {
-            bacteriaAmount += amount;
-            bacteriaAmount %= 100;
+            this.amount += amount;
+            this.amount %= 100;
         }
         else {
             if (this.amount > amount)
@@ -119,8 +119,7 @@ public class Cell extends GraphicalEntity{
     }
 
     public Integer getBacteriaAmount() {
-        int outgoingAmount = Math.floorDiv(amount,2);
-        return outgoingAmount;
+        return Math.floorDiv(amount,2);
     }
 
     public void handleOutgoingBacteria(Bacteria bacteria) {
