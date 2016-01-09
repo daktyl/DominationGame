@@ -16,6 +16,7 @@ public class Cell extends GraphicalEntity{
     private Player player;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
+    private Color freeCellColor =new Color(1f,1f,1f,0.5f);
     private Long lastUpdateTime = System.currentTimeMillis();
 
     public Cell(Player player, float x, float y, SpriteBatch batch) {
@@ -57,8 +58,10 @@ public class Cell extends GraphicalEntity{
     public void handleIncomingBacteria(Bacteria bacteria) {
         Integer amount = bacteria.getAmount();
         Player owner = bacteria.getSource().player;
-        if (player == bacteria.getSource().player)
-            bacteriaAmount +=amount;
+        if (player == bacteria.getSource().player) {
+            bacteriaAmount += amount;
+            bacteriaAmount %= 100;
+        }
         else {
             if (bacteriaAmount > amount)
                 bacteriaAmount -= amount;
@@ -97,6 +100,6 @@ public class Cell extends GraphicalEntity{
         if (player != null)
             sprite.setColor(player.getColor());
         else
-            sprite.setColor(Color.WHITE);
+            sprite.setColor(freeCellColor);
     }
 }

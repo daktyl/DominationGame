@@ -33,7 +33,6 @@ public class Game extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		Gdx.gl.glClearColor(1, 0, 0, 0.5f);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		if (!gameStatesStack.empty()) {
@@ -52,7 +51,7 @@ public class Game extends ApplicationAdapter {
 	public  void popGameState(){
 		gameStatesStack.peek().cleanUp();
 		gameStatesStack.pop();
-		Gdx.input.setInputProcessor(gameStatesStack.peek());
 		if(gameStatesStack.empty()) Gdx.app.exit();
+		else Gdx.input.setInputProcessor(gameStatesStack.peek());
 	}
 }
