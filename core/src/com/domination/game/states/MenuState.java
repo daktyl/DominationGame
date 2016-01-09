@@ -25,8 +25,7 @@ public class MenuState extends GameState {
     }
     public List<TextEntity> textList = new ArrayList<TextEntity>();
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private int menuset;
-    private int isset;
+    private int menuset = 2;
 
     @Override
     public void init() {
@@ -59,15 +58,11 @@ public class MenuState extends GameState {
                     Gdx.app.debug("KeyDown", "Esc");
                     return true;
                 case Input.Keys.UP:
-                    if (isset == 1)
-                    menuset --;
-                    isset = 0;
+                    menuset = 0;
                     Gdx.app.debug("KeyDown", "Up");
                     break;
                 case Input.Keys.DOWN:
-                    if (isset == 0)
-                    menuset ++;
-                    isset = 1;
+                    menuset = 1;
                     Gdx.app.debug("KeyDown", "Down");
                     break;
                 case Input.Keys.ENTER:
@@ -87,10 +82,37 @@ public class MenuState extends GameState {
         }
 
     @Override
+    public boolean touchDown (int x, int y, int pointer, int button) {
+        if (button == Input.Buttons.LEFT) {
+            if ((x>textList.get(0).label.getX() - 10) && (x<textList.get(0).label.getX() - 10 + textList.get(0).label.getWidth() + 20) && (y>textList.get(0).label.getY()) && (y<textList.get(0).label.getY() + textList.get(0).label.getHeight())) {
+                game.pushGameState(new GameplayState(game, batch));
+            }
+            if ((x>textList.get(1).label.getX() - 10) && (x<textList.get(1).label.getX() - 10 + textList.get(1).label.getWidth() + 20) && (y>textList.get(1).label.getY() + 200) && (y<textList.get(1).label.getY() + textList.get(1).label.getHeight() + 200)){
+                game.popGameState();
+                return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean mouseMoved(int screenX, int screenY) {
+        if ((screenX>textList.get(0).label.getX() - 10) && (screenX<textList.get(0).label.getX() - 10 + textList.get(0).label.getWidth() + 20) && (screenY>textList.get(0).label.getY()) && (screenY<textList.get(0).label.getY() + textList.get(0).label.getHeight())){
+            menuset = 0;
+        }
+        if ((screenX>textList.get(1).label.getX() - 10) && (screenX<textList.get(1).label.getX() - 10 + textList.get(1).label.getWidth() + 20) && (screenY>textList.get(1).label.getY() + 200) && (screenY<textList.get(1).label.getY() + textList.get(1).label.getHeight() + 200)){
+            menuset = 1;
+        }
+        return false;
+    }
+
+    @Override
     public void draw() {
         super.draw();
+        if(!(menuset == 2)) {
             shapeRenderer.begin();
-            shapeRenderer.rect(textList.get(menuset).label.getX() - 10, textList.get(menuset).label.getY(),textList.get(menuset).label.getWidth() + 20, textList.get(menuset).label.getHeight());
+            shapeRenderer.rect(textList.get(menuset).label.getX() - 10, textList.get(menuset).label.getY(), textList.get(menuset).label.getWidth() + 20, textList.get(menuset).label.getHeight());
             shapeRenderer.end();
+        }
     }
 }
