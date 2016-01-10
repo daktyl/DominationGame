@@ -10,6 +10,7 @@ import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.entities.GraphicalEntity;
+import com.domination.game.players.AI;
 import com.domination.game.players.HumanPlayer;
 import com.domination.game.players.Player;
 import com.badlogic.gdx.graphics.Color;
@@ -33,6 +34,7 @@ public class HumanGameplayState extends GameplayState {
         human=new HumanPlayer(Color.FIREBRICK);
         playerList.add(human);
         playerList.add(new HumanPlayer(Color.GREEN));
+       // playerList.add(new defaultAI(new GameplayWrapper(this),Color.GREEN));
     }
 
     @Override
@@ -43,18 +45,18 @@ public class HumanGameplayState extends GameplayState {
         if (button == Input.Buttons.LEFT) {
             for (Cell cell : cellList) {
                 if (current_cell == null && cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY)) {
-                    current_cell = cell;
                     cell.glow();
+                    current_cell = cell;
                     break;
-                } else if (current_cell == cell) {
-                    current_cell = null;
+                } else if (current_cell == cell && cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY)) {
                     cell.dim();
+                    current_cell = null;
                     break;
-                } else {
+                } else if (cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY)) {
                     sendBacteria(current_cell, cell, human);
-                    current_cell = null;
                     cell.dim();
                     break;
+
                 }
             }
             return true;
