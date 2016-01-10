@@ -112,8 +112,9 @@ public class Cell extends GraphicalEntity{
             relation = 10f * (bacteriaAmount / (this.amount));
         int directionX = (int)(bacteria.getDistanceX() / Math.abs(bacteria.getDistanceX()));
         int directionY = (int)(bacteria.getDistanceY() / Math.abs(bacteria.getDistanceY()));
+        float directionRatio = (float)Math.abs(bacteria.getDistanceY()/bacteria.getDistanceX());
         float nextCenterX = targetCenterX + relation * directionX;
-        float nextCenterY = targetCenterY + relation * directionY;
+        float nextCenterY = targetCenterY + relation * directionY * directionRatio;
         if (nextCenterX < getScaledWidth()/2 ) nextCenterX = getScaledWidth()/2;
         if (nextCenterX > screenWidth - getScaledWidth()/2) nextCenterX = screenWidth - getScaledWidth()/2;
         if (nextCenterY < getScaledHeight()/2) nextCenterY = getScaledHeight()/2;
