@@ -29,7 +29,10 @@ public class MenuState extends GameState {
 
     @Override
     public void init() {
-        BitmapFont font50 = ResourceManager.getInstance().get("Font50");
+        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ChunkfiveEx.ttf"));
+        BitmapFont font50 = generator.generateFont(50);
+        font50.setColor(Color.BLUE);
+        generator.dispose();
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setAutoShapeType(true);
         ResourceManager.getInstance().add("font50", font50);
