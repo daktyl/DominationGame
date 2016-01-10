@@ -44,7 +44,7 @@ public class HumanGameplayState extends GameplayState {
         System.out.println();
         if (button == Input.Buttons.LEFT) {
             for (Cell cell : cellList) {
-                if (current_cell == null && cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY)) {
+                if (current_cell == null && cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY) && cell.getPlayer() == human) {
                     cell.glow();
                     current_cell = cell;
                     break;
@@ -52,9 +52,11 @@ public class HumanGameplayState extends GameplayState {
                     cell.dim();
                     current_cell = null;
                     break;
-                } else if (cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY)) {
+                } else if (cell.isOnCell(screenX, Gdx.graphics.getHeight() - screenY) && current_cell!=null) {
                     sendBacteria(current_cell, cell, human);
+                    current_cell.dim();
                     cell.dim();
+                    current_cell= null;
                     break;
 
                 }
