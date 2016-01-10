@@ -122,7 +122,7 @@ public class Cell extends GraphicalEntity{
     }
 
     public void handleOutgoingBacteria(Bacteria bacteria) {
-        amount = amount - bacteria.getAmount();
+        amount -= bacteria.getAmount();
         moveCellWithBacteria(bacteria);
     }
 
