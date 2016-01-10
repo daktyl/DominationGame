@@ -80,8 +80,8 @@ public class Cell extends GraphicalEntity{
 
     public void handleIncomingBacteria(Bacteria bacteria) {
         Integer amount = bacteria.getAmount();
-        Player owner = bacteria.getSource().player;
-        if (player == bacteria.getSource().player) {
+        Player owner = bacteria.getPlayer();
+        if (player == owner) {
             this.amount += amount;
             this.amount %= 100;
         }
