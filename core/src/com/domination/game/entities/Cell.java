@@ -107,9 +107,9 @@ public class Cell extends GraphicalEntity{
         int bacteriaAmount = bacteria.getAmount();
         float relation;
         if (this.amount == 0)
-            relation = (float)(10f * (1.5*bacteriaAmount / 0.1));
+            relation = (float)(10f + (bacteriaAmount));
         else
-            relation = (float)(10f * (1.5*bacteriaAmount / (this.amount)));
+            relation = (float)(10f + (bacteriaAmount / (this.amount)));
         int directionX = (int)(bacteria.getDistanceX() / Math.abs(bacteria.getDistanceX()));
         int directionY = (int)(bacteria.getDistanceY() / Math.abs(bacteria.getDistanceY()));
         float directionRatio = (float)Math.abs(bacteria.getDistanceY()/bacteria.getDistanceX());
