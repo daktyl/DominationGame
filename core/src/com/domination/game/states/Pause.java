@@ -14,11 +14,11 @@ public class Pause extends GameState {
     public Pause(Game game, SpriteBatch batch) {
         super(game, batch);
     }
-    ButtonEntity buttonEntity;
     @Override
     public void init() {
         setDefaultBackground();
 
+        ButtonEntity buttonEntity,buttonEntity1,buttonEntity2;
         buttonEntity = new ButtonEntity("przycisk",500,400, batch);
         buttonEntity.setClickListener(new ClickListener(){
             @Override
@@ -28,14 +28,34 @@ public class Pause extends GameState {
         });
         entityManager.add(buttonEntity);
 
-        buttonEntity = new ButtonEntity("przycisk2",500,150, batch);
-        buttonEntity.setClickListener(new ClickListener(){
+        buttonEntity1 = new ButtonEntity("przycisk2",500,200, batch);
+        buttonEntity1.setClickListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 Gdx.app.log("button","clicked2");
             }
         });
-        entityManager.add(buttonEntity);
+        entityManager.add(buttonEntity1);
+
+        buttonEntity2 = new ButtonEntity("przycisk2",500,100, batch);
+        buttonEntity2.setClickListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                Gdx.app.log("button","clicked3");
+            }
+        });
+        entityManager.add(buttonEntity2);
+
+        buttonEntity.setNext(buttonEntity1);
+        buttonEntity.setPrev(buttonEntity2);
+
+        buttonEntity1.setNext(buttonEntity2);
+        buttonEntity1.setPrev(buttonEntity);
+
+        buttonEntity2.setNext(buttonEntity);
+        buttonEntity2.setPrev(buttonEntity1);
+
+        buttonEntity.setActive();
     }
 
 }
