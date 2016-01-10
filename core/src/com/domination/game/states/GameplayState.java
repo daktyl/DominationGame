@@ -37,21 +37,19 @@ public class GameplayState extends GameState{
         background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
         background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
         entityManager.add(background);
-        if (!GameMode){
-            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f,0.8f,0.8f,1.f)));
-            playerList.add(new HumanPlayer(new Color(0.8f,0.2f,0.1f,1f)));
-        }
-        else
-        {
-            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f,0.8f,0.8f,1.f)));
-            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f,0.2f,0.1f,1f)));
-        }
+        setPlayers();
         generateMap(10);
         addCellsAndBacteriasToEntityManager();
-        for (Player player : playerList)
-            if (player instanceof AI) {
-                player.start();
-            }
+    }
+
+    protected void setPlayers() {
+        if (!GameMode) {
+            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+            playerList.add(new HumanPlayer(new Color(0.8f, 0.2f, 0.1f, 1f)));
+        } else {
+            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+        }
     }
 
     @Override
@@ -70,7 +68,7 @@ public class GameplayState extends GameState{
         }
     }
 
-    private void addCellsAndBacteriasToEntityManager() {
+    protected void addCellsAndBacteriasToEntityManager() {
         for (Bacteria bacteria : bacteriaList)
             entityManager.add(bacteria);
         for (Cell cell : cellList)

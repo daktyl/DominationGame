@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.states.GameState;
 import com.domination.game.states.GameplayState;
+import com.domination.game.states.HumanGameplayState;
 import com.domination.game.states.MenuState;
-import com.domination.game.states.Pause;
 import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
