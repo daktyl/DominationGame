@@ -105,10 +105,15 @@ public class Cell extends GraphicalEntity{
         int screenWidth = Gdx.graphics.getWidth();
         int screenHeight = Gdx.graphics.getHeight();
         int bacteriaAmount = bacteria.getAmount();
-        float relation = bacteriaAmount / 1000f;
-
-        float nextCenterX = targetCenterX + relation*(float)bacteria.getDistanceX();
-        float nextCenterY = targetCenterY + relation*(float)bacteria.getDistanceY();
+        float relation;
+        if (this.amount == 0)
+            relation = 1f;
+        else
+            relation = 10f * (bacteriaAmount / (this.amount));
+        int directionX = (int)(bacteria.getDistanceX() / Math.abs(bacteria.getDistanceX()));
+        int directionY = (int)(bacteria.getDistanceY() / Math.abs(bacteria.getDistanceY()));
+        float nextCenterX = targetCenterX + relation * directionX;
+        float nextCenterY = targetCenterY + relation * directionY;
         if (nextCenterX < getScaledWidth()/2 ) nextCenterX = getScaledWidth()/2;
         if (nextCenterX > screenWidth - getScaledWidth()/2) nextCenterX = screenWidth - getScaledWidth()/2;
         if (nextCenterY < getScaledHeight()/2) nextCenterY = getScaledHeight()/2;
