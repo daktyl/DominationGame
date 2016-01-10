@@ -15,6 +15,7 @@ import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 
@@ -50,9 +51,11 @@ public class GameplayState extends GameState{
     public void update() {
         super.update();
         // Remove bacteria that reached the destination cell
-        for (Bacteria bacteria : bacteriaList) {
-            if (bacteria.isBroken()) {
-                bacteriaList.remove(bacteria);
+        Iterator<Bacteria> it = bacteriaList.iterator();
+        while( it.hasNext() ) {
+            Bacteria next = it.next();
+            if (next.isBroken()) {
+                it.remove();
             }
         }
         for (Cell cell : cellList){
@@ -117,6 +120,7 @@ public class GameplayState extends GameState{
             Bacteria bacteria = new Bacteria(player, source, destination, source.getBacteriaAmount(), batch);
             source.handleOutgoingBacteria(bacteria);
             entityManager.add(bacteria);
+            bacteriaList.add(bacteria);
             return true;
         }
         else {
