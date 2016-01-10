@@ -104,8 +104,8 @@ public class Cell extends GraphicalEntity{
     private void moveCellWithBacteria(Bacteria bacteria) {
         int screenWidth = Gdx.graphics.getWidth();
         int screenHeight = Gdx.graphics.getHeight();
-        int amount = bacteria.getAmount();
-        float relation = amount / 1000f;
+        int bacteriaAmount = bacteria.getAmount();
+        float relation = bacteriaAmount / 1000f;
 
         float nextCenterX = targetCenterX + relation*(float)bacteria.getDistanceX();
         float nextCenterY = targetCenterY + relation*(float)bacteria.getDistanceY();
