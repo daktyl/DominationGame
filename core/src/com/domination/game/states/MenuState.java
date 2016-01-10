@@ -68,7 +68,7 @@ public class MenuState extends GameState {
                 case Input.Keys.ENTER:
                     switch(menuset){
                         case 0:
-                            game.pushGameState(new GameplayState(game ,batch));
+                            game.pushGameState(new PlayerChooseState(game, batch));
                             break;
                         case 1:
                             game.popGameState();
@@ -85,7 +85,7 @@ public class MenuState extends GameState {
     public boolean touchDown (int x, int y, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
             if ((x>textList.get(0).label.getX() - 10) && (x<textList.get(0).label.getX() - 10 + textList.get(0).label.getWidth() + 20) && (y>textList.get(0).label.getY()) && (y<textList.get(0).label.getY() + textList.get(0).label.getHeight())) {
-                game.pushGameState(new GameplayState(game, batch));
+                game.pushGameState(new PlayerChooseState(game, batch));
             }
             if ((x>textList.get(1).label.getX() - 10) && (x<textList.get(1).label.getX() - 10 + textList.get(1).label.getWidth() + 20) && (y>textList.get(1).label.getY() + 200) && (y<textList.get(1).label.getY() + textList.get(1).label.getHeight() + 200)){
                 game.popGameState();
