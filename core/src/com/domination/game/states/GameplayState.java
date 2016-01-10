@@ -11,8 +11,6 @@ import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.entities.GraphicalEntity;
-import com.domination.game.players.AI;
-import com.domination.game.players.HumanPlayer;
 import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
 
@@ -24,32 +22,28 @@ public class GameplayState extends GameState{
     List<Player> playerList = new ArrayList<Player>();
     public List<Cell> cellList = new ArrayList<Cell>();
     public List<Bacteria> bacteriaList = new ArrayList<Bacteria>();
-    private boolean GameMode;
-    public GameplayState(Game game, SpriteBatch batch, boolean GameMode) {
+    public GameplayState(Game game, SpriteBatch batch) {
         super(game, batch);
-        this.GameMode = GameMode;
     }
 
     @Override
     public void init() {
-        GraphicalEntity background=new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
+        GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
         background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
         background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
         background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
         entityManager.add(background);
         setPlayers();
         generateMap(10);
-        addCellsAndBacteriasToEntityManager();
+        addCellsAndBacteriaToEntityManager();
+        for (Player player : playerList) {
+            player.start();
+        }
     }
 
     protected void setPlayers() {
-        if (!GameMode) {
-            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-            playerList.add(new HumanPlayer(new Color(0.8f, 0.2f, 0.1f, 1f)));
-        } else {
-            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-            playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-        }
+        playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+        playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
     }
 
     @Override
@@ -68,7 +62,7 @@ public class GameplayState extends GameState{
         }
     }
 
-    protected void addCellsAndBacteriasToEntityManager() {
+    protected void addCellsAndBacteriaToEntityManager() {
         for (Bacteria bacteria : bacteriaList)
             entityManager.add(bacteria);
         for (Cell cell : cellList)

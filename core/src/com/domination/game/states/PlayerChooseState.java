@@ -25,7 +25,6 @@ public class PlayerChooseState extends GameState {
         super(game, batch);
     }
     public List<TextEntity> textList1 = new ArrayList<TextEntity>();
-    public List<Player> playerList = new ArrayList<Player>();
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private int menuset = 2;
 
@@ -64,7 +63,6 @@ public class PlayerChooseState extends GameState {
         entityManager.add(Vs);
         entityManager.add(Human);
         shapeRenderer.setColor(Color.BLACK);
-
     }
 
     @Override
@@ -72,11 +70,11 @@ public class PlayerChooseState extends GameState {
         if (button == Input.Buttons.LEFT) {
             if ((x>textList1.get(0).label.getX() - 10) && (x<textList1.get(0).label.getX() - 10 + textList1.get(0).label.getWidth() + 20) && (y>textList1.get(0).label.getY()) && (y<textList1.get(0).label.getY() + textList1.get(0).label.getHeight())) {
                 game.popGameState();
-                game.pushGameState(new GameplayState(game, batch, true));
+                game.pushGameState(new GameplayState(game, batch));
             }
             if ((x>textList1.get(1).label.getX() - 10) && (x<textList1.get(1).label.getX() - 10 + textList1.get(1).label.getWidth() + 20) && (y>textList1.get(1).label.getY()) && (y<textList1.get(1).label.getY() + textList1.get(1).label.getHeight())){
                 game.popGameState();
-                game.pushGameState(new GameplayState(game, batch, false));
+                game.pushGameState(new HumanGameplayState(game, batch));
                 return true;
             }
         }
