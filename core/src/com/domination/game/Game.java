@@ -24,16 +24,21 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ChunkfiveEx.ttf"));
 		BitmapFont font25 = generator.generateFont(25);
-		font25.setColor(Color.BLUE);
+		font25.setColor(Color.BLACK);
+		BitmapFont font50 = generator.generateFont(50);
+		font50.setColor(Color.BLACK);
 		generator.dispose();
 		ResourceManager.getInstance().add("Font",font25);
+		ResourceManager.getInstance().add("Font50",font50);
 		ResourceManager.getInstance().add("CellTexture",new Texture("cellhd.png"));
 		ResourceManager.getInstance().add("BacteriaTexture",new Texture("bacteria.png"));
 		ResourceManager.getInstance().add("Background",new Texture("background.png"));
 		ResourceManager.getInstance().add("CellGlow",new Texture("cellglow.png"));
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		pushGameState(new MenuState(this,batch));
+		pushGameState(new Pause(this,batch));
+
+
 	}
 
 	@Override

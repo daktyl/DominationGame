@@ -29,13 +29,9 @@ public class GameplayState extends GameState{
 
     @Override
     public void init() {
-        GraphicalEntity background=new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
-        background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
-        background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
-        background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
+        setDefaultBackground();
         playerList.add(new defaultAI(new GameplayWrapper(this),new Color(0.2f,0.8f,0.8f,1.f)));
         playerList.add(new defaultAI(new GameplayWrapper(this),new Color(0.8f,0.2f,0.1f,1f)));
-        entityManager.add(background);
         generateMap(10);
         addCellsAndBacteriasToEntityManager();
         for (Player player : playerList)
