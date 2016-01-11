@@ -5,29 +5,30 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Timer;
 import com.domination.game.Game;
 import com.domination.game.entities.ButtonEntity;
 import com.domination.game.entities.Cell;
+import com.sun.org.apache.regexp.internal.RE;
 
 /**
  * Created by Mrugi on 2016-01-07.
  */
 public class Pause extends GameState {
-    public Pause(Game game, SpriteBatch batch) {
+    GameState gameState;
+    public Pause(Game game, GameState gameState, SpriteBatch batch) {
         super(game, batch);
+        Timer.instance().stop();
+        this.gameState = gameState;
     }
     @Override
     public void init() {
-        setDefaultBackground();
-        for(int i=0;i<5;i++)
-            entityManager.add(new Cell(null,Gdx.graphics.getWidth()*(float)Math.random(),Gdx.graphics.getHeight()*(float)Math.random(),batch));
-
         ButtonEntity buttonEntity;
         buttonEntity = new ButtonEntity("Resume",80,Gdx.graphics.getHeight()-200, batch);
         buttonEntity.setClickListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.popGameState();
+                Resume();
             }
         });
         entityManager.add(buttonEntity);
@@ -36,7 +37,7 @@ public class Pause extends GameState {
         buttonEntity.setClickListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                game.popGameState();
+                Resume();
                 game.popGameState();
             }
         });
@@ -46,9 +47,19 @@ public class Pause extends GameState {
     }
 
     @Override
+    public void draw() {
+        gameState.draw();
+        super.draw();
+    }
+
+    @Override
     public boolean keyDown(int keycode) {
         if(keycode== Input.Keys.ESCAPE)
-            game.popGameState();
+            Resume();
         return true;
+    }
+    private void Resume(){
+        Timer.instance().start();
+        game.popGameState();
     }
 }

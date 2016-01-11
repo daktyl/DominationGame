@@ -17,7 +17,6 @@ import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -32,11 +31,7 @@ public class GameplayState extends GameState{
 
     @Override
     public void init() {
-        GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
-        background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
-        background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
-        background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
-        entityManager.add(background);
+        setDefaultBackground();
         setPlayers();
         generateMap(10);
         addCellsAndBacteriaToEntityManager();
@@ -44,7 +39,6 @@ public class GameplayState extends GameState{
             player.start();
         }
     }
-
     protected void setPlayers() {
         playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
         playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
@@ -60,8 +54,9 @@ public class GameplayState extends GameState{
                 bacteriaList.remove(bacteria);
         }
         for (Cell cell : cellList){
-            if (checkCollisionWithOtherCells(cell)) {
-                cell.stopMoving();
+            Cell colision=checkCollisionWithOtherCells(cell);
+            if (colision!=null) {
+                cell.handleBouncing(colision);
             }
         }
     }
@@ -104,16 +99,16 @@ public class GameplayState extends GameState{
         }
         return false;
     }
-    private Boolean checkCollisionWithOtherCells(Cell cell){
+    private Cell checkCollisionWithOtherCells(Cell cell){
         float x = cell.getCenterX();
         float y = cell.getCenterY();
         for (Cell secondCell : cellList) {
             if (cell == secondCell) continue;
             float distance = (float) Math.sqrt(Math.pow(secondCell.getCenterX() - x,2) + Math.pow(secondCell.getCenterY() - y,2));
             if (distance <= 2 * secondCell.getRadius())
-                return true;
+                return secondCell;
         }
-        return false;
+        return null;
     }
 
     public synchronized Boolean sendBacteria(Cell source, Cell destination, Player player) {
@@ -134,7 +129,7 @@ public class GameplayState extends GameState{
         Gdx.app.debug("KeyDown", Integer.valueOf(keycode).toString());
         switch (keycode) {
             case Input.Keys.ESCAPE:
-                game.pushGameState(new Pause(game,batch));
+                game.pushGameState(new Pause(game,this,batch));
                 Gdx.app.debug("KeyDown", "Esc");
                 return true;
             case Input.Keys.SPACE:
