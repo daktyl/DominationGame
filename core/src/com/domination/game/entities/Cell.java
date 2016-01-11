@@ -71,9 +71,9 @@ public class Cell extends GraphicalEntity{
     public void updatePosition(){
         //if(currentTime - lastMovingTime > 10) { // once per 1/100 sec
             lastMovingTime += 10;
-            //velocity.mulitiply(0.95f);
-            Float positionX = velocity.x/2 + getCenterX();
-            Float positionY = velocity.y/2 + getCenterY();
+            velocity.mulitiply(0.95f);
+            Float positionX = velocity.x + getCenterX();
+            Float positionY = velocity.y + getCenterY();
             int screenWidth = Gdx.graphics.getWidth();
             int screenHeight = Gdx.graphics.getHeight();
             if (positionX < getScaledWidth()/2 ){ positionX=getScaledWidth()/2; velocity.x*=-1;}
@@ -116,7 +116,7 @@ public class Cell extends GraphicalEntity{
 
     private void moveCellWithBacteria(Bacteria bacteria) {
         int bacteriaAmount = bacteria.getAmount();
-        float relation = bacteriaAmount / 1000f;
+        float relation = bacteriaAmount / 2000f;
         velocity.x += relation*(float)bacteria.getDistanceX();
         velocity.y += relation*(float)bacteria.getDistanceY();
     }
