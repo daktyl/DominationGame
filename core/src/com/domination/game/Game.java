@@ -36,7 +36,7 @@ public class Game extends ApplicationAdapter {
 		ResourceManager.getInstance().add("CellGlow",new Texture("cellglow.png"));
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		pushGameState(new Pause(this,batch));
+		pushGameState(new MenuState(this,batch));
 
 
 	}

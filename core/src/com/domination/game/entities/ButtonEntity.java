@@ -19,7 +19,6 @@ public class ButtonEntity extends Entity {
     ClickListener clickListener = null;
     boolean clicked=false;
     int margin=20;
-    private boolean active;
     private ButtonEntity prev,next;
     public ButtonEntity(String label, float x, float y, SpriteBatch batch) {
         super(batch);
@@ -38,7 +37,7 @@ public class ButtonEntity extends Entity {
 
         text.draw();
         batch.end();
-        if(mouseOver || active) {
+        if(mouseOver) {
             shapeRenderer.setColor(Color.BLACK);
             shapeRenderer.begin();
             shapeRenderer.rect(text.label.getX() -margin, text.label.getY()-margin, text.label.getWidth() + 2*margin,text.label.getHeight()+2*margin);
@@ -54,7 +53,7 @@ public class ButtonEntity extends Entity {
         return (int)text.label.getWidth()+2*margin;
     }
     public int getHeight(){
-        return (int)text.label.getWidth()+2*margin;
+        return (int)text.label.getHeight()+2*margin;
     }
     @Override
     public void update() {
@@ -72,25 +71,13 @@ public class ButtonEntity extends Entity {
         }
         else
             mouseOver=false;
-        if(Gdx.input.isButtonPressed(Input.Keys.DOWN)){
-            this.active=false;
-            next.setActive();
-        }
-        else if(Gdx.input.isButtonPressed(Input.Keys.UP)){
-            this.active=false;
-            prev.setActive();
-        }
     }
 
-    public void setActive() {
-        this.active = true;
+    public float getX(){
+        return text.label.getX();
     }
 
-    public void setPrev(ButtonEntity prev) {
-        this.prev = prev;
-    }
-
-    public void setNext(ButtonEntity next) {
-        this.next = next;
+    public float getY(){
+        return text.label.getY();
     }
 }

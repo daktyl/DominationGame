@@ -1,11 +1,13 @@
 package com.domination.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.domination.game.Game;
 import com.domination.game.entities.ButtonEntity;
+import com.domination.game.entities.Cell;
 
 /**
  * Created by Mrugi on 2016-01-07.
@@ -17,45 +19,36 @@ public class Pause extends GameState {
     @Override
     public void init() {
         setDefaultBackground();
+        for(int i=0;i<5;i++)
+            entityManager.add(new Cell(null,Gdx.graphics.getWidth()*(float)Math.random(),Gdx.graphics.getHeight()*(float)Math.random(),batch));
 
-        ButtonEntity buttonEntity,buttonEntity1,buttonEntity2;
-        buttonEntity = new ButtonEntity("przycisk",500,400, batch);
+        ButtonEntity buttonEntity;
+        buttonEntity = new ButtonEntity("Resume",80,Gdx.graphics.getHeight()-200, batch);
         buttonEntity.setClickListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("button","clicked");
+                game.popGameState();
             }
         });
         entityManager.add(buttonEntity);
 
-        buttonEntity1 = new ButtonEntity("przycisk2",500,200, batch);
-        buttonEntity1.setClickListener(new ClickListener(){
+        buttonEntity = new ButtonEntity("Exit",buttonEntity.getX(),buttonEntity.getY()-buttonEntity.getHeight()-20, batch);
+        buttonEntity.setClickListener(new ClickListener(){
             @Override
             public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("button","clicked2");
+                game.popGameState();
+                game.popGameState();
             }
         });
-        entityManager.add(buttonEntity1);
+        entityManager.add(buttonEntity);
 
-        buttonEntity2 = new ButtonEntity("przycisk2",500,100, batch);
-        buttonEntity2.setClickListener(new ClickListener(){
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                Gdx.app.log("button","clicked3");
-            }
-        });
-        entityManager.add(buttonEntity2);
 
-        buttonEntity.setNext(buttonEntity1);
-        buttonEntity.setPrev(buttonEntity2);
-
-        buttonEntity1.setNext(buttonEntity2);
-        buttonEntity1.setPrev(buttonEntity);
-
-        buttonEntity2.setNext(buttonEntity);
-        buttonEntity2.setPrev(buttonEntity1);
-
-        buttonEntity.setActive();
     }
 
+    @Override
+    public boolean keyDown(int keycode) {
+        if(keycode== Input.Keys.ESCAPE)
+            game.popGameState();
+        return true;
+    }
 }
