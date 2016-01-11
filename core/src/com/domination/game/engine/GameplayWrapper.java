@@ -29,9 +29,7 @@ public class GameplayWrapper {
 
     private List<FakeBacteria> getFakeBacteriaList() {
         List<FakeBacteria> fakeBacteriaList = new ArrayList<FakeBacteria>();
-        List<Bacteria> copiedList=new ArrayList<Bacteria>(gameplayState.bacteriaList);
-        Collections.copy(copiedList,gameplayState.bacteriaList);
-        for (Bacteria bacteria : copiedList) {
+        for (Bacteria bacteria : gameplayState.bacteriaList) {
             FakeBacteria fakeBacteria = new FakeBacteria(bacteria);
             // Find source and destination fakeBacteria
             FakeCell fakeSource = cellMap.getKey(bacteria.getSource());

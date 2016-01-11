@@ -36,5 +36,8 @@ public class defaultAI extends AI {
         }
     }
 
-
+    @Override
+    public String getPlayerName() {
+        return "defaultAI";
+    }
 }

@@ -11,6 +11,8 @@ import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.entities.GraphicalEntity;
+import com.domination.game.players.MrugiAI;
+import com.domination.game.players.MrugiAIBetter;
 import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
 
@@ -18,11 +20,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameplayState extends GameState{
     List<Player> playerList = new ArrayList<Player>();
     public List<Cell> cellList = new ArrayList<Cell>();
-    public List<Bacteria> bacteriaList = new ArrayList<Bacteria>();
+    public CopyOnWriteArrayList<Bacteria> bacteriaList = new CopyOnWriteArrayList<Bacteria>();
     public GameplayState(Game game, SpriteBatch batch) {
         super(game, batch);
     }
@@ -51,12 +54,10 @@ public class GameplayState extends GameState{
     public void update() {
         super.update();
         // Remove bacteria that reached the destination cell
-        Iterator<Bacteria> it = bacteriaList.iterator();
-        while( it.hasNext() ) {
-            Bacteria next = it.next();
-            if (next.isBroken()) {
-                it.remove();
-            }
+//        }
+        for(Bacteria bacteria : bacteriaList){
+            if(bacteria.isBroken())
+                bacteriaList.remove(bacteria);
         }
         for (Cell cell : cellList){
             if (checkCollisionWithOtherCells(cell)) {
