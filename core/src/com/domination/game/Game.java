@@ -12,8 +12,8 @@ import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.states.GameState;
 import com.domination.game.states.GameplayState;
-import com.domination.game.states.HumanGameplayState;
 import com.domination.game.states.MenuState;
+import com.domination.game.states.Pause;
 import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
@@ -24,9 +24,12 @@ public class Game extends ApplicationAdapter {
 	public void create () {
 		FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ChunkfiveEx.ttf"));
 		BitmapFont font25 = generator.generateFont(25);
-		font25.setColor(Color.BLUE);
+		font25.setColor(Color.BLACK);
+		BitmapFont font50 = generator.generateFont(50);
+		font50.setColor(Color.BLACK);
 		generator.dispose();
 		ResourceManager.getInstance().add("Font",font25);
+		ResourceManager.getInstance().add("Font50",font50);
 		ResourceManager.getInstance().add("CellTexture",new Texture("cellhd.png"));
 		ResourceManager.getInstance().add("BacteriaTexture",new Texture("bacteria.png"));
 		ResourceManager.getInstance().add("Background",new Texture("background.png"));
@@ -34,6 +37,8 @@ public class Game extends ApplicationAdapter {
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		pushGameState(new MenuState(this,batch));
+
+
 	}
 
 	@Override
