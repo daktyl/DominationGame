@@ -26,7 +26,7 @@ public class Cell extends GraphicalEntity{
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
         this.player = player;
         if (player != null) {
-            amount = 50;
+            amount = 100;
         }
         else
             amount = 10;
@@ -83,7 +83,7 @@ public class Cell extends GraphicalEntity{
         Player owner = bacteria.getPlayer();
         if (player == owner) {
             this.amount += amount;
-            this.amount %= 100;
+            if(this.amount>100) amount = 100;
         }
         else {
             if (this.amount > amount)
