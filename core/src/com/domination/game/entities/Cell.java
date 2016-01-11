@@ -61,15 +61,15 @@ public class Cell extends GraphicalEntity{
             }
         }
 
-        updatePosition();
+        updatePosition(currentTime);
 
         amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
         amountText.label.setText(amount.toString());
 
     }
 
-    public void updatePosition(){
-        //if(currentTime - lastMovingTime > 10) { // once per 1/100 sec
+    public void updatePosition(Long currentTime){
+        if(currentTime - lastMovingTime > 10) { // once per 1/100 sec
             lastMovingTime += 10;
             velocity.mulitiply(0.95f);
             Float positionX = velocity.x + getCenterX();
@@ -82,7 +82,7 @@ public class Cell extends GraphicalEntity{
             if (positionY > screenHeight - getScaledHeight()/2) { positionY=screenHeight - getScaledHeight()/2;  velocity.y*=-1; }
 
             setPositionCenter(positionX,positionY);
-        //}
+        }
     }
 
     @Override
@@ -175,7 +175,7 @@ public class Cell extends GraphicalEntity{
         colider.velocity.y = newVelY2;
         velocity.x = newVelX1;
         velocity.y = newVelY1;
-        updatePosition();
-        colider.updatePosition();
+        updatePosition(System.currentTimeMillis());
+        colider.updatePosition(System.currentTimeMillis());
     }
 }
