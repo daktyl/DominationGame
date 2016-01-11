@@ -9,6 +9,7 @@ import com.domination.game.entities.Cell;
 import com.domination.game.players.Player;
 import com.domination.game.states.GameplayState;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameplayWrapper {
@@ -28,7 +29,9 @@ public class GameplayWrapper {
 
     private List<FakeBacteria> getFakeBacteriaList() {
         List<FakeBacteria> fakeBacteriaList = new ArrayList<FakeBacteria>();
-        for (Bacteria bacteria : gameplayState.bacteriaList) {
+        List<Bacteria> copiedList=new ArrayList<Bacteria>(gameplayState.bacteriaList);
+        Collections.copy(copiedList,gameplayState.bacteriaList);
+        for (Bacteria bacteria : copiedList) {
             FakeBacteria fakeBacteria = new FakeBacteria(bacteria);
             // Find source and destination fakeBacteria
             FakeCell fakeSource = cellMap.getKey(bacteria.getSource());
