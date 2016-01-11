@@ -11,8 +11,6 @@ import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.entities.GraphicalEntity;
-import com.domination.game.players.MrugiAI;
-import com.domination.game.players.MrugiAIBetter;
 import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
 
