@@ -116,7 +116,7 @@ public class Cell extends GraphicalEntity{
 
     private void moveCellWithBacteria(Bacteria bacteria) {
         int bacteriaAmount = bacteria.getAmount();
-        float relation = bacteriaAmount / 2000f;
+        float relation = bacteriaAmount / 25000f;
         velocity.x += relation*(float)bacteria.getDistanceX();
         velocity.y += relation*(float)bacteria.getDistanceY();
     }
