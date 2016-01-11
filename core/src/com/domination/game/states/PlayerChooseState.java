@@ -27,6 +27,9 @@ public class PlayerChooseState extends GameState {
     public List<TextEntity> textList1 = new ArrayList<TextEntity>();
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private int menuset = 2;
+    private int AISet;
+    private boolean isfinished = false;
+    private boolean Humanselected = false;
 
     @Override
     public void init(){
@@ -41,40 +44,62 @@ public class PlayerChooseState extends GameState {
         background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
         background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
         ResourceManager.getInstance().get("font50");
+        TextEntity Start = new TextEntity("Press Enter to start", font50, this.batch);
         TextEntity PlayerChoose = new TextEntity("Choose player", font50, this.batch);
         TextEntity Vs = new TextEntity("vs", font50, this.batch);
         TextEntity Com = new TextEntity("AI", font50, this.batch);
-        TextEntity Com1 = new TextEntity("AI", font50, this.batch);
+        TextEntity Com1 = new TextEntity("  AI  ", font50, this.batch);
         TextEntity Human = new TextEntity("Human", font50, this.batch);
         PlayerChoose.label.setPosition(Gdx.graphics.getWidth()/2 - PlayerChoose.label.getWidth()/2, Gdx.graphics.getHeight()/2 + 2*PlayerChoose.label.getHeight()/2);
-        Vs.label.setPosition(Gdx.graphics.getWidth()/2 - Vs.label.getWidth()/2, Gdx.graphics.getHeight()/2 - Vs.label.getHeight()/2);
-        Com.label.setPosition(Gdx.graphics.getWidth()/2 + 2*Com.label.getWidth()/2, Gdx.graphics.getHeight()/2 - Com.label.getHeight()/2);
+        Vs.label.setPosition(Gdx.graphics.getWidth()/2 - Vs.label.getWidth()/2, Gdx.graphics.getHeight()/2 - Vs.label.getHeight()/2 - 50);
+        Com.label.setPosition(Gdx.graphics.getWidth()/2 + 2*Com.label.getWidth()/2 + 110, Gdx.graphics.getHeight()/2 - Com.label.getHeight()/2 - 50);
         Human.label.setPosition(Gdx.graphics.getWidth()/2 - 2*Human.label.getWidth(), Gdx.graphics.getHeight()/2 - Human.label.getHeight()/2);
-        Com1.label.setPosition(Gdx.graphics.getWidth()/2 - 2*Com1.label.getWidth(), Gdx.graphics.getHeight()/2 - Com1.label.getHeight()/2);
+        Com1.label.setPosition(Gdx.graphics.getWidth()/2 - 2*Com1.label.getWidth() - 100, Gdx.graphics.getHeight()/2 - 5*Com1.label.getHeight()/2);
+        Start.label.setPosition(Gdx.graphics.getWidth()/2 - 2*Com1.label.getWidth(), Gdx.graphics.getHeight()/2 - 5*Com1.label.getHeight()/2 - 100);
         textList1.add(Com1);
         textList1.add(Human);
+        textList1.add(Start);
         textList1.add(PlayerChoose);
         textList1.add(Vs);
         textList1.add(Com);
+
         entityManager.add(background);
         entityManager.add(PlayerChoose);
         entityManager.add(Com);
         entityManager.add(Com1);
         entityManager.add(Vs);
         entityManager.add(Human);
+        entityManager.add(Start);
         shapeRenderer.setColor(Color.BLACK);
     }
 
     @Override
     public boolean touchDown (int x, int y, int pointer, int button) {
         if (button == Input.Buttons.LEFT) {
-            if ((x>textList1.get(0).label.getX() - 10) && (x<textList1.get(0).label.getX() - 10 + textList1.get(0).label.getWidth() + 20) && (y>textList1.get(0).label.getY()) && (y<textList1.get(0).label.getY() + textList1.get(0).label.getHeight())) {
-                game.popGameState();
-                game.pushGameState(new GameplayState(game, batch));
+            if ((x > textList1.get(0).label.getX() - 10) && (x < textList1.get(0).label.getX() - 10 + textList1.get(0).label.getWidth() + 20) && (y > textList1.get(0).label.getY() + 245) && (y < textList1.get(0).label.getY() + textList1.get(0).label.getHeight() + 245)) {
+                menuset = 0;
+                Humanselected = false;
+                if (isfinished) {
+                    AISet=0;
+                    isfinished = false;
+                }
+                AISet++;
+                if (AISet == 1) {
+                    textList1.get(0).label.setText("FN");
+                } else if (AISet == 2) {
+                    textList1.get(0).label.setText("MM");
+                } else if (AISet == 3) {
+                    textList1.get(0).label.setText("MP");
+                } else if (AISet == 4) {
+                    textList1.get(0).label.setText("KW");
+                } else if (AISet == 5) {
+                    textList1.get(0).label.setText("AS");
+                    isfinished = true;
+                }
             }
             if ((x>textList1.get(1).label.getX() - 10) && (x<textList1.get(1).label.getX() - 10 + textList1.get(1).label.getWidth() + 20) && (y>textList1.get(1).label.getY()) && (y<textList1.get(1).label.getY() + textList1.get(1).label.getHeight())){
-                game.popGameState();
-                game.pushGameState(new HumanGameplayState(game, batch));
+                Humanselected = true;
+                menuset = 1;
                 return true;
             }
         }
@@ -82,14 +107,45 @@ public class PlayerChooseState extends GameState {
     }
 
     @Override
-    public boolean mouseMoved(int screenX, int screenY) {
-        if ((screenX>textList1.get(0).label.getX() - 10) && (screenX<textList1.get(0).label.getX() - 10 + textList1.get(0).label.getWidth() + 20) && (screenY>textList1.get(0).label.getY()) && (screenY<textList1.get(0).label.getY() + textList1.get(0).label.getHeight())){
-            menuset = 0;
-        }
-        if ((screenX>textList1.get(1).label.getX() - 10) && (screenX<textList1.get(1).label.getX() - 10 + textList1.get(1).label.getWidth() + 20) && (screenY>textList1.get(1).label.getY()) && (screenY<textList1.get(1).label.getY() + textList1.get(1).label.getHeight())){
-            menuset = 1;
+    public boolean keyDown ( int keycode){
+        Gdx.app.debug("KeyDown", Integer.valueOf(keycode).toString());
+        switch (keycode) {
+            case Input.Keys.ESCAPE:
+                game.popGameState();
+                Gdx.app.debug("KeyDown", "Esc");
+                return true;
+            case Input.Keys.UP:
+                menuset = 1;
+                Gdx.app.debug("KeyDown", "Up");
+                break;
+            case Input.Keys.DOWN:
+                menuset = 0;
+                Gdx.app.debug("KeyDown", "Down");
+                break;
+            case Input.Keys.ENTER:
+                if (Humanselected){
+                    game.popGameState();
+                    game.pushGameState(new HumanGameplayState(game, batch));
+                }
+                else if (AISet == 1) {
+                    game.popGameState();
+                    game.pushGameState(new GameplayState(game, batch));
+                } else if (AISet == 2) {
+                    game.popGameState();
+                    game.pushGameState(new GameplayState(game, batch));
+                } else if (AISet == 3) {
+                    game.popGameState();
+                    game.pushGameState(new GameplayState(game, batch));
+                } else if (AISet == 4) {
+                    game.popGameState();
+                    game.pushGameState(new GameplayState(game, batch));
+                } else if (AISet == 5) {
+                    game.popGameState();
+                    game.pushGameState(new GameplayState(game, batch));
+                }
         }
         return false;
+
     }
 
     @Override
