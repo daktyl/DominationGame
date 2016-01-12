@@ -11,9 +11,6 @@ import com.domination.game.entities.ButtonEntity;
 import com.domination.game.entities.Cell;
 import com.sun.org.apache.regexp.internal.RE;
 
-/**
- * Created by Mrugi on 2016-01-07.
- */
 public class Pause extends GameState {
     GameState gameState;
     public Pause(Game game, GameState gameState, SpriteBatch batch) {
@@ -42,8 +39,6 @@ public class Pause extends GameState {
             }
         });
         entityManager.add(buttonEntity);
-
-
     }
 
     @Override

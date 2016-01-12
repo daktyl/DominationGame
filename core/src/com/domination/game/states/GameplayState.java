@@ -13,8 +13,8 @@ import com.domination.game.entities.Cell;
 import com.domination.game.entities.GraphicalEntity;
 import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
-
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
