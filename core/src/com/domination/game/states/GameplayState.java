@@ -22,8 +22,11 @@ public class GameplayState extends GameState{
     List<Player> playerList = new ArrayList<Player>();
     public List<Cell> cellList = new ArrayList<Cell>();
     public List<Bacteria> bacteriaList = new ArrayList<Bacteria>();
-    public GameplayState(Game game, SpriteBatch batch) {
+    private int AISet, AISetLeft;
+    public GameplayState(Game game, SpriteBatch batch, int AISet, int AISetLeft) {
         super(game, batch);
+        this.AISet = AISet;
+        this.AISetLeft = AISetLeft;
     }
 
     @Override
@@ -42,8 +45,33 @@ public class GameplayState extends GameState{
     }
 
     protected void setPlayers() {
-        playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-        playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+        switch(AISet){
+            case(0):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(1):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(2):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(3):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(4):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(5):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+        }
+
     }
 
     @Override

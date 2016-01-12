@@ -13,8 +13,8 @@ import com.domination.game.players.defaultAI;
 
 public class HumanGameplayState extends GameplayState {
 
-    public HumanGameplayState(Game game, SpriteBatch batch) {
-        super(game, batch);
+    public HumanGameplayState(Game game, SpriteBatch batch, int AISetLeft) {
+        super(game, batch, AISetLeft, -1);
     }
 
     private Cell currentCell = null;
