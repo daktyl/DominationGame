@@ -48,30 +48,46 @@ public class GameplayState extends GameState{
         switch(AISet){
             case(0):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case(1):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case(2):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case(3):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case(4):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case(5):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case(6):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                break;
+        }
+        switch(AISetLeft){
+            case(0):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(1):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(2):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(3):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(4):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(5):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(6):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
         }
