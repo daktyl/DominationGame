@@ -10,12 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.domination.game.Game;
-import com.domination.game.engine.GameplayWrapper;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.GraphicalEntity;
 import com.domination.game.entities.TextEntity;
-import com.domination.game.players.Player;
-import com.domination.game.players.defaultAI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,9 +25,9 @@ public class PlayerChooseState extends GameState {
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private int menuset = 4;
     private int AISet;
-    private int AISetLeft = 1;
+    private int AISetRight = 1;
     private boolean isfinished = false;
-    private boolean isfinishedLeft = false;
+    private boolean isfinishedRight = false;
     private boolean Humanselected = true;
     private boolean AIselected = false;
     private boolean AI1selected = true;
@@ -84,10 +81,10 @@ public class PlayerChooseState extends GameState {
             if ((x > textList1.get(3).label.getX() - 10) && (x < textList1.get(3).label.getX() - 10 + textList1.get(3).label.getWidth() + 20) && (y > textList1.get(3).label.getY() + 445) && (y < textList1.get(3).label.getY() + textList1.get(0).label.getHeight() + 445)) {
                 if (Humanselected) {
                     game.popGameState();
-                    game.pushGameState(new HumanGameplayState(game, batch, AISetLeft));
+                    game.pushGameState(new HumanGameplayState(game, batch, AISetRight));
                 } else {
                     game.popGameState();
-                    game.pushGameState(new GameplayState(game, batch, AISet, AISetLeft));
+                    game.pushGameState(new GameplayState(game, batch, AISet, AISetRight));
                 }
             }
 
@@ -125,24 +122,24 @@ public class PlayerChooseState extends GameState {
                 if ((x > textList1.get(2).label.getX() - 10) && (x < textList1.get(2).label.getX() - 10 + textList1.get(2).label.getWidth() + 20) && (y > textList1.get(2).label.getY() + 100) && (y < textList1.get(2).label.getY() + textList1.get(2).label.getHeight() + 100)) {
                     menuset = 2;
                     AI1selected = true;
-                    if (isfinishedLeft) {
-                        AISetLeft = 0;
-                        isfinishedLeft = false;
+                    if (isfinishedRight) {
+                        AISetRight = 0;
+                        isfinishedRight = false;
                     }
-                    AISetLeft++;
-                    if (AISetLeft == 1) {
+                    AISetRight++;
+                    if (AISetRight == 1) {
                         textList1.get(2).label.setText("AI");
-                    } else if (AISetLeft == 2) {
+                    } else if (AISetRight == 2) {
                         textList1.get(2).label.setText("FN");
-                    } else if (AISetLeft == 3) {
+                    } else if (AISetRight == 3) {
                         textList1.get(2).label.setText("MM");
-                    } else if (AISetLeft == 4) {
+                    } else if (AISetRight == 4) {
                         textList1.get(2).label.setText("MP");
-                    } else if (AISetLeft == 5) {
+                    } else if (AISetRight == 5) {
                         textList1.get(2).label.setText("KW");
-                    } else if (AISetLeft == 6) {
+                    } else if (AISetRight == 6) {
                         textList1.get(2).label.setText("AS");
-                        isfinishedLeft = true;
+                        isfinishedRight = true;
                     }
                 }
             }
@@ -169,11 +166,11 @@ public class PlayerChooseState extends GameState {
             case Input.Keys.ENTER:
                 if (Humanselected){
                     game.popGameState();
-                    game.pushGameState(new HumanGameplayState(game, batch, AISetLeft));
+                    game.pushGameState(new HumanGameplayState(game, batch, AISetRight));
                 }
                 else {
                     game.popGameState();
-                    game.pushGameState(new GameplayState(game, batch, AISet, AISetLeft));
+                    game.pushGameState(new GameplayState(game, batch, AISet, AISetRight));
                 }
         }
         return false;

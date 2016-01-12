@@ -13,8 +13,8 @@ import com.domination.game.players.defaultAI;
 
 public class HumanGameplayState extends GameplayState {
 
-    public HumanGameplayState(Game game, SpriteBatch batch, int AISetLeft) {
-        super(game, batch, AISetLeft, -1);
+    public HumanGameplayState(Game game, SpriteBatch batch, int AISetRight) {
+        super(game, batch, -1, AISetRight);
     }
 
     private Cell currentCell = null;
@@ -24,7 +24,29 @@ public class HumanGameplayState extends GameplayState {
     protected void setPlayers() {
         human = new HumanPlayer(new Color(0.2f, 0.8f, 0.8f, 1.f));
         playerList.add(human);
-        playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+        switch(AISetRight){
+            case(0):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(1):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(2):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(3):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(4):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(5):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+            case(6):
+                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                break;
+        }
     }
 
     @Override

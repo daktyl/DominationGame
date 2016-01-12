@@ -22,11 +22,11 @@ public class GameplayState extends GameState{
     List<Player> playerList = new ArrayList<Player>();
     public List<Cell> cellList = new ArrayList<Cell>();
     public List<Bacteria> bacteriaList = new ArrayList<Bacteria>();
-    private int AISet, AISetLeft;
-    public GameplayState(Game game, SpriteBatch batch, int AISet, int AISetLeft) {
+    public int AISet, AISetRight;
+    public GameplayState(Game game, SpriteBatch batch, int AISet, int AISetRight) {
         super(game, batch);
         this.AISet = AISet;
-        this.AISetLeft = AISetLeft;
+        this.AISetRight = AISetRight;
     }
 
     @Override
@@ -68,7 +68,7 @@ public class GameplayState extends GameState{
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
         }
-        switch(AISetLeft){
+        switch(AISetRight){
             case(0):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
