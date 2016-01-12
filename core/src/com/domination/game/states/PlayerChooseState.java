@@ -33,6 +33,7 @@ public class PlayerChooseState extends GameState {
     private boolean isfinishedLeft = false;
     private boolean Humanselected = true;
     private boolean AIselected = false;
+    private boolean AI1selected = false;
 
     @Override
     public void init(){
@@ -113,6 +114,7 @@ public class PlayerChooseState extends GameState {
 
             if ((x > textList1.get(2).label.getX() - 10) && (x < textList1.get(2).label.getX() - 10 + textList1.get(2).label.getWidth() + 20) && (y > textList1.get(2).label.getY() + 100) && (y < textList1.get(2).label.getY() + textList1.get(2).label.getHeight() + 100)) {
                 menuset = 2;
+                AI1selected = true;
                 if (isfinishedLeft) {
                     AISetLeft = 0;
                     isfinishedLeft = false;
@@ -185,6 +187,12 @@ public class PlayerChooseState extends GameState {
             shapeRenderer.rect(textList1.get(0).label.getX() - 10, textList1.get(0).label.getY(), textList1.get(0).label.getWidth() + 20, textList1.get(0).label.getHeight());
             shapeRenderer.end();
         }
+        if(AI1selected){
+            shapeRenderer.begin();
+            shapeRenderer.rect(textList1.get(2).label.getX() - 10, textList1.get(2).label.getY(), textList1.get(2).label.getWidth() + 20, textList1.get(2).label.getHeight());
+            shapeRenderer.end();
+        }
+
 
     }
 
