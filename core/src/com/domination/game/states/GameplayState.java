@@ -11,8 +11,6 @@ import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.entities.GraphicalEntity;
-import com.domination.game.players.MrugiAI;
-import com.domination.game.players.MrugiAIBetter;
 import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
 
@@ -53,11 +51,11 @@ public class GameplayState extends GameState{
     @Override
     public void update() {
         super.update();
-        // Remove bacteria that reached the destination cell
-//        }
-        for(Bacteria bacteria : bacteriaList){
-            if(bacteria.isBroken())
-                bacteriaList.remove(bacteria);
+        for (Iterator<Bacteria> it = bacteriaList.iterator(); it.hasNext(); ) {
+            Bacteria next = it.next();
+            if (next.isBroken()) {
+                bacteriaList.remove(next);
+            }
         }
         for (Cell cell : cellList){
             if (checkCollisionWithOtherCells(cell)) {
