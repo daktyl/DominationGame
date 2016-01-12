@@ -36,7 +36,8 @@ public class GameplayState extends GameState{
         background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
         background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
         entityManager.add(background);
-        setPlayers();
+        setFirstPlayer();
+        setSecondPlayer();
         generateMap(10);
         addCellsAndBacteriaToEntityManager();
         for (Player player : playerList) {
@@ -44,7 +45,7 @@ public class GameplayState extends GameState{
         }
     }
 
-    protected void setPlayers() {
+    protected void setFirstPlayer() {
         switch(AISet){
             case(0):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
@@ -68,6 +69,9 @@ public class GameplayState extends GameState{
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
         }
+    }
+
+    protected void setSecondPlayer() {
         switch(AISetRight){
             case(0):
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
@@ -91,7 +95,6 @@ public class GameplayState extends GameState{
                 playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
         }
-
     }
 
     @Override

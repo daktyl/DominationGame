@@ -21,32 +21,9 @@ public class HumanGameplayState extends GameplayState {
     private HumanPlayer human;
 
     @Override
-    protected void setPlayers() {
+    protected void setFirstPlayer() {
         human = new HumanPlayer(new Color(0.2f, 0.8f, 0.8f, 1.f));
         playerList.add(human);
-        switch(AISetRight){
-            case(0):
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-                break;
-            case(1):
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-                break;
-            case(2):
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-                break;
-            case(3):
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-                break;
-            case(4):
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-                break;
-            case(5):
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-                break;
-            case(6):
-                playerList.add(new defaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
-                break;
-        }
     }
 
     @Override
