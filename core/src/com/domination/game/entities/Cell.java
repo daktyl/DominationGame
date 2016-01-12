@@ -22,6 +22,15 @@ public class Cell extends GraphicalEntity{
     private float targetCenterX;
     private float targetCenterY;
 
+
+    public class Velocity{
+        public float x=0,y=0;
+        public void mulitiply(float num){
+            x*=num;
+            y*=num;
+        }
+    }
+    private Velocity velocity = new Velocity();
     public Cell(Player player, float x, float y, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
         this.player = player;
@@ -52,23 +61,27 @@ public class Cell extends GraphicalEntity{
             }
         }
 
-        moveToTargetPosition(currentTime,10);
+        updatePosition(currentTime);
 
         amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
         amountText.label.setText(amount.toString());
 
     }
 
-    private void moveToTargetPosition(Long currentTime, float movingTimeSec){
+    public void updatePosition(Long currentTime){
         if(currentTime - lastMovingTime > 10) { // once per 1/100 sec
             lastMovingTime += 10;
-            Float distanceX = targetCenterX - getCenterX();
-            Float distanceY = targetCenterY - getCenterY();
-            if (distanceX != 0 || distanceY != 0) {
-                float nextCenterX = getCenterX() + distanceX / (10 * movingTimeSec);
-                float nextCenterY = getCenterY() + distanceY / (10 * movingTimeSec);
-                setPositionCenter(nextCenterX, nextCenterY);
-            }
+            velocity.mulitiply(0.95f);
+            Float positionX = velocity.x + getCenterX();
+            Float positionY = velocity.y + getCenterY();
+            int screenWidth = Gdx.graphics.getWidth();
+            int screenHeight = Gdx.graphics.getHeight();
+            if (positionX < getScaledWidth()/2 ){ positionX=getScaledWidth()/2; velocity.x*=-1;}
+            if (positionX > screenWidth - getScaledWidth()/2){ positionX=screenWidth - getScaledWidth()/2;  velocity.x*=-1; }
+            if (positionY < getScaledHeight()/2){ positionY=getScaledHeight()/2;  velocity.y*=-1;}
+            if (positionY > screenHeight - getScaledHeight()/2) { positionY=screenHeight - getScaledHeight()/2;  velocity.y*=-1; }
+
+            setPositionCenter(positionX,positionY);
         }
     }
 
@@ -83,7 +96,7 @@ public class Cell extends GraphicalEntity{
         Player owner = bacteria.getPlayer();
         if (player == owner) {
             this.amount += amount;
-            if(this.amount>100) amount = 100;
+            if(this.amount>100) this.amount = 100;
         }
         else {
             if (this.amount > amount)
@@ -102,19 +115,10 @@ public class Cell extends GraphicalEntity{
     }
 
     private void moveCellWithBacteria(Bacteria bacteria) {
-        int screenWidth = Gdx.graphics.getWidth();
-        int screenHeight = Gdx.graphics.getHeight();
         int bacteriaAmount = bacteria.getAmount();
-        float relation = bacteriaAmount / 1000f;
-
-        float nextCenterX = targetCenterX + relation*(float)bacteria.getDistanceX();
-        float nextCenterY = targetCenterY + relation*(float)bacteria.getDistanceY();
-        if (nextCenterX < getScaledWidth()/2 ) nextCenterX = getScaledWidth()/2;
-        if (nextCenterX > screenWidth - getScaledWidth()/2) nextCenterX = screenWidth - getScaledWidth()/2;
-        if (nextCenterY < getScaledHeight()/2) nextCenterY = getScaledHeight()/2;
-        if (nextCenterY > screenHeight - getScaledHeight()/2) nextCenterY = screenHeight - getScaledHeight()/2;
-        targetCenterX = nextCenterX;
-        targetCenterY = nextCenterY;
+        float relation = bacteriaAmount / 25000f;
+        velocity.x += relation*(float)bacteria.getDistanceX();
+        velocity.y += relation*(float)bacteria.getDistanceY();
     }
 
     public Integer getBacteriaAmount() {
@@ -156,5 +160,22 @@ public class Cell extends GraphicalEntity{
     public void stopMoving(){
         targetCenterX = getCenterX();
         targetCenterY = getCenterY();
+    }
+
+    public Velocity getVelocity() {
+        return velocity;
+    }
+
+    public void handleBouncing(Cell colider) {
+        float newVelX1 = ( colider.velocity.x);
+        float newVelY1 = (colider.velocity.y);
+        float newVelX2 = (velocity.x);
+        float newVelY2 = (velocity.y);
+        colider.velocity.x = newVelX2;
+        colider.velocity.y = newVelY2;
+        velocity.x = newVelX1;
+        velocity.y = newVelY1;
+        updatePosition(System.currentTimeMillis());
+        colider.updatePosition(System.currentTimeMillis());
     }
 }

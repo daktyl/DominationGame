@@ -84,7 +84,7 @@ public class ResourceManager {
             return (T)resourceMap.get(key);
         }
         else {
-            throw new InvalidKeyException();
+            throw new InvalidKeyException(key);
         }
     }
 
