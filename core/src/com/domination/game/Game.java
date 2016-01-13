@@ -11,10 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.players.HumanPlayer;
-import com.domination.game.states.GameState;
-import com.domination.game.states.GameplayState;
-import com.domination.game.states.HumanGameplayState;
-import com.domination.game.states.ResultState;
+import com.domination.game.states.*;
 
 import java.util.Stack;
 
@@ -38,8 +35,7 @@ public class Game extends ApplicationAdapter {
 		ResourceManager.getInstance().add("CellGlow",new Texture("cellglow.png"));
 		batch = new SpriteBatch();
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
-		//pushGameState(new HumanGameplayState(this ,bat));
-		pushGameState(new ResultState(new HumanPlayer(Color.BLUE), new HumanPlayer(Color.RED), this, batch));
+		pushGameState(new MenuState(this, batch));
 	}
 
 	@Override

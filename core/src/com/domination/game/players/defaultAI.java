@@ -7,9 +7,6 @@ import com.domination.game.engine.GameplayWrapper;
 
 import java.util.Random;
 
-/**
- * Created by Mrugi on 2016-01-07.
- */
 public class defaultAI extends AI {
 
     Random random = new Random();

@@ -3,16 +3,14 @@ package com.domination.game.states;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
 import com.domination.game.engine.GameplayWrapper;
-import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
-import com.domination.game.entities.GraphicalEntity;
 import com.domination.game.players.Player;
 import com.domination.game.players.defaultAI;
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -109,6 +107,27 @@ public class GameplayState extends GameState{
                 cell.handleBouncing(colision);
             }
         }
+        checkEndGameConditions();
+    }
+
+    private void checkEndGameConditions() {
+        Player winner = getWinner();
+        if (winner == null)
+            return;
+        if (playerList.get(0) == getWinner())
+            game.pushGameState(new ResultState(playerList.get(0), playerList.get(1), game, batch));
+        else
+            game.pushGameState(new ResultState(playerList.get(1), playerList.get(0), game, batch));
+    }
+
+    private Player getWinner() {
+        Cell firstCell = cellList.get(0);
+        for (Cell cell : cellList) {
+            if (cell.getPlayer() != firstCell.getPlayer()) {
+                return null;
+            }
+        }
+        return firstCell.getPlayer();
     }
 
     protected void addCellsAndBacteriaToEntityManager() {
@@ -117,6 +136,7 @@ public class GameplayState extends GameState{
         for (Cell cell : cellList)
             entityManager.add(cell);
     }
+
     protected void generateMap(int cellNumber){
         cellNumber/=2;
         Random random = new Random();
