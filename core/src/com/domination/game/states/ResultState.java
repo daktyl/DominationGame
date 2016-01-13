@@ -4,6 +4,8 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
+import com.badlogic.gdx.scenes.scene2d.InputEvent;
+import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.domination.game.Game;
 import com.domination.game.entities.ButtonEntity;
 import com.domination.game.entities.TextEntity;
@@ -37,6 +39,12 @@ public class ResultState extends GameState {
         entityManager.add(winnerText);
         winnerText.label.setPosition(300,400);
         ButtonEntity button = new ButtonEntity("Back",35,35,batch);
+        button.setClickListener(new ClickListener(){
+            @Override
+            public void clicked(InputEvent event, float x, float y) {
+                game.popGameState();
+            }
+        });
         entityManager.add(button);
     }
 

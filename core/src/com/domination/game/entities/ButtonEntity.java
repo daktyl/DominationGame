@@ -14,7 +14,7 @@ public class ButtonEntity extends Entity {
     BitmapFont font;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private boolean mouseOver;
-    ClickListener clickListener = null;
+    ClickListener clickListener = new ClickListener();
     boolean clicked=false;
     int margin=20;
     private ButtonEntity prev,next;
