@@ -89,7 +89,7 @@ public class Cell extends GraphicalEntity{
     @Override
     public void draw() {
         super.draw();
-        font.draw(batch,String.valueOf(amount),getCenterX()-(10*((amount==100)?3:(amount>=10)?2:1)),getCenterY()+10);
+        font.draw(batch,String.valueOf(amount),getCenterX()-(10*((amount==100)?3.f:(amount>=10)?2.f:1.f)),getCenterY()+10.f);
 
     }
 

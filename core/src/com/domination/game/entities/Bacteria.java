@@ -22,7 +22,7 @@ public class Bacteria extends GraphicalEntity {
 
     private float startCenterX;
     private float startCenterY;
-    private int xPosition;
+    private float xPosition;
     BitmapFont font;
 
     public Bacteria(Player player, Cell source, Cell destination, int amount, SpriteBatch batch) {
@@ -74,7 +74,7 @@ public class Bacteria extends GraphicalEntity {
     @Override
     public void draw() {
         super.draw();
-        font.draw(batch,String.valueOf(amount),getCenterX()- xPosition,getCenterY()+5);
+        font.draw(batch,String.valueOf(amount),getCenterX()- xPosition,getCenterY()+5.f);
     }
 
     public int getAmount() {
