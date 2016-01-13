@@ -4,11 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
-import com.domination.game.engine.GameplayWrapper;
 import com.domination.game.entities.Cell;
 import com.domination.game.players.HumanPlayer;
 import com.badlogic.gdx.graphics.Color;
-import com.domination.game.players.defaultAI;
 
 
 public class HumanGameplayState extends GameplayState {

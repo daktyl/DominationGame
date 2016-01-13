@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.engine.ResourceManager;
-import com.domination.game.players.HumanPlayer;
 import com.domination.game.states.*;
 
 import java.util.Stack;
