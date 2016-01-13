@@ -26,6 +26,6 @@ public abstract class AI extends Player {
             implementation();
         }
     }
-    abstract public String getPlayerName();
+
     abstract protected void implementation();
 }

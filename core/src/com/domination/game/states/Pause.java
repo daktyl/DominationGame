@@ -8,8 +8,7 @@ import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Timer;
 import com.domination.game.Game;
 import com.domination.game.entities.ButtonEntity;
-import com.domination.game.entities.Cell;
-import com.sun.org.apache.regexp.internal.RE;
+
 
 public class Pause extends GameState {
     GameState gameState;

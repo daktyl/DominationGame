@@ -12,4 +12,6 @@ public abstract class Player extends Thread{
     public Color getColor() {
         return color;
     }
+
+    abstract public String getPlayerName();
 }

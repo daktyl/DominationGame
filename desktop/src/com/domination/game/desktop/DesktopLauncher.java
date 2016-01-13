@@ -10,7 +10,7 @@ public class DesktopLauncher {
 		config.fullscreen=false;
 		config.width=1280;
 		config.height=720;
-		config.useGL30=true;
+		//config.useGL30=true;
 		config.x=0;
 		config.y=0;
 		config.title="Domination Game";

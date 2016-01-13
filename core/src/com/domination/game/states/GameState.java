@@ -27,7 +27,8 @@ public abstract class GameState implements InputProcessor {
     public void draw() {
         batch.begin();
         entityManager.drawAll();
-        batch.end(); }
+        batch.end();
+        }
 
     protected void setDefaultBackground(){
         GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
