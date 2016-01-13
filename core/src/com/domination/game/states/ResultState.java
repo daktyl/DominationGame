@@ -14,9 +14,6 @@ import com.domination.game.entities.GraphicalEntity;
 import com.domination.game.entities.TextEntity;
 import com.domination.game.players.Player;
 
-/**
- * Created by macbook on 13.01.2016.
- */
 public class ResultState extends GameState {
 
     public Player winner;
@@ -35,9 +32,9 @@ public class ResultState extends GameState {
         setDefaultBackground();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ChunkfiveEx.ttf"));
         BitmapFont font50 = generator.generateFont(50);
-        TextEntity looserText = new TextEntity("The looser is "+looser.getPlayerName(), font50, this.batch);
-        entityManager.add(looserText);
-        looserText.label.setPosition(300,300);
+        TextEntity loserText = new TextEntity("The loser is "+looser.getPlayerName(), font50, this.batch);
+        entityManager.add(loserText);
+        loserText.label.setPosition(300,300);
         TextEntity Result = new TextEntity("RESULT", font50, this.batch);
         entityManager.add(Result);
         Result.label.setPosition(500,500);
