@@ -27,11 +27,7 @@ public class ResultState extends GameState {
 
     @Override
     public void init() {
-        GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"), this.batch);
-        background.sprite.setScale((float) Gdx.graphics.getWidth() / background.sprite.getWidth(), (float)Gdx.graphics.getHeight() / background.sprite.getHeight());
-        background.sprite.setX(-background.sprite.getWidth() / 2.0F + (float)(Gdx.graphics.getWidth() / 2));
-        background.sprite.setY(-background.sprite.getHeight() / 2.0F + (float)(Gdx.graphics.getHeight() / 2));
-        this.entityManager.add(background);
+        setDefaultBackground();
         TextEntity looserText = new TextEntity("Looser:"+looser.getName(), batch);
         entityManager.add(looserText);
         looserText.label.setPosition(500,500);
