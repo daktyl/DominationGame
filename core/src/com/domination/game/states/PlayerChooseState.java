@@ -44,7 +44,7 @@ public class PlayerChooseState extends GameState {
         background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
         background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
         background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
-        ResourceManager.getInstance().get("font50");
+        ResourceManager.getInstance().get("Font50");
         TextEntity Start = new TextEntity("Start", font50, this.batch);
         TextEntity PlayerChoose = new TextEntity("Choose player", font50, this.batch);
         TextEntity Vs = new TextEntity("vs", font50, this.batch);

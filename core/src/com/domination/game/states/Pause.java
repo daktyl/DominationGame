@@ -9,7 +9,6 @@ import com.badlogic.gdx.utils.Timer;
 import com.domination.game.Game;
 import com.domination.game.entities.ButtonEntity;
 
-
 public class Pause extends GameState {
     GameState gameState;
     public Pause(Game game, GameState gameState, SpriteBatch batch) {
