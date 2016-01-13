@@ -7,11 +7,11 @@ import com.domination.game.engine.GameplayWrapper;
 
 import java.util.Random;
 
-public class defaultAI extends AI {
+public class DefaultAI extends AI {
 
     Random random = new Random();
 
-    public defaultAI(GameplayWrapper gameplayWrapper, Color color) {
+    public DefaultAI(GameplayWrapper gameplayWrapper, Color color) {
         super(gameplayWrapper, color);
     }
 
@@ -35,6 +35,6 @@ public class defaultAI extends AI {
 
     @Override
     public String getPlayerName() {
-        return "defaultAI";
+        return "DefaultAI";
     }
 }
