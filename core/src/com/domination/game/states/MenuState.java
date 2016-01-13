@@ -29,14 +29,9 @@ public class MenuState extends GameState {
 
     @Override
     public void init() {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ChunkfiveEx.ttf"));
-        BitmapFont font50 = generator.generateFont(50);
-        font50.setColor(Color.BLUE);
-        generator.dispose();
+        BitmapFont font50 = ResourceManager.getInstance().get("Font50");
         shapeRenderer.setProjectionMatrix(batch.getProjectionMatrix());
         shapeRenderer.setAutoShapeType(true);
-        ResourceManager.getInstance().add("font50", font50);
-        ResourceManager.getInstance().add("Logo", new Texture("menu.png"));
         GraphicalEntity test = new GraphicalEntity((Texture)ResourceManager.getInstance().get("Logo"), this.batch);
         entityManager.add(test);
         TextEntity test1 = new TextEntity("Play", font50, this.batch);

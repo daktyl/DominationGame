@@ -1,5 +1,6 @@
 package com.domination.game.entities;
 
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -17,22 +18,25 @@ public class Bacteria extends GraphicalEntity {
     private double distanceX;
     private double distanceY;
     private double velocity; // pixels per second
-    private static final Integer radius = 25;
+    private static final Integer radius = 30;
 
     private float startCenterX;
     private float startCenterY;
-
-    private TextEntity amountText;
+    private int xPosition;
+    BitmapFont font;
 
     public Bacteria(Player player, Cell source, Cell destination, int amount, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("BacteriaTexture"), batch);
         this.player = player;
         this.amount = amount;
-        amountText = new TextEntity(Integer.toString(amount),(BitmapFont) ResourceManager.getInstance().get("Font"), this.batch);
+        xPosition =(amount>9)?13:7;
+        font = ResourceManager.getInstance().get("BacteriaFont");
         this.source = source;
         this.destination = destination;
         velocity = 100;
-        sprite.setColor(player.getColor());
+        Color color = new Color(player.getColor());
+        color.a=0.95f;
+        sprite.setColor(color);
         distanceX = destination.getCenterX() - source.getCenterX();
         distanceY = destination.getCenterY() - source.getCenterY();
         startCenterX = source.getCenterX();
@@ -65,13 +69,12 @@ public class Bacteria extends GraphicalEntity {
         double newX = startCenterX + distanceX * finishedPart;
         double newY = startCenterY + distanceY * finishedPart;
         setPositionCenter((float) newX,(float) newY);
-        amountText.label.setPosition(getCenterX() - amountText.label.getWidth()/2.f,getCenterY()- amountText.label.getHeight()/2);
     }
 
     @Override
     public void draw() {
         super.draw();
-        amountText.draw();
+        font.draw(batch,String.valueOf(amount),getCenterX()- xPosition,getCenterY()+5);
     }
 
     public int getAmount() {

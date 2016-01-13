@@ -21,7 +21,7 @@ public class Cell extends GraphicalEntity{
     private Color freeCellColor = new Color(1f,1f,1f,0.5f);
     private float targetCenterX;
     private float targetCenterY;
-
+    BitmapFont font;
 
     public class Velocity{
         public float x=0,y=0;
@@ -33,6 +33,7 @@ public class Cell extends GraphicalEntity{
     private Velocity velocity = new Velocity();
     public Cell(Player player, float x, float y, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
+        font = ResourceManager.getInstance().get("CellFont");
         this.player = player;
         if (player != null) {
             amount = 100;
@@ -88,7 +89,8 @@ public class Cell extends GraphicalEntity{
     @Override
     public void draw() {
         super.draw();
-        amountText.draw();
+        font.draw(batch,String.valueOf(amount),getCenterX()-(10*((amount==100)?3:(amount>=10)?2:1)),getCenterY()+10);
+
     }
 
     public void handleIncomingBacteria(Bacteria bacteria) {
