@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 import com.domination.game.Game;
+import com.domination.game.entities.ButtonEntity;
 import com.domination.game.entities.TextEntity;
 import com.domination.game.players.Player;
 
@@ -35,11 +36,13 @@ public class ResultState extends GameState {
         TextEntity winnerText = new TextEntity("The winner is "+winner.getPlayerName(),font50, this.batch);
         entityManager.add(winnerText);
         winnerText.label.setPosition(300,400);
+        ButtonEntity button = new ButtonEntity("Back",35,35,batch);
+        entityManager.add(button);
+    }
 
-
-
-
-
-
+    @Override
+    public boolean keyDown(int keycode) {
+        game.popGameState();
+        return true;
     }
 }
