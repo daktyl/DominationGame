@@ -1,8 +1,8 @@
 package com.domination.game.entities;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -10,79 +10,128 @@ import com.domination.game.players.Player;
 import com.domination.game.engine.ResourceManager;
 
 public class Cell extends GraphicalEntity{
-    private Integer bacteriaAmount;
-    private TextEntity bacteriaAmountText;
+    private Integer amount;
+    private TextEntity amountText;
     public static final Integer radius = 75;
     private Player player;
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
     private BitmapFont bitmapFont;
-    private Long lastUpdateTime = System.currentTimeMillis();
+    private Long lastGrowingTime = System.currentTimeMillis();
+    private Long lastMovingTime = System.currentTimeMillis();
+    private Color freeCellColor = new Color(1f,1f,1f,0.5f);
+    private float targetCenterX;
+    private float targetCenterY;
 
+
+    public class Velocity{
+        public float x=0,y=0;
+        public void mulitiply(float num){
+            x*=num;
+            y*=num;
+        }
+    }
+    private Velocity velocity = new Velocity();
     public Cell(Player player, float x, float y, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
         this.player = player;
         if (player != null) {
-            bacteriaAmount = 50;
+            amount = 100;
         }
         else
-            bacteriaAmount = 10;
+            amount = 10;
         checkColor();
-        bacteriaAmountText = new TextEntity(Integer.toString(bacteriaAmount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
+        amountText = new TextEntity(Integer.toString(amount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setOrigin(0,0);
         sprite.setScale(radius*2/sprite.getWidth());
-        sprite.setX(x-radius);
-        sprite.setY(y-radius);
-        bacteriaAmountText.label.setPosition(getCenterX()-bacteriaAmountText.label.getWidth()/2,getCenterY()-bacteriaAmountText.label.getHeight()/2);
+        targetCenterX = x;
+        targetCenterY = y;
+        setPositionCenter(x,y);
+        amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
         bitmapFont = ResourceManager.getInstance().get("Font");
     }
 
     @Override
     public void update() {
-        if(System.currentTimeMillis()>lastUpdateTime+1000) {
-            lastUpdateTime += 1000;
-            if (bacteriaAmount < 100 && player != null) {
-                bacteriaAmount++;
+
+        Long currentTime = System.currentTimeMillis();
+        if(currentTime - lastGrowingTime > 1000) {
+            lastGrowingTime += 1000;
+            if (amount < 100 && player != null) {
+                amount++;
             }
         }
-        bacteriaAmountText.label.setPosition(getCenterX()-bacteriaAmountText.label.getWidth()/2,getCenterY()-bacteriaAmountText.label.getHeight()/2);
-        bacteriaAmountText.label.setText(bacteriaAmount.toString());
+
+        updatePosition(currentTime);
+
+        amountText.label.setPosition(getCenterX()- amountText.label.getWidth()/2,getCenterY()- amountText.label.getHeight()/2);
+        amountText.label.setText(amount.toString());
+
+    }
+
+    public void updatePosition(Long currentTime){
+        if(currentTime - lastMovingTime > 10) { // once per 1/100 sec
+            lastMovingTime += 10;
+            velocity.mulitiply(0.95f);
+            Float positionX = velocity.x + getCenterX();
+            Float positionY = velocity.y + getCenterY();
+            int screenWidth = Gdx.graphics.getWidth();
+            int screenHeight = Gdx.graphics.getHeight();
+            if (positionX < getScaledWidth()/2 ){ positionX=getScaledWidth()/2; velocity.x*=-1;}
+            if (positionX > screenWidth - getScaledWidth()/2){ positionX=screenWidth - getScaledWidth()/2;  velocity.x*=-1; }
+            if (positionY < getScaledHeight()/2){ positionY=getScaledHeight()/2;  velocity.y*=-1;}
+            if (positionY > screenHeight - getScaledHeight()/2) { positionY=screenHeight - getScaledHeight()/2;  velocity.y*=-1; }
+
+            setPositionCenter(positionX,positionY);
+        }
     }
 
     @Override
     public void draw() {
         super.draw();
-        bacteriaAmountText.draw();
+        amountText.draw();
     }
 
     public void handleIncomingBacteria(Bacteria bacteria) {
         Integer amount = bacteria.getAmount();
-        Player owner = bacteria.getSource().player;
-        if (player == bacteria.getSource().player)
-            bacteriaAmount +=amount;
+        Player owner = bacteria.getPlayer();
+        if (player == owner) {
+            this.amount += amount;
+            if(this.amount>100) this.amount = 100;
+        }
         else {
-            if (bacteriaAmount > amount)
-                bacteriaAmount -= amount;
-            else if (bacteriaAmount < amount){
-                bacteriaAmount = amount - bacteriaAmount;
+            if (this.amount > amount)
+                this.amount -= amount;
+            else if (this.amount < amount){
+                this.amount = amount - this.amount;
                 player = owner;
             }
             else {
-                bacteriaAmount = 0;
+                this.amount = 0;
                 player = null;
             }
-
         }
+        moveCellWithBacteria(bacteria);
         checkColor();
     }
 
-    public Integer handleOutgoingBacteria() {
-        int outgoingAmount = Math.floorDiv(bacteriaAmount,2);
-        bacteriaAmount = (int) Math.ceil((double)bacteriaAmount/2.f);
-        return outgoingAmount;
+    private void moveCellWithBacteria(Bacteria bacteria) {
+        int bacteriaAmount = bacteria.getAmount();
+        float relation = bacteriaAmount / 25000f;
+        velocity.x += relation*(float)bacteria.getDistanceX();
+        velocity.y += relation*(float)bacteria.getDistanceY();
     }
 
     public Integer getBacteriaAmount() {
-        return bacteriaAmount;
+        return Math.floorDiv(amount,2);
+    }
+
+    public void handleOutgoingBacteria(Bacteria bacteria) {
+        amount -= bacteria.getAmount();
+        moveCellWithBacteria(bacteria);
+    }
+
+    public Integer getAmount() {
+        return amount;
     }
 
     public Integer getRadius() {
@@ -97,7 +146,7 @@ public class Cell extends GraphicalEntity{
         if (player != null)
             sprite.setColor(player.getColor());
         else
-            sprite.setColor(Color.WHITE);
+            sprite.setColor(freeCellColor);
     }
     public boolean isOnCell(int positionX,int positionY){
         return radius*radius>((positionX-getCenterX())*(positionX-getCenterX())+(positionY-getCenterY())*(positionY-getCenterY()));
@@ -107,5 +156,26 @@ public class Cell extends GraphicalEntity{
     }
     public void dim(){
         sprite.setTexture((Texture)ResourceManager.getInstance().get("CellTexture"));
+    }
+    public void stopMoving(){
+        targetCenterX = getCenterX();
+        targetCenterY = getCenterY();
+    }
+
+    public Velocity getVelocity() {
+        return velocity;
+    }
+
+    public void handleBouncing(Cell colider) {
+        float newVelX1 = ( colider.velocity.x);
+        float newVelY1 = (colider.velocity.y);
+        float newVelX2 = (velocity.x);
+        float newVelY2 = (velocity.y);
+        colider.velocity.x = newVelX2;
+        colider.velocity.y = newVelY2;
+        velocity.x = newVelX1;
+        velocity.y = newVelY1;
+        updatePosition(System.currentTimeMillis());
+        colider.updatePosition(System.currentTimeMillis());
     }
 }

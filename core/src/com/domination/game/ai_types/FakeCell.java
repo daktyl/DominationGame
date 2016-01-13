@@ -10,12 +10,12 @@ public class FakeCell {
     public float centerX;
     public float centerY;
 
+    public FakeCell() {}
     public FakeCell(Cell cell) {
-        this.bacteriaAmount = cell.getBacteriaAmount();
+        this.bacteriaAmount = cell.getAmount();
         this.radius = cell.getRadius();
         this.player = cell.getPlayer();
         this.centerX = cell.getCenterX();
         this.centerY = cell.getCenterY();
-
     }
 }

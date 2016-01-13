@@ -26,12 +26,6 @@ public class GraphicalEntity extends Entity {
     @Override
     public void update() {} // Override this method in children classes if needed
 
-    public float getX() { return sprite.getX(); }
-
-    public float getY() { return sprite.getY(); }
-
-    public float getWidth() { return sprite.getWidth(); }
-
     public float getScaledWidth() { return sprite.getWidth()*sprite.getScaleX(); }
 
     public float getScaledHeight() { return sprite.getHeight()*sprite.getScaleY(); }

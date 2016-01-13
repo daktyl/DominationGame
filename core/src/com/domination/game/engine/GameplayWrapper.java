@@ -9,6 +9,7 @@ import com.domination.game.entities.Cell;
 import com.domination.game.players.Player;
 import com.domination.game.states.GameplayState;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class GameplayWrapper {
