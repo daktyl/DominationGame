@@ -1,6 +1,7 @@
 package com.domination.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -47,5 +48,15 @@ public class ResultState extends GameState {
 
 
 
+    }
+
+    @Override
+    public boolean keyDown(int button) {
+        if(button == Input.Keys.ESCAPE)
+        {
+            game.popGameState();
+            game.popGameState();
+        }
+        return true;
     }
 }

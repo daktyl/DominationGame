@@ -54,13 +54,5 @@ public class HumanGameplayState extends GameplayState {
         return true;
     }
 
-    @Override
-    public boolean keyDown(int button) {
-        if(button == Input.Keys.ESCAPE)
-        {
-            game.popGameState();
-            game.popGameState();
-        }
-        return true;
-    }
+
 }
