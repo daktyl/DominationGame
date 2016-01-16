@@ -39,7 +39,7 @@ public class Cell extends GraphicalEntity{
             amount = 100;
         }
         else
-            amount = 10;
+            amount = 3;
         checkColor();
         amountText = new TextEntity(Integer.toString(amount), (BitmapFont)ResourceManager.getInstance().get("Font"), this.batch);
         sprite.setOrigin(0,0);
