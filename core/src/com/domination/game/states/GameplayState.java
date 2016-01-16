@@ -141,9 +141,9 @@ public class GameplayState extends GameState{
             if(cell.getPlayer()!=null) {
                 if (winner==null)
                     winner=cell.getPlayer();
-                else if(cell.getPlayer()!=winner){
+                else if(cell.getPlayer()!=winner)
                     return null;
-                }
+
             }
         }
         return winner;
