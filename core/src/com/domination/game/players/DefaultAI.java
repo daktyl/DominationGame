@@ -17,19 +17,20 @@ public class DefaultAI extends AI {
 
     @Override
     protected void implementation() {
-        int from,to;
+        int from, to;
         do {
             Situation situation = gameplayWrapper.getCurrentSituation();
             cellList = situation.cellList;
             bacteriaList = situation.bacteriaList;
             from = random.nextInt(cellList.size());
             to = random.nextInt(cellList.size());
-        }while (!gameplayWrapper.sendBacteria(cellList.get(from),cellList.get(to),this));
-        try  {
-            synchronized (this) { wait(random.nextInt(5000)); }
-        }
-        catch (InterruptedException e){
-            Gdx.app.log("Player","Interrupted");
+        } while (!gameplayWrapper.sendBacteria(cellList.get(from), cellList.get(to), this));
+        try {
+            synchronized (this) {
+                wait(random.nextInt(5000));
+            }
+        } catch (InterruptedException e) {
+            Gdx.app.log("Player", "Interrupted");
         }
     }
 }

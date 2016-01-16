@@ -15,7 +15,9 @@ public class FakeBacteria {
     public double velocity;
 
 
-    public FakeBacteria() {}
+    public FakeBacteria() {
+    }
+
     public FakeBacteria(Bacteria bacteria) {
         this.amount = bacteria.getAmount();
         this.player = bacteria.getPlayer();

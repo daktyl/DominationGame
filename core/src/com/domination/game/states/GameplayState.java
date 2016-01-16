@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-public class GameplayState extends GameState{
-    List<Player> playerList = new ArrayList<Player>();
+public class GameplayState extends GameState {
     public List<Cell> cellList = new ArrayList<Cell>();
     public List<Bacteria> bacteriaList = new CopyOnWriteArrayList<Bacteria>();
     protected int AISet, AISetRight;
+    List<Player> playerList = new ArrayList<Player>();
     private long lastCheckWinerTime;
 
     public GameplayState(Game game, SpriteBatch batch, int AISet, int AISetRight) {
@@ -42,52 +42,52 @@ public class GameplayState extends GameState{
     }
 
     protected void setFirstPlayer() {
-        switch(AISet){
-            case(0):
+        switch (AISet) {
+            case (0):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
-            case(1):
+            case (1):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
-            case(2):
+            case (2):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
-            case(3):
+            case (3):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
-            case(4):
+            case (4):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
-            case(5):
+            case (5):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
-            case(6):
+            case (6):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
         }
     }
 
     protected void setSecondPlayer() {
-        switch(AISetRight){
-            case(0):
+        switch (AISetRight) {
+            case (0):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
-            case(1):
+            case (1):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
-            case(2):
+            case (2):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
-            case(3):
+            case (3):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
-            case(4):
+            case (4):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
-            case(5):
+            case (5):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
-            case(6):
+            case (6):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
         }
@@ -102,9 +102,9 @@ public class GameplayState extends GameState{
                 bacteriaList.remove(next);
             }
         }
-        for (Cell cell : cellList){
-            Cell colision=checkCollisionWithOtherCells(cell);
-            if (colision!=null) {
+        for (Cell cell : cellList) {
+            Cell colision = checkCollisionWithOtherCells(cell);
+            if (colision != null) {
                 cell.handleBouncing(colision);
             }
         }
@@ -115,10 +115,10 @@ public class GameplayState extends GameState{
         Player winner = getWinner();
 
         if (winner == null) {
-            lastCheckWinerTime=System.currentTimeMillis();
+            lastCheckWinerTime = System.currentTimeMillis();
             return;
         }
-        if(lastCheckWinerTime+3000>System.currentTimeMillis())
+        if (lastCheckWinerTime + 3000 > System.currentTimeMillis())
             return;
         if (playerList.get(0) == winner)
             game.pushGameState(new ResultState(playerList.get(0), playerList.get(1), game, batch));
@@ -129,19 +129,19 @@ public class GameplayState extends GameState{
     private Player getWinner() {
         Player winner = null;
         for (Bacteria bacteria : bacteriaList) {
-            if(bacteria.getPlayer()!=null) {
-                if (winner==null)
-                    winner=bacteria.getPlayer();
-                else if(bacteria.getPlayer()!=winner){
+            if (bacteria.getPlayer() != null) {
+                if (winner == null)
+                    winner = bacteria.getPlayer();
+                else if (bacteria.getPlayer() != winner) {
                     return null;
                 }
             }
         }
         for (Cell cell : cellList) {
-            if(cell.getPlayer()!=null) {
-                if (winner==null)
-                    winner=cell.getPlayer();
-                else if(cell.getPlayer()!=winner)
+            if (cell.getPlayer() != null) {
+                if (winner == null)
+                    winner = cell.getPlayer();
+                else if (cell.getPlayer() != winner)
                     return null;
 
             }
@@ -156,44 +156,45 @@ public class GameplayState extends GameState{
             entityManager.add(cell);
     }
 
-    protected void generateMap(int cellNumber){
-        cellNumber/=2;
+    protected void generateMap(int cellNumber) {
+        cellNumber /= 2;
         Random random = new Random();
-        if(playerList.size()==2) {
-            int middleX,middleY;
-            float mapCenterX=Gdx.graphics.getWidth()/2.f;
+        if (playerList.size() == 2) {
+            int middleX, middleY;
+            float mapCenterX = Gdx.graphics.getWidth() / 2.f;
 
-            middleX=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius;
-            middleY=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
-            cellList.add(new Cell(playerList.get(0), mapCenterX+middleX, middleY, this.batch));
-            cellList.add(new Cell(playerList.get(1), mapCenterX-middleX, middleY, this.batch));
-            int i=0;
+            middleX = random.nextInt(Gdx.graphics.getWidth() / 2 - Cell.radius * 2) + Cell.radius;
+            middleY = random.nextInt(Gdx.graphics.getHeight() - Cell.radius * 2) + Cell.radius;
+            cellList.add(new Cell(playerList.get(0), mapCenterX + middleX, middleY, this.batch));
+            cellList.add(new Cell(playerList.get(1), mapCenterX - middleX, middleY, this.batch));
+            int i = 0;
             while (i < cellNumber - 1) {
-                middleX=random.nextInt(Gdx.graphics.getWidth()/2-Cell.radius*2)+Cell.radius;
-                middleY=random.nextInt(Gdx.graphics.getHeight()-Cell.radius*2)+Cell.radius;
-                if (! checkCollisionWithAllCells(mapCenterX + middleX,middleY)){
-                    cellList.add(new Cell(null, mapCenterX+middleX, middleY, this.batch));
-                    cellList.add(new Cell(null, mapCenterX-middleX, middleY, this.batch));
+                middleX = random.nextInt(Gdx.graphics.getWidth() / 2 - Cell.radius * 2) + Cell.radius;
+                middleY = random.nextInt(Gdx.graphics.getHeight() - Cell.radius * 2) + Cell.radius;
+                if (!checkCollisionWithAllCells(mapCenterX + middleX, middleY)) {
+                    cellList.add(new Cell(null, mapCenterX + middleX, middleY, this.batch));
+                    cellList.add(new Cell(null, mapCenterX - middleX, middleY, this.batch));
                     i++;
                 }
             }
         }
     }
 
-    private Boolean checkCollisionWithAllCells(float x, float y){
+    private Boolean checkCollisionWithAllCells(float x, float y) {
         for (Cell cell : cellList) {
-            float distance = (float) Math.sqrt(Math.pow(cell.getCenterX() - x,2) + Math.pow(cell.getCenterY() - y,2));
+            float distance = (float) Math.sqrt(Math.pow(cell.getCenterX() - x, 2) + Math.pow(cell.getCenterY() - y, 2));
             if (distance <= 2 * cell.getRadius())
                 return true;
         }
         return false;
     }
-    private Cell checkCollisionWithOtherCells(Cell cell){
+
+    private Cell checkCollisionWithOtherCells(Cell cell) {
         float x = cell.getCenterX();
         float y = cell.getCenterY();
         for (Cell secondCell : cellList) {
             if (cell == secondCell) continue;
-            float distance = (float) Math.sqrt(Math.pow(secondCell.getCenterX() - x,2) + Math.pow(secondCell.getCenterY() - y,2));
+            float distance = (float) Math.sqrt(Math.pow(secondCell.getCenterX() - x, 2) + Math.pow(secondCell.getCenterY() - y, 2));
             if (distance <= 2 * secondCell.getRadius())
                 return secondCell;
         }
@@ -207,8 +208,7 @@ public class GameplayState extends GameState{
             entityManager.add(bacteria);
             bacteriaList.add(bacteria);
             return true;
-        }
-        else {
+        } else {
             return false;
         }
     }

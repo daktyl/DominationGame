@@ -27,21 +27,20 @@ public class ResultState extends GameState {
         setDefaultBackground();
         FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("ChunkfiveEx.ttf"));
         BitmapFont font50 = generator.generateFont(50);
-        TextEntity loserText = new TextEntity("The loser is "+ loser.getPlayerName(), font50, this.batch);
+        TextEntity loserText = new TextEntity("The loser is " + loser.getPlayerName(), font50, this.batch);
         entityManager.add(loserText);
-        loserText.label.setPosition(300,300);
+        loserText.label.setPosition(300, 300);
         TextEntity Result = new TextEntity("RESULT", font50, this.batch);
         entityManager.add(Result);
-        Result.label.setPosition(500,500);
-        TextEntity winnerText = new TextEntity("The winner is "+winner.getPlayerName(),font50, this.batch);
+        Result.label.setPosition(500, 500);
+        TextEntity winnerText = new TextEntity("The winner is " + winner.getPlayerName(), font50, this.batch);
         entityManager.add(winnerText);
-        winnerText.label.setPosition(300,400);
+        winnerText.label.setPosition(300, 400);
     }
 
     @Override
     public boolean keyDown(int button) {
-        if(button == Input.Keys.ESCAPE)
-        {
+        if (button == Input.Keys.ESCAPE) {
             game.popGameState();
             game.popGameState();
         }
