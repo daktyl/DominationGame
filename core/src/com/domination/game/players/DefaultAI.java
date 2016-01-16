@@ -12,7 +12,7 @@ public class DefaultAI extends AI {
     Random random = new Random();
 
     public DefaultAI(GameplayWrapper gameplayWrapper, Color color) {
-        super(gameplayWrapper, color);
+        super(gameplayWrapper, color, "Default AI");
     }
 
     @Override
@@ -31,10 +31,5 @@ public class DefaultAI extends AI {
         catch (InterruptedException e){
             Gdx.app.log("Player","Interrupted");
         }
-    }
-
-    @Override
-    public String getPlayerName() {
-        return "DefaultAI";
     }
 }
