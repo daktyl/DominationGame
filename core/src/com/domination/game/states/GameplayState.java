@@ -8,6 +8,7 @@ import com.domination.game.engine.GameplayWrapper;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.players.DefaultAI;
+import com.domination.game.players.MarcinP_AI.MarcinP_AI;
 import com.domination.game.players.Player;
 
 import java.util.ArrayList;
@@ -56,7 +57,7 @@ public class GameplayState extends GameState{
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case(4):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new MarcinP_AI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case(5):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
