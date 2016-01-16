@@ -1,7 +1,6 @@
 package com.domination.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
@@ -22,6 +21,8 @@ public class GameplayState extends GameState{
     public List<Cell> cellList = new ArrayList<Cell>();
     public List<Bacteria> bacteriaList = new CopyOnWriteArrayList<Bacteria>();
     protected int AISet, AISetRight;
+    private long lastCheckWinerTime;
+
     public GameplayState(Game game, SpriteBatch batch, int AISet, int AISetRight) {
         super(game, batch);
         this.AISet = AISet;
@@ -112,22 +113,40 @@ public class GameplayState extends GameState{
 
     private void checkEndGameConditions() {
         Player winner = getWinner();
-        if (winner == null)
+
+        if (winner == null) {
+            lastCheckWinerTime=System.currentTimeMillis();
             return;
-        if (playerList.get(0) == getWinner())
+        }
+        if(lastCheckWinerTime+3000>System.currentTimeMillis())
+            return;
+        if (playerList.get(0) == winner)
             game.pushGameState(new ResultState(playerList.get(0), playerList.get(1), game, batch));
         else
             game.pushGameState(new ResultState(playerList.get(1), playerList.get(0), game, batch));
     }
 
     private Player getWinner() {
-        Cell firstCell = cellList.get(0);
-        for (Cell cell : cellList) {
-            if (cell.getPlayer() != firstCell.getPlayer()) {
-                return null;
+        Player winner = null;
+        for (Bacteria bacteria : bacteriaList) {
+            if(bacteria.getPlayer()!=null) {
+                if (winner==null)
+                    winner=bacteria.getPlayer();
+                else if(bacteria.getPlayer()!=winner){
+                    return null;
+                }
             }
         }
-        return firstCell.getPlayer();
+        for (Cell cell : cellList) {
+            if(cell.getPlayer()!=null) {
+                if (winner==null)
+                    winner=cell.getPlayer();
+                else if(cell.getPlayer()!=winner)
+                    return null;
+
+            }
+        }
+        return winner;
     }
 
     protected void addCellsAndBacteriaToEntityManager() {
@@ -193,18 +212,4 @@ public class GameplayState extends GameState{
             return false;
         }
     }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        Gdx.app.debug("KeyDown", Integer.valueOf(keycode).toString());
-        switch (keycode) {
-            case Input.Keys.ESCAPE:
-                game.pushGameState(new Pause(game,this,batch));
-                Gdx.app.debug("KeyDown", "Esc");
-                return true;
-            case Input.Keys.SPACE:
-        }
-        return false;
-    }
-
 }

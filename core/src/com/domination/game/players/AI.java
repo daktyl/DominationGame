@@ -9,8 +9,8 @@ import java.util.List;
 
 public abstract class AI extends Player {
     GameplayWrapper gameplayWrapper;
-    public AI(GameplayWrapper gameplayWrapper, Color color) {
-        super(color);
+    public AI(GameplayWrapper gameplayWrapper, Color color, String name) {
+        super(color, name);
         this.gameplayWrapper = gameplayWrapper;
     }
 
