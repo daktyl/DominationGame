@@ -21,6 +21,8 @@ public class GameplayState extends GameState{
     public List<Cell> cellList = new ArrayList<Cell>();
     public List<Bacteria> bacteriaList = new CopyOnWriteArrayList<Bacteria>();
     protected int AISet, AISetRight;
+    private long lastCheckWinerTime;
+
     public GameplayState(Game game, SpriteBatch batch, int AISet, int AISetRight) {
         super(game, batch);
         this.AISet = AISet;
@@ -111,22 +113,41 @@ public class GameplayState extends GameState{
 
     private void checkEndGameConditions() {
         Player winner = getWinner();
-        if (winner == null)
+        winner = getWinner();
+
+        if (winner == null) {
+            lastCheckWinerTime=System.currentTimeMillis();
             return;
-        if (playerList.get(0) == getWinner())
+        }
+        if(lastCheckWinerTime+3000>System.currentTimeMillis())
+            return;
+        if (playerList.get(0) == winner)
             game.pushGameState(new ResultState(playerList.get(0), playerList.get(1), game, batch));
         else
             game.pushGameState(new ResultState(playerList.get(1), playerList.get(0), game, batch));
     }
 
     private Player getWinner() {
-        Cell firstCell = cellList.get(0);
-        for (Cell cell : cellList) {
-            if (cell.getPlayer() != firstCell.getPlayer()) {
-                return null;
+        Player winner = null;
+        for (Bacteria bacteria : bacteriaList) {
+            if(bacteria.getPlayer()!=null) {
+                if (winner==null)
+                    winner=bacteria.getPlayer();
+                else if(bacteria.getPlayer()!=winner){
+                    return null;
+                }
             }
         }
-        return firstCell.getPlayer();
+        for (Cell cell : cellList) {
+            if(cell.getPlayer()!=null) {
+                if (winner==null)
+                    winner=cell.getPlayer();
+                else if(cell.getPlayer()!=winner)
+                    return null;
+
+            }
+        }
+        return winner;
     }
 
     protected void addCellsAndBacteriaToEntityManager() {
