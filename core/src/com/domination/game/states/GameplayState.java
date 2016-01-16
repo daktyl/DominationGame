@@ -113,7 +113,6 @@ public class GameplayState extends GameState{
 
     private void checkEndGameConditions() {
         Player winner = getWinner();
-        winner = getWinner();
 
         if (winner == null) {
             lastCheckWinerTime=System.currentTimeMillis();
