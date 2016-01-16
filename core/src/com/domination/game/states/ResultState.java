@@ -1,6 +1,7 @@
 package com.domination.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
@@ -35,11 +36,15 @@ public class ResultState extends GameState {
         TextEntity winnerText = new TextEntity("The winner is "+winner.getPlayerName(),font50, this.batch);
         entityManager.add(winnerText);
         winnerText.label.setPosition(300,400);
+    }
 
-
-
-
-
-
+    @Override
+    public boolean keyDown(int button) {
+        if(button == Input.Keys.ESCAPE)
+        {
+            game.popGameState();
+            game.popGameState();
+        }
+        return true;
     }
 }
