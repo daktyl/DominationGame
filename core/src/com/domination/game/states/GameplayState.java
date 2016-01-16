@@ -1,7 +1,6 @@
 package com.domination.game.states;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
@@ -213,18 +212,4 @@ public class GameplayState extends GameState{
             return false;
         }
     }
-
-    @Override
-    public boolean keyDown(int keycode) {
-        Gdx.app.debug("KeyDown", Integer.valueOf(keycode).toString());
-        switch (keycode) {
-            case Input.Keys.ESCAPE:
-                game.pushGameState(new Pause(game,this,batch));
-                Gdx.app.debug("KeyDown", "Esc");
-                return true;
-            case Input.Keys.SPACE:
-        }
-        return false;
-    }
-
 }
