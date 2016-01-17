@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class GraphicalEntity extends Entity {
-    public Sprite sprite;
+    public final Sprite sprite;
 
 
     public GraphicalEntity(Texture texture, SpriteBatch batch) {
@@ -27,11 +27,11 @@ public class GraphicalEntity extends Entity {
     public void update() {
     } // Override this method in children classes if needed
 
-    public float getScaledWidth() {
+    float getScaledWidth() {
         return sprite.getWidth() * sprite.getScaleX();
     }
 
-    public float getScaledHeight() {
+    float getScaledHeight() {
         return sprite.getHeight() * sprite.getScaleY();
     }
 
@@ -43,7 +43,7 @@ public class GraphicalEntity extends Entity {
         return sprite.getY() + getScaledHeight() / 2;
     }
 
-    public void setPositionCenter(float positionX, float positionY) {
+    void setPositionCenter(float positionX, float positionY) {
         sprite.setPosition(positionX - getScaledWidth() / 2, positionY - getScaledHeight() / 2);
     }
 }

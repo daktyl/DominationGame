@@ -85,7 +85,7 @@ public class ResourceManager {
     }
 
     @SuppressWarnings("unchecked")
-    public synchronized <T> T remove(String key) {
+    private synchronized <T> T remove(String key) {
         if (resourceMap.containsKey(key)) {
             Object resource = getObject(key);
             ResourceContainer container = getCorrectContainer(resource.getClass());

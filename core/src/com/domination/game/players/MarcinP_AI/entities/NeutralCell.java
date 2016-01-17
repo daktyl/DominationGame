@@ -12,13 +12,13 @@ public class NeutralCell extends Cell {
 
     @Override
     protected void addBacteriasToLists() {
-        for (Bacteria bacteria : aiEngine.hostileBacteriaList){
-            if (bacteria.fakeBacteria.destination == this.fakeCell){
+        for (Bacteria bacteria : aiEngine.hostileBacteriaList) {
+            if (bacteria.fakeBacteria.destination == this.fakeCell) {
                 closestIncomingFriendlyBacteriaList.add(bacteria); // keeps all my enemies as his friends
             }
         }
-        for (Bacteria bacteria : aiEngine.friendlyBacteriaList){
-            if (bacteria.fakeBacteria.destination == this.fakeCell){
+        for (Bacteria bacteria : aiEngine.friendlyBacteriaList) {
+            if (bacteria.fakeBacteria.destination == this.fakeCell) {
                 closestIncomingHostileBacteriaList.add(bacteria); // keeps me as his enemy
             }
         }
@@ -35,17 +35,17 @@ public class NeutralCell extends Cell {
     }
 
     @Override
-    public int expectedBacteriaAmountAfterTime (double time) {
+    public int expectedBacteriaAmountAfterTime(double time) {
         int amount = this.fakeCell.bacteriaAmount;
 
         long currTime = System.currentTimeMillis();
-        for (Bacteria bacteria : closestIncomingHostileBacteriaList){
-            if (bacteria.fakeBacteria.endTime - currTime <= time ){
+        for (Bacteria bacteria : closestIncomingHostileBacteriaList) {
+            if (bacteria.fakeBacteria.endTime - currTime <= time) {
                 amount -= bacteria.fakeBacteria.amount;
             }
         }
-        for (Bacteria bacteria : closestIncomingFriendlyBacteriaList){
-            if (bacteria.fakeBacteria.endTime - currTime <= time ){
+        for (Bacteria bacteria : closestIncomingFriendlyBacteriaList) {
+            if (bacteria.fakeBacteria.endTime - currTime <= time) {
                 amount -= bacteria.fakeBacteria.amount;
             }
         }
@@ -54,18 +54,16 @@ public class NeutralCell extends Cell {
     }
 
     @Override
-    public int expectedFinalBacteriaAmount () {
+    public int expectedFinalBacteriaAmount() {
         int amount = this.fakeCell.bacteriaAmount;
-        for (Bacteria bacteria : closestIncomingHostileBacteriaList){
+        for (Bacteria bacteria : closestIncomingHostileBacteriaList) {
             amount -= bacteria.fakeBacteria.amount;
         }
-        for (Bacteria bacteria : closestIncomingFriendlyBacteriaList){
+        for (Bacteria bacteria : closestIncomingFriendlyBacteriaList) {
             amount -= bacteria.fakeBacteria.amount;
         }
         return amount;
     }
-
-
 
 
 }

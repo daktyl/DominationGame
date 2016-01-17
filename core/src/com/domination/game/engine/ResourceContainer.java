@@ -25,7 +25,7 @@ class ResourceContainer {
         return container.get(index);
     }
 
-    public Object remove(int index) {
+    private Object remove(int index) {
         return container.remove(index);
     }
 
@@ -41,7 +41,7 @@ class ResourceContainer {
         return container.set(index, resource);
     }
 
-    public int find(Object resource) {
+    private int find(Object resource) {
         for (int index = 0; index < container.size(); ++index) {
             if (resource == container.get(index)) {
                 return index;
@@ -50,7 +50,7 @@ class ResourceContainer {
         return -1;
     }
 
-    public int size() {
+    private int size() {
         return container.size();
     }
 

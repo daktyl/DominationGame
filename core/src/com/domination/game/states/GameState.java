@@ -10,11 +10,11 @@ import com.domination.game.engine.ResourceManager;
 import com.domination.game.entities.GraphicalEntity;
 
 public abstract class GameState implements InputProcessor {
-    protected Game game;
-    protected SpriteBatch batch;
-    protected EntityManager entityManager = new EntityManager();
+    final Game game;
+    final SpriteBatch batch;
+    final EntityManager entityManager = new EntityManager();
 
-    public GameState(Game game, SpriteBatch batch) {
+    GameState(Game game, SpriteBatch batch) {
         this.game = game;
         this.batch = batch;
     }
@@ -35,7 +35,7 @@ public abstract class GameState implements InputProcessor {
         batch.end();
     }
 
-    protected void setDefaultBackground() {
+    void setDefaultBackground() {
         GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"), batch);
         background.sprite.setScale(Gdx.graphics.getWidth() / background.sprite.getWidth(), Gdx.graphics.getHeight() / background.sprite.getHeight());
         background.sprite.setX(-background.sprite.getWidth() / 2 + Gdx.graphics.getWidth() / 2);

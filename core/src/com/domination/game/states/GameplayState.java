@@ -1,6 +1,7 @@
 package com.domination.game.states;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.domination.game.Game;
@@ -17,10 +18,11 @@ import java.util.Random;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class GameplayState extends GameState {
-    public List<Cell> cellList = new ArrayList<Cell>();
-    public List<Bacteria> bacteriaList = new CopyOnWriteArrayList<Bacteria>();
-    protected int AISet, AISetRight;
-    List<Player> playerList = new ArrayList<Player>();
+    public final List<Cell> cellList = new ArrayList<Cell>();
+    public final List<Bacteria> bacteriaList = new CopyOnWriteArrayList<Bacteria>();
+    final List<Player> playerList = new ArrayList<Player>();
+    private final int AISet;
+    private final int AISetRight;
     private long lastCheckWinerTime;
 
     public GameplayState(Game game, SpriteBatch batch, int AISet, int AISetRight) {
@@ -41,7 +43,7 @@ public class GameplayState extends GameState {
         }
     }
 
-    protected void setFirstPlayer() {
+    void setFirstPlayer() {
         switch (AISet) {
             case (0):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
@@ -50,16 +52,16 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (2):
-                playerList.add(new FilipAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new FilipAI(new GameplayWrapper(this), Color.BLUE));
                 break;
             case (3):
-                playerList.add(new MrugiAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new MrugiAI(new GameplayWrapper(this), Color.RED));
                 break;
             case (4):
-                playerList.add(new MarcinP_AI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new MarcinP_AI(new GameplayWrapper(this), Color.BLACK));
                 break;
             case (5):
-                playerList.add(new DaktylAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new DaktylAI(new GameplayWrapper(this), Color.GREEN));
                 break;
             case (6):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
@@ -67,7 +69,7 @@ public class GameplayState extends GameState {
         }
     }
 
-    protected void setSecondPlayer() {
+    private void setSecondPlayer() {
         switch (AISetRight) {
             case (0):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
@@ -76,16 +78,16 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (2):
-                playerList.add(new FilipAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new FilipAI(new GameplayWrapper(this), Color.BLUE));
                 break;
             case (3):
-                playerList.add(new MrugiAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new MrugiAI(new GameplayWrapper(this), Color.RED));
                 break;
             case (4):
-                playerList.add(new MarcinP_AI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new MarcinP_AI(new GameplayWrapper(this), Color.BLACK));
                 break;
             case (5):
-                playerList.add(new DaktylAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new DaktylAI(new GameplayWrapper(this), Color.GREEN));
                 break;
             case (6):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
@@ -103,9 +105,9 @@ public class GameplayState extends GameState {
             }
         }
         for (Cell cell : cellList) {
-            Cell colision = checkCollisionWithOtherCells(cell);
-            if (colision != null) {
-                cell.handleBouncing(colision);
+            Cell collision = checkCollisionWithOtherCells(cell);
+            if (collision != null) {
+                cell.handleBouncing(collision);
             }
         }
         checkEndGameConditions();
@@ -149,14 +151,14 @@ public class GameplayState extends GameState {
         return winner;
     }
 
-    protected void addCellsAndBacteriaToEntityManager() {
+    private void addCellsAndBacteriaToEntityManager() {
         for (Bacteria bacteria : bacteriaList)
             entityManager.add(bacteria);
         for (Cell cell : cellList)
             entityManager.add(cell);
     }
 
-    protected void generateMap(int cellNumber) {
+    private void generateMap(int cellNumber) {
         cellNumber /= 2;
         Random random = new Random();
         if (playerList.size() == 2) {
@@ -211,5 +213,13 @@ public class GameplayState extends GameState {
         } else {
             return false;
         }
+    }
+
+    @Override
+    public boolean keyDown(int button) {
+        if (button == Input.Keys.ESCAPE) {
+            game.popGameState();
+        }
+        return true;
     }
 }

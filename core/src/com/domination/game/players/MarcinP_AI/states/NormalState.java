@@ -9,12 +9,17 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
-public class NormalState extends AIState{
+public class NormalState extends AIState {
 
     //Singleton
     private static final NormalState instance = new NormalState();
-    private NormalState() {};
-    public static AIState getInstance() { return instance; };
+
+    private NormalState() {
+    }
+
+    public static AIState getInstance() {
+        return instance;
+    }
 
     @Override
     public void enter(MarcinP_AI aiEngine) {
@@ -30,8 +35,8 @@ public class NormalState extends AIState{
                 friendlyCell.closestFriendlyCellList.sort(new Comparator<Cell>() {  // sortuję żeby mieć najlepszą opcję pomocy
                     @Override
                     public int compare(Cell cell, Cell t1) {
-                        float cell1Factor = (float) (Math.pow(cell.fakeCell.bacteriaAmount, 2) - aiEngine.expectedDeltaTimeBeetweenCells(friendlyCell, cell)/10);
-                        float cell2Factor = (float) (Math.pow(t1.fakeCell.bacteriaAmount, 2) - aiEngine.expectedDeltaTimeBeetweenCells(friendlyCell, t1)/10);
+                        float cell1Factor = (float) (Math.pow(cell.fakeCell.bacteriaAmount, 2) - aiEngine.expectedDeltaTimeBeetweenCells(friendlyCell, cell) / 10);
+                        float cell2Factor = (float) (Math.pow(t1.fakeCell.bacteriaAmount, 2) - aiEngine.expectedDeltaTimeBeetweenCells(friendlyCell, t1) / 10);
                         if (cell1Factor > cell2Factor) return -1;
                         else if (cell1Factor < cell2Factor) return 1;
                         else return 0;
@@ -50,8 +55,7 @@ public class NormalState extends AIState{
                         if (rescueCell.fakeCell.bacteriaAmount / 2 > (-1) * expectedFriendlyCellBacteriaAmount) {
                             aiEngine.sendBacteria(rescueCell, friendlyCell);
                             return;
-                        }
-                        else if (rescueCell.fakeCell.bacteriaAmount * 3f/4f > (-1) * expectedFriendlyCellBacteriaAmount) {
+                        } else if (rescueCell.fakeCell.bacteriaAmount * 3f / 4f > (-1) * expectedFriendlyCellBacteriaAmount) {
                             aiEngine.sendBacteria(rescueCell, friendlyCell);
                             aiEngine.sendBacteria(rescueCell, friendlyCell);
                             return;
@@ -103,8 +107,7 @@ public class NormalState extends AIState{
                     if (friendlyCell.fakeCell.bacteriaAmount / 2 > expectedOppositeCellBacteriaAmount) {
                         aiEngine.sendBacteria(friendlyCell, oppositeCell);
                         return;
-                    }
-                    else if (friendlyCell.fakeCell.bacteriaAmount * 3f/4f > expectedOppositeCellBacteriaAmount) {
+                    } else if (friendlyCell.fakeCell.bacteriaAmount * 3f / 4f > expectedOppositeCellBacteriaAmount) {
                         aiEngine.sendBacteria(friendlyCell, oppositeCell);
                         aiEngine.sendBacteria(friendlyCell, oppositeCell);
                         return;

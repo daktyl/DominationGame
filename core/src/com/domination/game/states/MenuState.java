@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MenuState extends GameState {
-    public List<TextEntity> textList = new ArrayList<TextEntity>();
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final List<TextEntity> textList = new ArrayList<TextEntity>();
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private int menuset = 2;
 
     public MenuState(Game game, SpriteBatch batch) {

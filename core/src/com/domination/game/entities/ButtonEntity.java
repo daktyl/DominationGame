@@ -10,12 +10,12 @@ import com.domination.game.engine.ResourceManager;
 
 public class ButtonEntity extends Entity {
 
+    private final int margin = 20;
+    private final TextEntity text;
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     BitmapFont font;
-    ClickListener clickListener = null;
-    boolean clicked = false;
-    int margin = 20;
-    private TextEntity text;
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private ClickListener clickListener = null;
+    private boolean clicked = false;
     private boolean mouseOver;
     private ButtonEntity prev, next;
 
@@ -47,7 +47,7 @@ public class ButtonEntity extends Entity {
         batch.begin();
     }
 
-    boolean isOnText(int screenX, int screenY) {
+    private boolean isOnText(int screenX, int screenY) {
         return (screenX > text.label.getX() - margin) && (screenX < text.label.getX() + text.label.getWidth() + margin) &&
                 (screenY > text.label.getY() - margin) && (screenY < text.label.getY() + text.label.getHeight() + margin);
     }

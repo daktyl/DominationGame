@@ -16,8 +16,8 @@ import com.domination.game.states.MenuState;
 import java.util.Stack;
 
 public class Game extends ApplicationAdapter {
-    SpriteBatch batch;
-    private Stack<GameState> gameStatesStack = new Stack<GameState>();
+    private final Stack<GameState> gameStatesStack = new Stack<GameState>();
+    private SpriteBatch batch;
 
     @Override
     public void create() {

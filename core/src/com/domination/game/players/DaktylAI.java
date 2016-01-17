@@ -9,8 +9,8 @@ import com.domination.game.engine.GameplayWrapper;
 import java.util.*;
 
 class CellRating implements Comparable<CellRating> {
-    private FakeCell fakeCell;
-    private float rating;
+    private final FakeCell fakeCell;
+    private final float rating;
 
     public CellRating(FakeCell fakeCell) {
         this.fakeCell = fakeCell;
@@ -33,10 +33,10 @@ class CellRating implements Comparable<CellRating> {
 }
 
 class VirtualCell extends FakeCell {
+    public final FakeCell fakeCellReference;
+    public final List<FakeBacteria> approachingBacteria;
     public int virtualAmount;
     public double virtualTimeToReact = 999999d;
-    public FakeCell fakeCellReference;
-    public List<FakeBacteria> approachingBacteria;
 
     public VirtualCell(FakeCell fakeCell) {
         fakeCellReference = fakeCell;
@@ -51,16 +51,16 @@ class VirtualCell extends FakeCell {
 }
 
 public class DaktylAI extends AI {
-    boolean start = true;
+    private final List<FakeCell> friendlyCells = new ArrayList<FakeCell>();
+    private final List<FakeCell> enemyCells = new ArrayList<FakeCell>();
+    private final List<FakeCell> neutralCells = new ArrayList<FakeCell>();
+    private final List<FakeBacteria> friendlyBacteria = new ArrayList<FakeBacteria>();
+    private final List<FakeBacteria> enemyBacteria = new ArrayList<FakeBacteria>();
+    private boolean start = true;
     private Situation situation;
-    private List<FakeCell> friendlyCells = new ArrayList<FakeCell>();
-    private List<FakeCell> enemyCells = new ArrayList<FakeCell>();
-    private List<FakeCell> neutralCells = new ArrayList<FakeCell>();
-    private List<FakeBacteria> friendlyBacteria = new ArrayList<FakeBacteria>();
-    private List<FakeBacteria> enemyBacteria = new ArrayList<FakeBacteria>();
 
     public DaktylAI(GameplayWrapper gameplayWrapper, Color color) {
-        super(gameplayWrapper, Color.GREEN, "Daktyl AI");
+        super(gameplayWrapper, color, "Daktyl AI");
     }
 
     private void updateFields() {
@@ -224,6 +224,5 @@ public class DaktylAI extends AI {
         updateFields();
         protectCells();
         attackEnemy();
-
     }
 }

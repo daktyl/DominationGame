@@ -9,7 +9,7 @@ import java.util.Random;
 
 public class DefaultAI extends AI {
 
-    Random random = new Random();
+    private final Random random = new Random();
 
     public DefaultAI(GameplayWrapper gameplayWrapper, Color color) {
         super(gameplayWrapper, color, "Default AI");

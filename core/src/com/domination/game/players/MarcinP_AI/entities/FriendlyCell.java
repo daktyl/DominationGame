@@ -12,13 +12,13 @@ public class FriendlyCell extends Cell {
 
     @Override
     protected void addBacteriasToLists() {
-        for (Bacteria bacteria : aiEngine.hostileBacteriaList){
-            if (bacteria.fakeBacteria.destination == this.fakeCell){
+        for (Bacteria bacteria : aiEngine.hostileBacteriaList) {
+            if (bacteria.fakeBacteria.destination == this.fakeCell) {
                 closestIncomingHostileBacteriaList.add(bacteria);
             }
         }
-        for (Bacteria bacteria : aiEngine.friendlyBacteriaList){
-            if (bacteria.fakeBacteria.destination == this.fakeCell){
+        for (Bacteria bacteria : aiEngine.friendlyBacteriaList) {
+            if (bacteria.fakeBacteria.destination == this.fakeCell) {
                 closestIncomingFriendlyBacteriaList.add(bacteria);
             }
         }

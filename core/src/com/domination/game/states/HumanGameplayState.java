@@ -13,6 +13,7 @@ public class HumanGameplayState extends GameplayState {
 
     private Cell currentCell = null;
     private HumanPlayer human;
+
     public HumanGameplayState(Game game, SpriteBatch batch, int AISetRight) {
         super(game, batch, -1, AISetRight);
     }

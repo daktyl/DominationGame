@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 
 public class TextEntity extends Entity {
-    public Label label;
+    public final Label label;
 
     public TextEntity(String text, SpriteBatch batch) {
         super(batch);

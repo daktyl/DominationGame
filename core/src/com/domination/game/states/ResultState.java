@@ -11,8 +11,8 @@ import com.domination.game.players.Player;
 
 public class ResultState extends GameState {
 
-    public Player winner;
-    public Player loser;
+    private final Player winner;
+    private final Player loser;
 
 
     public ResultState(Player winner, Player loser, Game game, SpriteBatch batch) {

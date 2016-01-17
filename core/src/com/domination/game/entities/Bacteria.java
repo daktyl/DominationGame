@@ -10,19 +10,19 @@ import com.domination.game.players.Player;
 public class Bacteria extends GraphicalEntity {
 
     private static final Integer radius = 30;
-    BitmapFont font;
-    private Player player;
-    private int amount;
-    private Cell source;
-    private Cell destination;
-    private double startTime;
-    private double endTime;
+    private final BitmapFont font;
+    private final Player player;
+    private final int amount;
+    private final Cell source;
+    private final Cell destination;
+    private final double startTime;
+    private final double endTime;
+    private final double velocity; // pixels per second
+    private final float startCenterX;
+    private final float startCenterY;
+    private final float xPosition;
     private double distanceX;
     private double distanceY;
-    private double velocity; // pixels per second
-    private float startCenterX;
-    private float startCenterY;
-    private float xPosition;
 
     public Bacteria(Player player, Cell source, Cell destination, int amount, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("BacteriaTexture"), batch);
@@ -46,7 +46,7 @@ public class Bacteria extends GraphicalEntity {
         sprite.setScale(radius * 2 / sprite.getWidth());
     }
 
-    double calculateEndTime() {
+    private double calculateEndTime() {
         double cellsDistance = Math.sqrt(
                 Math.pow((distanceX), 2) + Math.pow((distanceY), 2)
         );

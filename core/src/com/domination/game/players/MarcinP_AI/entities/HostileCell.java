@@ -3,9 +3,6 @@ package com.domination.game.players.MarcinP_AI.entities;
 import com.domination.game.ai_types.FakeCell;
 import com.domination.game.players.MarcinP_AI.MarcinP_AI;
 
-/**
- * Created by marcin on 15.01.16.
- */
 public class HostileCell extends Cell {
 
 

@@ -5,24 +5,22 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.domination.game.engine.ResourceManager;
 import com.domination.game.players.Player;
 
 public class Cell extends GraphicalEntity {
     public static final Integer radius = 75;
-    BitmapFont font;
+    private final BitmapFont font;
+    private final TextEntity amountText;
+    private final BitmapFont bitmapFont;
+    private final Color freeCellColor = new Color(1f, 1f, 1f, 0.5f);
+    private final Velocity velocity = new Velocity();
     private Integer amount;
-    private TextEntity amountText;
     private Player player;
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    private BitmapFont bitmapFont;
     private Long lastGrowingTime = System.currentTimeMillis();
     private Long lastMovingTime = System.currentTimeMillis();
-    private Color freeCellColor = new Color(1f, 1f, 1f, 0.5f);
     private float targetCenterX;
     private float targetCenterY;
-    private Velocity velocity = new Velocity();
 
     public Cell(Player player, float x, float y, SpriteBatch batch) {
         super((Texture) ResourceManager.getInstance().get("CellTexture"), batch);
@@ -61,10 +59,10 @@ public class Cell extends GraphicalEntity {
 
     }
 
-    public void updatePosition(Long currentTime) {
+    private void updatePosition(Long currentTime) {
         if (currentTime - lastMovingTime > 10) { // once per 1/100 sec
             lastMovingTime += 10;
-            velocity.mulitiply(0.95f);
+            velocity.multiply(0.95f);
             Float positionX = velocity.x + getCenterX();
             Float positionY = velocity.y + getCenterY();
             int screenWidth = Gdx.graphics.getWidth();
@@ -190,7 +188,7 @@ public class Cell extends GraphicalEntity {
     public class Velocity {
         public float x = 0, y = 0;
 
-        public void mulitiply(float num) {
+        public void multiply(float num) {
             x *= num;
             y *= num;
         }

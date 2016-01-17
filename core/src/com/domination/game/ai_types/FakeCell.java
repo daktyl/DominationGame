@@ -10,7 +10,7 @@ public class FakeCell {
     public float centerX;
     public float centerY;
 
-    public FakeCell() {
+    protected FakeCell() {
     }
 
     public FakeCell(Cell cell) {

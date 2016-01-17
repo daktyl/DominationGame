@@ -18,8 +18,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayerChooseState extends GameState {
-    public List<TextEntity> textList1 = new ArrayList<TextEntity>();
-    private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    private final List<TextEntity> textList1 = new ArrayList<TextEntity>();
+    private final ShapeRenderer shapeRenderer = new ShapeRenderer();
     private int menuset = 4;
     private int AISet;
     private int AISetRight = 1;
