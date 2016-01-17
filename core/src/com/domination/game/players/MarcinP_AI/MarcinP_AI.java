@@ -33,7 +33,7 @@ public class MarcinP_AI extends AI {
 
 
     public MarcinP_AI(GameplayWrapper gameplayWrapper, Color color) {
-        super(gameplayWrapper, color, "Marcin Pi");
+        super(gameplayWrapper, Color.BLUE, "Marcin Pi");
         this.currentState = NormalState.getInstance();
     }
 

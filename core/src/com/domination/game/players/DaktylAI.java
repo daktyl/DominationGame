@@ -60,7 +60,7 @@ public class DaktylAI extends AI {
     private List<FakeBacteria> enemyBacteria = new ArrayList<FakeBacteria>();
 
     public DaktylAI(GameplayWrapper gameplayWrapper, Color color) {
-        super(gameplayWrapper, color, "Daktyl AI");
+        super(gameplayWrapper, Color.GREEN, "Daktyl AI");
     }
 
     private void updateFields() {

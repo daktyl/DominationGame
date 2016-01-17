@@ -8,8 +8,8 @@ import com.domination.game.engine.GameplayWrapper;
 public class FilipAI extends AI {
 
 
-    public FilipAI(GameplayWrapper gameplayWrapper, Color color) {
-        super(gameplayWrapper, color, "Filip AI");
+    public FilipAI(GameplayWrapper gameplayWrapper) {
+        super(gameplayWrapper, Color.BLACK, "Filip AI");
     }
 
     @Override
