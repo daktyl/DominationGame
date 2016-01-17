@@ -9,6 +9,7 @@ import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.players.DaktylAI;
 import com.domination.game.players.DefaultAI;
+import com.domination.game.players.MrugiAIBetter;
 import com.domination.game.players.Player;
 
 import java.util.ArrayList;
@@ -54,7 +55,7 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (3):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new MrugiAIBetter(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (4):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
@@ -80,7 +81,7 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (3):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new MrugiAIBetter(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (4):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
