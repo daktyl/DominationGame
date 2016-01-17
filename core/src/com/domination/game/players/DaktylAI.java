@@ -1,6 +1,5 @@
 package com.domination.game.players;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.domination.game.ai_types.FakeBacteria;
 import com.domination.game.ai_types.FakeCell;
@@ -9,17 +8,17 @@ import com.domination.game.engine.GameplayWrapper;
 
 import java.util.*;
 
-class EnemyCellRating implements Comparable<EnemyCellRating> {
+class CellRating implements Comparable<CellRating> {
     private FakeCell fakeCell;
     private float rating;
 
-    public EnemyCellRating(FakeCell fakeCell) {
+    public CellRating(FakeCell fakeCell) {
         this.fakeCell = fakeCell;
         rating = fakeCell.bacteriaAmount;
     }
 
     @Override
-    public int compareTo(EnemyCellRating o) {
+    public int compareTo(CellRating o) {
         if (this.rating < o.rating)
             return -1;
         else if (this.rating == o.rating)
@@ -137,7 +136,6 @@ public class DaktylAI extends AI {
                     virtualCell.virtualAmount -= approachingBacteria.amount;
                 else
                     virtualCell.virtualAmount += approachingBacteria.amount;
-//                virtualCell.virtualAmount -= approachingBacteria.amount;
             }
         }
 
@@ -176,8 +174,8 @@ public class DaktylAI extends AI {
     }
 
     private void attackEnemy() {
-        List<EnemyCellRating> enemyCellRatingList = new ArrayList<EnemyCellRating>();
-        List<EnemyCellRating> neutralCellRatingList = new ArrayList<EnemyCellRating>();
+        List<CellRating> enemyCellRatingList = new ArrayList<CellRating>();
+        List<CellRating> neutralCellRatingList = new ArrayList<CellRating>();
         FakeCell targetCell = null;
 
         if (start) {
@@ -188,10 +186,10 @@ public class DaktylAI extends AI {
         }
 
         for (FakeCell neutralCell : neutralCells) {
-            neutralCellRatingList.add(new EnemyCellRating(neutralCell));
+            neutralCellRatingList.add(new CellRating(neutralCell));
         }
         for (FakeCell enemyCell : enemyCells) {
-            enemyCellRatingList.add(new EnemyCellRating(enemyCell));
+            enemyCellRatingList.add(new CellRating(enemyCell));
         }
 
         if (!neutralCellRatingList.isEmpty()) {
@@ -216,55 +214,16 @@ public class DaktylAI extends AI {
         for (FakeCell ownCell : friendlyCells) {
             if (Math.floorDiv(ownCell.bacteriaAmount, 2) > targetCell.bacteriaAmount + (calculateTimeTravel(ownCell, targetCell) / 1000)) {
                 gameplayWrapper.sendBacteria(ownCell, targetCell, this);
-                //break;
+                break;
             }
         }
     }
 
-//    private void attackEnemy() {
-//        List<EnemyCellRating> enemyCellRatingList = new ArrayList<EnemyCellRating>();
-//        List<EnemyCellRating> neutralCellRatingList = new ArrayList<EnemyCellRating>();
-//        List<FakeCell> potentialTargets = new ArrayList<FakeCell>();
-//        potentialTargets.addAll(enemyCells);
-//        potentialTargets.addAll(neutralCells);
-//        for (FakeCell enemyCell : potentialTargets) {
-//            enemyCellRatingList.add(new EnemyCellRating(enemyCell));
-//        }
-//
-//        if (enemyCellRatingList.isEmpty())
-//            return;
-//        Collections.sort(enemyCellRatingList);
-//        FakeCell enemyCell = enemyCellRatingList.get(0).getFakeCell();
-//
-//        for (FakeCell ownCell : friendlyCells) {
-//            if (ownCell.bacteriaAmount == 100) {
-//                gameplayWrapper.sendBacteria(ownCell, enemyCell, this);
-//                return;
-//            }
-//        }
-//
-//        for (FakeCell ownCell : friendlyCells) {
-//            if (Math.floorDiv(ownCell.bacteriaAmount, 2) > enemyCell.bacteriaAmount + (calculateTimeTravel(ownCell, enemyCell) / 1000)) {
-//                gameplayWrapper.sendBacteria(ownCell, enemyCell, this);
-//                break;
-//            }
-//        }
-//    }
-
     @Override
     protected void implementation() {
-        while (true) {
-            try {
-                updateFields();
-                protectCells();
-                attackEnemy();
+        updateFields();
+        protectCells();
+        attackEnemy();
 
-                synchronized (this) {
-                    wait(1);
-                }
-            } catch (InterruptedException e) {
-                Gdx.app.log(getPlayerName(), "Interrupted");
-            }
-        }
     }
 }
