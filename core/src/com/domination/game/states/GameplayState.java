@@ -64,7 +64,7 @@ public class GameplayState extends GameState {
                 playerList.add(new DaktylAI(new GameplayWrapper(this), Color.GREEN));
                 break;
             case (6):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new AdamAI(new GameplayWrapper(this), Color.GOLD));
                 break;
         }
     }
@@ -90,7 +90,7 @@ public class GameplayState extends GameState {
                 playerList.add(new DaktylAI(new GameplayWrapper(this), Color.GREEN));
                 break;
             case (6):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new AdamAI(new GameplayWrapper(this), Color.GOLD));
                 break;
         }
     }
