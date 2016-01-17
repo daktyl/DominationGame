@@ -14,29 +14,35 @@ public abstract class GameState implements InputProcessor {
     protected SpriteBatch batch;
     protected EntityManager entityManager = new EntityManager();
 
-    public GameState(Game game, SpriteBatch batch){
+    public GameState(Game game, SpriteBatch batch) {
         this.game = game;
         this.batch = batch;
     }
+
     public abstract void init();
 
-    public void update() { entityManager.updateAll(); }
+    public void update() {
+        entityManager.updateAll();
+    }
 
-    public void cleanUp() { entityManager.removeAll(); }
+    public void cleanUp() {
+        entityManager.removeAll();
+    }
 
     public void draw() {
         batch.begin();
         entityManager.drawAll();
         batch.end();
-        }
+    }
 
-    protected void setDefaultBackground(){
-        GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"),batch);
-        background.sprite.setScale(Gdx.graphics.getWidth()/background.sprite.getWidth(),Gdx.graphics.getHeight()/background.sprite.getHeight());
-        background.sprite.setX(-background.sprite.getWidth()/2+Gdx.graphics.getWidth()/2);
-        background.sprite.setY(-background.sprite.getHeight()/2+Gdx.graphics.getHeight()/2);
+    protected void setDefaultBackground() {
+        GraphicalEntity background = new GraphicalEntity((Texture) ResourceManager.getInstance().get("Background"), batch);
+        background.sprite.setScale(Gdx.graphics.getWidth() / background.sprite.getWidth(), Gdx.graphics.getHeight() / background.sprite.getHeight());
+        background.sprite.setX(-background.sprite.getWidth() / 2 + Gdx.graphics.getWidth() / 2);
+        background.sprite.setY(-background.sprite.getHeight() / 2 + Gdx.graphics.getHeight() / 2);
         entityManager.add(background);
     }
+
     @Override
     public boolean keyDown(int keycode) {
         return false;

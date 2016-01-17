@@ -8,6 +8,7 @@ import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
 import com.domination.game.players.Player;
 import com.domination.game.states.GameplayState;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,10 @@ public class GameplayWrapper {
     private final GameplayState gameplayState;
     private final BidiHashMap<FakeCell, Cell> cellMap = new BidiHashMap<FakeCell, Cell>();
     private final BidiHashMap<FakeBacteria, Bacteria> bacteriaMap = new BidiHashMap<FakeBacteria, Bacteria>();
+
+    public GameplayWrapper(GameplayState gameplayState) {
+        this.gameplayState = gameplayState;
+    }
 
     private List<FakeCell> getFakeCellsList() {
         List<FakeCell> fakeCellList = new ArrayList<FakeCell>();
@@ -51,17 +56,12 @@ public class GameplayWrapper {
         return bacteriaMap.get(fakeBacteria);
     }
 
-    public GameplayWrapper(GameplayState gameplayState) {
-        this.gameplayState = gameplayState;
-    }
-
     public Boolean sendBacteria(FakeCell fakeSource, FakeCell fakeDestination, Player player) {
         Cell source = resolve(fakeSource);
         Cell destination = resolve(fakeDestination);
         if (source != destination) {
             return gameplayState.sendBacteria(source, destination, player);
-        }
-        else {
+        } else {
             return false;
         }
     }

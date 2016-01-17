@@ -1,7 +1,7 @@
 package com.domination.game.engine;
 
-import java.util.List;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.NoSuchElementException;
 
 class ResourceContainer {
@@ -65,7 +65,7 @@ class ResourceContainer {
     @SuppressWarnings("unchecked")
     public Class<Object> getResourceType() {
         if (!container.isEmpty()) {
-            return (Class<Object>)container.get(0).getClass();
+            return (Class<Object>) container.get(0).getClass();
         }
         return null;
     }

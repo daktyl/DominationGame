@@ -29,7 +29,7 @@ public class ResourceManager {
     }
 
     private ResourceContainer getCorrectContainer(Class<?> resourceType) {
-        for (ResourceContainer container: containersList) {
+        for (ResourceContainer container : containersList) {
             if (container.getResourceType() == resourceType) {
                 return container;
             }
@@ -48,32 +48,29 @@ public class ResourceManager {
             containersList.add(container);
         }
         if (resourceMap.containsKey(key)) {
-            if (override.length > 0 && (Boolean)override[0]) {
+            if (override.length > 0 && (Boolean) override[0]) {
                 Object oldRef = get(key);
                 if (oldRef.getClass() != resource.getClass()) {
                     remove(key);
                     container.add(resource);
-                }
-                else {
+                } else {
                     container.replace(get(key), resource);
                 }
                 resourceMap.put(key, resource);
-                return (T)resource;
-            }
-            else {
+                return (T) resource;
+            } else {
                 throw new KeyAlreadyExistsException("To override a key, write 'true' as a third parameter of the 'add' function.");
             }
         }
         container.add(resource);
         resourceMap.put(key, resource);
-        return (T)resource;
+        return (T) resource;
     }
 
     private Object getObject(String key) {
         if (resourceMap.containsKey(key)) {
             return resourceMap.get(key);
-        }
-        else {
+        } else {
             throw new InvalidKeyException();
         }
     }
@@ -81,9 +78,8 @@ public class ResourceManager {
     @SuppressWarnings("unchecked")
     public <T> T get(String key) {
         if (resourceMap.containsKey(key)) {
-            return (T)resourceMap.get(key);
-        }
-        else {
+            return (T) resourceMap.get(key);
+        } else {
             throw new InvalidKeyException(key);
         }
     }
@@ -101,9 +97,8 @@ public class ResourceManager {
             if (container.empty()) {
                 containersList.remove(container);
             }
-            return (T)resource;
-        }
-        else {
+            return (T) resource;
+        } else {
             throw new InvalidKeyException();
         }
     }
