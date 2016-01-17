@@ -9,13 +9,12 @@ import java.util.List;
 
 public abstract class AI extends Player {
     protected GameplayWrapper gameplayWrapper;
+    protected List<FakeBacteria> bacteriaList;
+    protected List<FakeCell> cellList;
     public AI(GameplayWrapper gameplayWrapper, Color color, String name) {
         super(color, name);
         this.gameplayWrapper = gameplayWrapper;
     }
-
-    List<FakeBacteria> bacteriaList;
-    List<FakeCell> cellList;
 
     @Override
     public void run() {

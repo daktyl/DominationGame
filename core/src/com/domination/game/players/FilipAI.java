@@ -5,13 +5,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.domination.game.ai_types.Situation;
 import com.domination.game.engine.GameplayWrapper;
 
-import java.util.Random;
-
 public class FilipAI extends AI {
 
 
     public FilipAI(GameplayWrapper gameplayWrapper, Color color) {
-        super(gameplayWrapper, color);
+        super(gameplayWrapper, color, "Filip AI");
     }
 
     @Override

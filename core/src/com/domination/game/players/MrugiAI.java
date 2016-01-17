@@ -1,23 +1,26 @@
 package com.domination.game.players;
 
-import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.domination.game.ai_types.FakeBacteria;
 import com.domination.game.ai_types.FakeCell;
 import com.domination.game.ai_types.Situation;
 import com.domination.game.engine.GameplayWrapper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Mrugi on 2016-01-11.
  */
-public class MrugiAIBetter extends AI {
+public class MrugiAI extends AI {
     float velocity = 100;
     Random random = new Random();
     List<FakeCell> safeToSend = new ArrayList<FakeCell>();
     HashMap<FakeCell,Boolean> mine = new HashMap<FakeCell, Boolean>();
-    public MrugiAIBetter(GameplayWrapper gameplayWrapper, Color color) {
+
+    public MrugiAI(GameplayWrapper gameplayWrapper, Color color) {
         super(gameplayWrapper, Color.RED, "MrugiAI");
     }
     void getSituation(){

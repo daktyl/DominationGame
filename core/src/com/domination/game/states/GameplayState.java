@@ -7,10 +7,8 @@ import com.domination.game.Game;
 import com.domination.game.engine.GameplayWrapper;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
-import com.domination.game.players.DaktylAI;
-import com.domination.game.players.DefaultAI;
-import com.domination.game.players.MrugiAIBetter;
-import com.domination.game.players.Player;
+import com.domination.game.players.*;
+import com.domination.game.players.MarcinP_AI.MarcinP_AI;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -52,13 +50,13 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (2):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new FilipAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (3):
-                playerList.add(new MrugiAIBetter(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new MrugiAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (4):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new MarcinP_AI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (5):
                 playerList.add(new DaktylAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
@@ -78,13 +76,13 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (2):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new FilipAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (3):
-                playerList.add(new MrugiAIBetter(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new MrugiAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (4):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new MarcinP_AI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (5):
                 playerList.add(new DaktylAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
