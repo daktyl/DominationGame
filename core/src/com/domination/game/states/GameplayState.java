@@ -7,6 +7,8 @@ import com.domination.game.Game;
 import com.domination.game.engine.GameplayWrapper;
 import com.domination.game.entities.Bacteria;
 import com.domination.game.entities.Cell;
+import com.domination.game.players.ADAMAI;
+import com.domination.game.players.AI;
 import com.domination.game.players.DefaultAI;
 import com.domination.game.players.Player;
 
@@ -62,7 +64,7 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
             case (6):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
+                playerList.add(new ADAMAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.5f)));
                 break;
         }
     }
@@ -82,13 +84,13 @@ public class GameplayState extends GameState {
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (4):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1.5f)));
                 break;
             case (5):
                 playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
                 break;
             case (6):
-                playerList.add(new DefaultAI(new GameplayWrapper(this), new Color(0.8f, 0.2f, 0.1f, 1f)));
+                playerList.add(new ADAMAI(new GameplayWrapper(this), new Color(0.2f, 0.8f, 0.8f, 1.f)));
                 break;
         }
     }
