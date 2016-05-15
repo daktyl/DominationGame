@@ -1,5 +1,5 @@
 # DominationGame
-A 2D game written in Java and libGDX based on Phage Wars concept.
+A 2D game written in Java and libGDX based on the Phage Wars concept.
 
 # Build prerequisites
     Java SE Development Kit (JDK) 8
